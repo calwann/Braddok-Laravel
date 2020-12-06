@@ -1,0 +1,38 @@
+body {
+    background-color: black;
+    background-image: url(../images/background3.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  
+  @media only screen and (max-width: 992px) {
+    body {
+      background-size: 400%;
+    }
+  }
+  
+  .text-shadow {
+    text-shadow: 2px 2px 2px black;
+  }
+  
+  .sidenav {
+    width: 260px;
+  }
+  
+  .sidenav li > a {
+    padding: 0 16px;
+  }
+  
+  .sidenav .collapsible-body li a, .sidenav.fixed .collapsible-body li a {
+    padding: 0 16px 0 32px;
+  }
+  
+  
+  .sidenav li > a > i.material-icons {
+    margin: 0 16px 0 0;
+  }
+  
+  .datepicker-controls .select-month input {
+    width: 100px;
+  }
