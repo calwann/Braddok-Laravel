@@ -25,9 +25,7 @@
             <ul id="dropdown-nav-1" class="dropdown-content">
                 <li><a href="/conf/user_info">Atualizar cadastro</a></li>
                 <li><a href="/conf/user_passwd">Trocar senha</a></li>
-                <li><a href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                                                             document.getElementById('logout-form').submit();">
+                <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
                     </a></li>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -40,7 +38,7 @@
                         data-tooltip="Início">@yield('subtitle')</a>
                     <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a class="dropdown-trigger" data-target="dropdown-nav-1">{{ Auth::user()->name }}<i
+                        <li><a class="dropdown-trigger" data-target="dropdown-nav-1">{{ $patentNickname }}<i
                                     class="material-icons right">arrow_drop_down</i></a></li>
                         <li class="li-nav-items"><a href="/home/main"><span class="nav-items">Aplicativos</span><i
                                     class="material-icons right">home</i></a></li>

@@ -11,7 +11,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected static function patent($p)
+    public static function patent($p)
     {
         $id = array(
             0 => 'Adm',
@@ -36,7 +36,7 @@ class Controller extends BaseController
         return strtr($p, $id);
     }
 
-    protected static function fullPatent($p)
+    public static function fullPatent($p)
     {
         $id = array(
             1 => 'Administrador',
