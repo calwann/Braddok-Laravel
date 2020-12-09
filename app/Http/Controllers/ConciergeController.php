@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class ConciergeController extends Controller
 {
@@ -13,8 +14,63 @@ class ConciergeController extends Controller
      */
     public function index()
     {
+        return view('concierge/index');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dash()
+    {
         //
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function collaborators()
+    {
+        foreach (User::all() as $i => $val) {
+            $users[] = "<option value=\"" . $val['id'] . "\">" . Controller::patent($val['patent']) . " - " . $val['name'] . " (" . $val['nickname'] . ")</option>";
+        }
+        
+        return view('concierge/collaborators', compact('users'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function visitors()
+    {
+        //
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function vehicles()
+    {
+        //
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function reports()
+    {
+        //
+    }
+
 
     /**
      * Show the form for creating a new resource.
