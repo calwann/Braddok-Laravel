@@ -27,8 +27,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('*', function ($view) {
-            view()->share('patentNickname', Controller::patent(Auth::user()->patent) . " - " . \strtoupper(Auth::user()->nickname));
-            view()->share('fullPatentNickname', Controller::fullPatent(Auth::user()->patent) . " - " . \strtoupper(Auth::user()->nickname));
+            if (isset(Auth::user()->id)) {
+                view()->share('patentNickname', Controller::patent(Auth::user()->patent) . " - " . \strtoupper(Auth::user()->nickname));
+                view()->share('fullPatentNickname', Controller::fullPatent(Auth::user()->patent) . " - " . \strtoupper(Auth::user()->nickname));
+            }
         });
     }
 }
