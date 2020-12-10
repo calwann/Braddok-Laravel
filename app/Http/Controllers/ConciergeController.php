@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Concierge_collaborator;
 
 class ConciergeController extends Controller
 {
@@ -32,12 +33,14 @@ class ConciergeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function collaborators()
+    public function collaborators($p = NULL)
     {
+        $msg = $p['msg'];
+
         foreach (User::all() as $i => $val) {
             $users[] = "<option value=\"" . $val['id'] . "\">" . Controller::patent($val['patent']) . " - " . $val['name'] . " (" . $val['nickname'] . ")</option>";
         }
-        
+
         return view('concierge/collaborators', compact('users'));
     }
 
@@ -75,66 +78,22 @@ class ConciergeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function createCollaborators(Request $request)
     {
-        //
-    }
+        $data = $request->all();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        foreach ($data['usersId'] as $val) {
+            Concierge_collaborator::create([
+                'register_type' => $data['registerType'],
+                'user_id' => $val,
+                'date_time' => Controller::strToDate($data['date']) . " " . $data['time'] . ":00",
+                '_status' => "active",
+            ]);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->route('concierge.collaborators')->with('status', 'Laçamento cadastrado.');
     }
 }

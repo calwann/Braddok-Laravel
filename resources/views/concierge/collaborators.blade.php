@@ -4,7 +4,7 @@
 @section('index', 'concierge.index')
 
 @section('content')
-    <form method="POST" action="">
+    <form method="POST" action="{{ route('concierge.createCollaborators') }}">
         @csrf
         <div class="row container">
             <div class="card hoverable">
@@ -39,8 +39,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <button class="waves-effect waves-light btn teal darken-1 left-align" name="submit"
-                            type="submit">Enviar</button>
+                        <button class="waves-effect waves-light btn teal darken-1 left-align" type="submit">Enviar</button>
                     </div>
                 </div>
             </div>

@@ -35,7 +35,8 @@
             </ul>
             <nav class="grey darken-4">
                 <div id="nav-wrapper" class="nav-wrapper">
-                    <a id="brand-logo" href="{{ route($__env->yieldContent('index')) }}" class="brand-logo truncate tooltipped" data-position="bottom"
+                    <a id="brand-logo" href="{{ route($__env->yieldContent('index')) }}"
+                        class="brand-logo truncate tooltipped" data-position="bottom"
                         data-tooltip="Início">@yield('subtitle')</a>
                     <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
@@ -90,7 +91,8 @@
                 </div>
                 @if ($__env->yieldContent('index') == 'concierge.index')
                     <div id="sidenav-concierge-div">
-                        <li><a href="{{ route('concierge.dash') }}">Dashboard<i class="material-icons">dashboard</i></a></li>
+                        <li><a href="{{ route('concierge.dash') }}">Dashboard<i class="material-icons">dashboard</i></a>
+                        </li>
                         <li class="no-padding">
                             <ul class="collapsible collapsible-accordion">
                                 <li class="active">
@@ -108,34 +110,45 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="{{ route('concierge.reports') }}">Relatórios<i class="material-icons">assignment</i></a></li>
+                        <li><a href="{{ route('concierge.reports') }}">Relatórios<i
+                                    class="material-icons">assignment</i></a></li>
                         <div class="divider"></div>
                     </div>
                 @elseif($__env->yieldContent('index') == 'restaurant.index')
                     <div id="sidenav-restaurant-div">
-                        <li><a href="{{ route('restaurant.dash') }}">Dashboard<i class="material-icons">dashboard</i></a></li>
-                        <li><a href="{{ route('restaurant.register') }}">Arranchar<i class="material-icons">border_color</i></a></li>
-                        <li><a href="{{ route('restaurant.reports') }}">Relatórios<i class="material-icons">assignment</i></a></li>
+                        <li><a href="{{ route('restaurant.dash') }}">Dashboard<i class="material-icons">dashboard</i></a>
+                        </li>
+                        <li><a href="{{ route('restaurant.register') }}">Arranchar<i
+                                    class="material-icons">border_color</i></a></li>
+                        <li><a href="{{ route('restaurant.reports') }}">Relatórios<i
+                                    class="material-icons">assignment</i></a></li>
                         <div class="divider"></div>
                     </div>
                 @elseif($__env->yieldContent('index') == 'performance.index')
                     <div id="sidenav-performance-div">
-                        <li><a href="{{ route('performance.dash') }}">Dashboard<i class="material-icons">dashboard</i></a></li>
-                        <li><a href="{{ route('performance.register') }}">Registrar FO<i class="material-icons">border_color</i></a></li>
-                        <li><a href="{{ route('performance.reports') }}">Relatórios<i class="material-icons">assignment</i></a></li>
+                        <li><a href="{{ route('performance.dash') }}">Dashboard<i class="material-icons">dashboard</i></a>
+                        </li>
+                        <li><a href="{{ route('performance.register') }}">Registrar FO<i
+                                    class="material-icons">border_color</i></a></li>
+                        <li><a href="{{ route('performance.reports') }}">Relatórios<i
+                                    class="material-icons">assignment</i></a></li>
                         <div class="divider"></div>
                     </div>
                 @elseif($__env->yieldContent('index') == 'registers.index')
                     <div id="sidenav-register-div">
-                        <li><a href="{{ route('registers.dash') }}">Dashboard<i class="material-icons">dashboard</i></a></li>
-                        <li><a href="{{ route('registers.reports') }}">Relatórios<i class="material-icons">assignment</i></a></li>
+                        <li><a href="{{ route('registers.dash') }}">Dashboard<i class="material-icons">dashboard</i></a>
+                        </li>
+                        <li><a href="{{ route('registers.reports') }}">Relatórios<i
+                                    class="material-icons">assignment</i></a></li>
                         <div class="divider"></div>
                     </div>
                 @elseif($__env->yieldContent('index') == 'helpdesk.index')
                     <div id="sidenav-helpdesk-div">
                         <li><a href="{{ route('helpdesk.dash') }}">Dashboard<i class="material-icons">dashboard</i></a></li>
-                        <li><a href="{{ route('helpdesk.request') }}">Chamados<i class="material-icons">assignment</i></a></li>
-                        <li><a href="{{ route('helpdesk.support') }}">Suporte<i class="material-icons">laptop_mac</i></a></li>
+                        <li><a href="{{ route('helpdesk.request') }}">Chamados<i class="material-icons">assignment</i></a>
+                        </li>
+                        <li><a href="{{ route('helpdesk.support') }}">Suporte<i class="material-icons">laptop_mac</i></a>
+                        </li>
                         <div class="divider"></div>
                     </div>
                 @endif
@@ -154,6 +167,19 @@
                         classes: 'rounded'
                     });
                 });
+
+            </script>
+        @endif
+
+        @if (session('status'))
+            <script>
+                $(document).ready(function() {
+                    M.toast({
+                        html: "{{ session('status') }}",
+                        classes: 'rounded'
+                    });
+                });
+
             </script>
         @endif
     </main>
@@ -166,14 +192,20 @@
                     <table class="centered">
                         <tbody>
                             <tr>
-                                <td><a class="grey-text text-lighten-3" href="{{ route('concierge.index') }}">Segurança</a></td>
-                                <td><a class="grey-text text-lighten-3" href="{{ route('restaurant.index') }}">Arranchamento</a></td>
-                                <td><a class="grey-text text-lighten-3" href="{{ route('performance.index') }}">Caverinha</a></td>
+                                <td><a class="grey-text text-lighten-3"
+                                        href="{{ route('concierge.index') }}">Segurança</a></td>
+                                <td><a class="grey-text text-lighten-3"
+                                        href="{{ route('restaurant.index') }}">Arranchamento</a></td>
+                                <td><a class="grey-text text-lighten-3"
+                                        href="{{ route('performance.index') }}">Caverinha</a></td>
                             </tr>
                             <tr>
-                                <td><a class="grey-text text-lighten-3" href="{{ route('registers.index') }}">Plano de Chamada</a></td>
-                                <td><a class="grey-text text-lighten-3" href="{{ route('helpdesk.index') }}">Help Desk</a></td>
-                                <td><a class="grey-text text-lighten-3" href="{{ route('birthday.index') }}">Aniversariantes</a></td>
+                                <td><a class="grey-text text-lighten-3" href="{{ route('registers.index') }}">Plano de
+                                        Chamada</a></td>
+                                <td><a class="grey-text text-lighten-3" href="{{ route('helpdesk.index') }}">Help
+                                        Desk</a></td>
+                                <td><a class="grey-text text-lighten-3"
+                                        href="{{ route('birthday.index') }}">Aniversariantes</a></td>
                             </tr>
                         </tbody>
                     </table>
