@@ -84,5 +84,4 @@
     </div>
 </div>
 
-<div class="row container hide-on-med-and-down" style="height: 30px;"></div>
 @endsection

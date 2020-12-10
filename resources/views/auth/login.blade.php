@@ -49,5 +49,4 @@
         </div>
     </form>
 
-    <div class="row container hide-on-med-and-down" style="height: 275px;"></div>
 @endsection

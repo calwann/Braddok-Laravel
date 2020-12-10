@@ -40,5 +40,3 @@
   </div>
 
 </div>
-
-<div class="row container hide-on-med-and-down" style="height: 260px;"></div>

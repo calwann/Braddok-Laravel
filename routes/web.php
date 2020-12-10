@@ -14,17 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Authentication routes
 Auth::routes();
 
-Route::resource('birthday', 'BirthdayController')->middleware('auth');
-Route::resource('category', 'CategoryController')->middleware('auth');
-Route::resource('conf', 'ConfController')->middleware('auth');
-Route::resource('helpdesk', 'HelpdeskController')->middleware('auth');
+
+// Routes
 Route::resource('home', 'HomeController')->middleware('auth');
+
 Route::resource('panel', 'panelController')->middleware('auth');
-Route::resource('performance', 'PerformanceController')->middleware('auth');
-Route::resource('registers', 'RegistersController')->middleware('auth');
-Route::resource('restaurant', 'RestaurantController')->middleware('auth');
+
+Route::resource('conf', 'ConfController')->middleware('auth');
 
 Route::get('concierge', 'ConciergeController@index')->name('concierge.index')->middleware('auth');
 Route::group(['prefix' => 'concierge', 'as' => 'concierge.', 'middleware' => 'auth'], function () {
@@ -35,6 +34,37 @@ Route::group(['prefix' => 'concierge', 'as' => 'concierge.', 'middleware' => 'au
     Route::get('reports', 'ConciergeController@reports')->name('reports');
 });
 
+Route::get('restaurant', 'RestaurantController@index')->name('restaurant.index')->middleware('auth');
+Route::group(['prefix' => 'restaurant', 'as' => 'restaurant.', 'middleware' => 'auth'], function () {
+    Route::get('dash', 'RestaurantController@dash')->name('dash');
+    Route::get('register', 'RestaurantController@register')->name('register');
+    Route::get('reports', 'RestaurantController@reports')->name('reports');
+});
+
+Route::get('performance', 'PerformanceController@index')->name('performance.index')->middleware('auth');
+Route::group(['prefix' => 'performance', 'as' => 'performance.', 'middleware' => 'auth'], function () {
+    Route::get('dash', 'PerformanceController@dash')->name('dash');
+    Route::get('register', 'PerformanceController@register')->name('register');
+    Route::get('reports', 'PerformanceController@reports')->name('reports');
+});
+
+Route::get('registers', 'RegistersController@index')->name('registers.index')->middleware('auth');
+Route::group(['prefix' => 'registers', 'as' => 'registers.', 'middleware' => 'auth'], function () {
+    Route::get('dash', 'RegistersController@dash')->name('dash');
+    Route::get('reports', 'RegistersController@reports')->name('reports');
+});
+
+Route::get('helpdesk', 'HelpdeskController@index')->name('helpdesk.index')->middleware('auth');
+Route::group(['prefix' => 'helpdesk', 'as' => 'helpdesk.', 'middleware' => 'auth'], function () {
+    Route::get('dash', 'HelpdeskController@dash')->name('dash');
+    Route::get('request', 'HelpdeskController@register')->name('request');
+    Route::get('support', 'HelpdeskController@reports')->name('support');
+});
+
+Route::resource('birthday', 'BirthdayController')->middleware('auth');
+
+
+// Redirect
 Route::get('/', function () {
     return redirect()->route('home.index');
 });

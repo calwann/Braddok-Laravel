@@ -51,7 +51,7 @@
             </nav>
             <nav id="nav-search" class="grey darken-4 scale-transition scale-out">
                 <div class="nav-wrapper container">
-                    <form method="POST" action="home/search">
+                    <form method="POST" action="">
                         <div class="input-field">
                             <input id="search" type="search" name="search" required>
                             <label class="label-icon" for="search"><i class="material-icons">search</i></label>
@@ -143,7 +143,7 @@
         @endauth
     </header>
 
-    <main>
+    <main style="min-height: 40rem">
         @yield('content')
 
         @if ($errors->any())
@@ -154,7 +154,6 @@
                         classes: 'rounded'
                     });
                 });
-
             </script>
         @endif
     </main>

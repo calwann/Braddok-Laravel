@@ -27,5 +27,3 @@
   </div>
 
 </div>
-
-<div class="row container hide-on-med-and-down" style="height: 190px;"></div>
