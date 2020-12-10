@@ -35,8 +35,6 @@ class ConciergeController extends Controller
      */
     public function collaborators($p = NULL)
     {
-        $msg = $p['msg'];
-
         foreach (User::all() as $i => $val) {
             $users[] = "<option value=\"" . $val['id'] . "\">" . Controller::patent($val['patent']) . " - " . $val['name'] . " (" . $val['nickname'] . ")</option>";
         }
