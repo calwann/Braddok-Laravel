@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Concierge_collaborator;
+use App\Http\Requests\CreateCollaboratorsConciergeRequest;
 
 class ConciergeController extends Controller
 {
@@ -35,10 +36,10 @@ class ConciergeController extends Controller
      */
     public function collaborators($p = NULL)
     {
-        foreach (User::all() as $i => $val) {
-            $users[] = "<option value=\"" . $val['id'] . "\">" . Controller::patent($val['patent']) . " - " . $val['name'] . " (" . $val['nickname'] . ")</option>";
+        $users = User::all('id', 'patent', 'name', 'nickname');
+        foreach ($users as $user) {
+            $user['patent'] = Controller::patent($user['patent']);
         }
-
         return view('concierge/collaborators', compact('users'));
     }
 
@@ -79,7 +80,7 @@ class ConciergeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function createCollaborators(Request $request)
+    public function createCollaborators(CreateCollaboratorsConciergeRequest $request)
     {
         $data = $request->all();
 

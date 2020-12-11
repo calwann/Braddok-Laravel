@@ -16,12 +16,12 @@
                 <div class="card-content">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="email" type="email" class="validate" name="email" required autocomplete="email"
+                            <input id="email" type="email" class="validate" name="email" autocomplete="email"
                                 autofocus>
                             <label for="email">{{ __('E-Mail Address') }}</label>
                         </div>
                         <div class="input-field col s12">
-                            <input id="password" type="password" class="validate" name="password" required
+                            <input id="password" type="password" class="validate" name="password"
                                 autocomplete="current-password">
                             <label for="password">{{ __('Password') }}</label>
                         </div>

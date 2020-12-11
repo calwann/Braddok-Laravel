@@ -160,15 +160,17 @@
         @yield('content')
 
         @if ($errors->any())
-            <script>
+            @foreach($errors->all() as $error)
+                <script>
                 $(document).ready(function() {
                     M.toast({
-                        html: "{!!  implode('', $errors->all('<div>:message</div>')) !!}",
+                        html: "{{ $error }}",
                         classes: 'rounded'
                     });
                 });
 
             </script>
+            @endforeach
         @endif
 
         @if (session('status'))
