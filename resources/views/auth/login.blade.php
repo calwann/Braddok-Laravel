@@ -16,7 +16,7 @@
                 <div class="card-content">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="email" type="email" class="validate" name="email" autocomplete="email"
+                            <input id="email" type="email" class="validate" name="email" autocomplete="email" value="{{ old('email') }}"
                                 autofocus>
                             <label for="email">{{ __('E-Mail Address') }}</label>
                         </div>

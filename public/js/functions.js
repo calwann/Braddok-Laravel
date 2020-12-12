@@ -142,11 +142,72 @@ $(document).ready(function() {
         $("#footer-container").removeClass("hide");
     }
 
-    $("input.phone").attr(
-        "pattern",
-        "/^1dd(dd)?$|^0800 ?d{3} ?d{4}$|^((0?([1-9a-zA-Z][0-9a-zA-Z])?[1-9]d) ?|0?([1-9a-zA-Z][0-9a-zA-Z])?[1-9]d[ .-]?)?(9|9[ .-])?[2-9]d{3}[ .-]?d{4}$/gm"
-    );
+    var phoneOptions = {
+        onKeyPress: function(phone, e, field, options) {
+            var masks = ["(00) 00000-0000", "(00) 0000-00009"];
+            var mask = phone.length < 15 ? masks[1] : masks[0];
+            $(".phone-validation").mask(mask, options);
+        }
+    };
+    $(".phone-validation").mask("(00) 00000-0000", phoneOptions);
 
+    var phoneOptions2 = {
+        onKeyPress: function(phone, e, field, options) {
+            var masks = ["(00) 00000-0000", "(00) 0000-00009"];
+            var mask = phone.length < 15 ? masks[1] : masks[0];
+            $(".phone-validation-2").mask(mask, options);
+        }
+    };
+    $(".phone-validation-2").mask("(00) 00000-0000", phoneOptions2);
+
+    $(".date-validation").mask("T0/O0/T000", {
+        translation: {
+            T: {
+                pattern: /[0-3]/,
+                optional: false
+            },
+            O: {
+                pattern: /[0-1]/,
+                optional: false
+            }
+        }
+    });
+    $(".time-validation").mask("00:00");
+    $(".time-validation").mask("T0:S0", {
+        translation: {
+            T: {
+                pattern: /[0-2]/,
+                optional: false
+            },
+            S: {
+                pattern: /[0-6]/,
+                optional: false
+            }
+        }
+    });
+    $(".timeComplete-validation").mask("00:00:00");
+    $(".cep-validation").mask("00000-000");
+    $(".cpf-validation").mask("000.000.000-00", { reverse: true });
+    $(".cnpj-validation").mask("00.000.000/0000-00", { reverse: true });
+    $(".money-validation").mask("000.000.000.000.000,00", { reverse: true });
+    $(".ipAddress-validation").mask("099.099.099.099");
+    $(".percent-validation").mask("##0,00%", { reverse: true });
+
+    $(".datepicker-done").on("click", function(event) {
+        var dateVal = $(".datepicker").val();
+        $(".datepicker-control").val(dateVal);
+    });
+    $(".datepicker-clear").on("click", function(event) {
+        $(".datepicker-control").val("");
+    });
+
+    $(".timepicker-close").on("click", function(event) {
+        var timeVal = $(".timepicker").val();
+        $(".timepicker-control").val(timeVal);
+    });
+    $(".timepicker-clear").on("click", function(event) {
+        $(".timepicker-control").val("");
+    });
 });
 
 $("select.patent").append([

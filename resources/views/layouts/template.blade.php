@@ -7,6 +7,9 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"
+        integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw=="
+        crossorigin="anonymous"></script>
     <script src="{{ asset('js/materialize.min.js') }}"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -160,16 +163,16 @@
         @yield('content')
 
         @if ($errors->any())
-            @foreach($errors->all() as $error)
+            @foreach ($errors->all() as $error)
                 <script>
-                $(document).ready(function() {
-                    M.toast({
-                        html: "{{ $error }}",
-                        classes: 'rounded'
+                    $(document).ready(function() {
+                        M.toast({
+                            html: "{{ $error }}",
+                            classes: 'rounded'
+                        });
                     });
-                });
 
-            </script>
+                </script>
             @endforeach
         @endif
 

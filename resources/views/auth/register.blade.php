@@ -16,36 +16,36 @@
                 <div class="card-content">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="name" type="text" class="validate" name="name"  autocomplete="name" value="{{ old('name') }}"
-                                autofocus>
+                            <input id="name" type="text" class="validate" name="name" autocomplete="name"
+                                value="{{ old('name') }}" autofocus>
                             <label for="name">Nome completo</label>
                         </div>
                         <div class="input-field col s12">
-                            <input id="email" type="email" class="validate" name="email" value="{{ old('email') }}" 
+                            <input id="email" type="email" class="validate" name="email" value="{{ old('email') }}"
                                 autocomplete="email">
                             <label for="email">{{ __('E-Mail Address') }}</label>
                         </div>
                         <div class="input-field col s12">
-                            <input id="password" type="password" class="validate" name="password" 
+                            <input id="password" type="password" class="validate" name="password"
                                 autocomplete="new-password">
                             <label for="password">{{ __('Password') }}</label>
                         </div>
                         <div class="input-field col s12">
                             <input id="password-confirm" type="password" class="validate" name="password_confirmation"
-                                 autocomplete="new-password">
+                                autocomplete="new-password">
                             <label for="password-confirm">{{ __('Confirm Password') }}</label>
                         </div>
                         <div class="input-field col s12">
-                            <input id="identity" type="text" class="validate" name="identity" value="{{ old('identity') }}" >
+                            <input id="identity" type="text" class="validate" name="identity" value="{{ old('identity') }}">
                             <label for="identity">Identidade</label>
                         </div>
                         <div class="input-field col s12 m4">
-                            <select id="patent" class="patent" name="patent" >
+                            <select id="patent" class="patent" name="patent">
                             </select>
                             <label for="patent">Posto/ Graduação</label>
                         </div>
                         <div class="input-field col s12 m8">
-                            <input id="nickname" type="text" class="validate" name="nickname" value="{{ old('nickname') }}" >
+                            <input id="nickname" type="text" class="validate" name="nickname" value="{{ old('nickname') }}">
                             <label for="nickname">Nome de Guerra</label>
                         </div>
                         <div class="input-field col s12">
@@ -66,18 +66,21 @@
                             <label for="state">Estado</label>
                         </div>
                         <div class="input-field col s12 m6">
-                            <input id="phone" type="text" class="validate" name="phone" value="{{ old('phone') }}" >
+                            <input id="phone" type="text" class="validate phone-validation" name="phone" value="{{ old('phone') }}"
+                                placeholder="(00) 00000-0000">
                             <label for="phone">Telefone celular</label>
                         </div>
                         <div class="input-field col s12 m6">
-                            <input id="phone_2" type="text" class="validate" name="phone_2" value="{{ old('phone_2') }}" >
+                            <input id="phone_2" type="text" class="validate phone-validation-2" name="phone_2"
+                                value="{{ old('phone_2') }}" placeholder="(00) 0000-0000">
                             <label for="phone_2">Telefone fixo</label>
                         </div>
                     </div>
                     <div class="row">
                         <button class="waves-effect waves-light btn teal darken-1 left-align hoverable"
                             type="submit">Registrar</button>
-                        <a href="{{ route('login') }}" class="waves-effect waves-light btn teal darken-1 hoverable">Voltar</a>
+                        <a href="{{ route('login') }}"
+                            class="waves-effect waves-light btn teal darken-1 hoverable">Voltar</a>
                     </div>
                 </div>
             </div>
