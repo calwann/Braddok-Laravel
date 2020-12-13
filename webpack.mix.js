@@ -20,5 +20,6 @@ mix
     //.js("resources/js/app.js", "public/js")
     //.sass("resources/sass/app.scss", "public/css")
 
-    // Personal Styles
-    .styles("resources/css/style.css", "public/css/style.css");
+    // CSS and JS
+    .styles("resources/css/style.css", "public/css/style.css")
+    .styles("resources/js/functions.js", "public/js/functions.js");

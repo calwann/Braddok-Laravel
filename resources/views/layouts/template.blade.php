@@ -25,6 +25,9 @@
 <body>
     <header>
         @auth
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
             <ul id="dropdown-nav-1" class="dropdown-content">
                 <li><a href="{{ route('conf.index') }}">Atualizar cadastro</a></li>
                 <li><a href="{{ route('conf.index') }}">Trocar senha</a></li>
@@ -32,11 +35,8 @@
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
                     </a></li>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
             </ul>
-            <nav class="grey darken-4">
+            <nav class="grey darken-4 hoverable">
                 <div id="nav-wrapper" class="nav-wrapper">
                     <a id="brand-logo" href="{{ route($__env->yieldContent('index')) }}"
                         class="brand-logo truncate tooltipped" data-position="bottom"
@@ -53,7 +53,7 @@
                     </ul>
                 </div>
             </nav>
-            <nav id="nav-search" class="grey darken-4 scale-transition scale-out">
+            <nav id="nav-search" class="grey darken-4 scale-transition scale-out hoverable">
                 <div class="nav-wrapper container">
                     <form method="POST" action="">
                         <div class="input-field">
@@ -64,7 +64,7 @@
                     </form>
                 </div>
             </nav>
-            <ul class="sidenav" id="mobile-demo">
+            <ul class="sidenav hoverable" id="mobile-demo">
                 <div id="sidenav-mobile-div">
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
@@ -79,9 +79,6 @@
                                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                 {{ __('Logout') }}
                                             </a></li>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                            @csrf
-                                        </form>
                                     </ul>
                                 </div>
                             </li>
@@ -162,6 +159,15 @@
     <main style="min-height: 40rem">
         @yield('content')
 
+        @hasSection('back')
+            <div class="fixed-action-btn direction-top active" style="bottom: 10px; right: 10px">
+                <a id="menu" class="waves-effect waves-light btn btn-floating btn-large indigo hoverable tooltipped"
+                    data-position="left" data-tooltip="Voltar" href="{{ route($__env->yieldContent('back')) }}">
+                    <i class="material-icons">arrow_back</i>
+                </a>
+            </div>
+        @endif
+
         @if ($errors->any())
             @foreach ($errors->all() as $error)
                 <script>
@@ -189,7 +195,7 @@
         @endif
     </main>
 
-    <footer class="page-footer grey darken-4">
+    <footer class="page-footer grey darken-4 hoverable">
         <div id="footer-container" class="container hide">
             <div class="row">
                 <div class="col s12">
@@ -217,10 +223,11 @@
                 </div>
             </div>
         </div>
-        <div class="footer-copyright">
+        <div class="footer-copyright hoverable">
             <div class="container">
                 <a href="https://github.com/calwann">
-                    © Desenvolvido por Calwann Freire
+                    © Desenvolvido por Calwann Freire</a>
+                <a href="https://github.com/DaniloMirandaa"> e Danilo Miranda
                 </a>
             </div>
         </div>

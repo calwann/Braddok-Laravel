@@ -13,7 +13,7 @@ class ConfController extends Controller
      */
     public function index()
     {
-        //
+        return view('conf/index');
     }
 
     /**

@@ -1,7 +1,8 @@
 @extends('layouts.template')
-@section('title', 'Dashboard')
+@section('title', 'Segurança')
 @section('subtitle', 'Segurança')
 @section('index', 'concierge.index')
+@section('back', 'home.index')
 
 @section('content')
     <div class="row container">

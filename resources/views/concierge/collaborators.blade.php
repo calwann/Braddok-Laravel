@@ -2,16 +2,17 @@
 @section('title', 'Militares')
 @section('subtitle', 'Segurança')
 @section('index', 'concierge.index')
+@section('back', 'concierge.index')
 
 @section('content')
     <form method="POST" action="{{ route('concierge.createCollaborators') }}">
         @csrf
         <div class="row container">
             <div class="card hoverable">
-                <div class="card-action teal darken-1 white-text">
+                <div class="card-action teal darken-1 white-text hoverable">
                     <h5>Lançar Militares</h5>
                 </div>
-                <div class="card-content">
+                <div class="card-content hoverable">
                     <div class="row">
                         <div class="input-field col m4 s12">
                             <select id="registerType" name="registerType">
@@ -34,13 +35,13 @@
                             <label for="usersId">Militares</label>
                         </div>
                         <div class="input-field col m6 s12">
-                            <i class="datepicker material-icons prefix">date_range</i>
+                            <i class="datepicker material-icons prefix pointer">date_range</i>
                             <input id="date" type="text" class="datepicker-control validate date-validation" name="date"
                                 value="{{ old('date') }}" placeholder="00/00/0000">
                             <label for="date">Data</label>
                         </div>
                         <div class="input-field col m6 s12">
-                            <i class="timepicker material-icons prefix">access_time</i>
+                            <i class="timepicker material-icons prefix pointer">access_time</i>
                             <input id="time" type="text" class="timepicker-control validate time-validation" name="time"
                                 value="{{ old('time') }}" placeholder="00:00">
                             <label for="time">Hora</label>

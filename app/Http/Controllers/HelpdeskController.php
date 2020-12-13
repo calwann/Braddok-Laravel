@@ -13,7 +13,7 @@ class HelpdeskController extends Controller
      */
     public function index()
     {
-        //
+        return view('helpdesk/index');
     }
 
     /**

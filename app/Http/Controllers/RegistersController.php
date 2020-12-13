@@ -13,7 +13,7 @@ class RegistersController extends Controller
      */
     public function index()
     {
-        //
+        return view('registers/index');
     }
 
     /**

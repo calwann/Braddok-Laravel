@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     // Initialize and configure Materilize JS/JQuery functions
 
     $(".sidenav").sidenav();
@@ -10,7 +11,6 @@ $(document).ready(function() {
     $(".tooltipped").tooltip();
     $("input.counter, textarea.counter").characterCounter();
     $(".tabs").tabs();
-    $(".tap-target").tapTarget();
     $(".datepicker").datepicker({
         format: "dd/mm/yyyy",
         showClearBtn: true,
@@ -76,6 +76,7 @@ $(document).ready(function() {
         }
     });
 
+
     // Manager responsivity Navbar, Sidenav and logos
 
     $(window)
@@ -112,6 +113,7 @@ $(document).ready(function() {
         })
         .resize();
 
+    
     // Manager SideNav for desktop
 
     if (
@@ -141,6 +143,7 @@ $(document).ready(function() {
         });
     }
 
+
     // Manager Footer
 
     if (
@@ -150,6 +153,7 @@ $(document).ready(function() {
     ) {
         $("#footer-container").removeClass("hide");
     }
+
 
     // Validations with Jquery Mask
 
