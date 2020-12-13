@@ -45,7 +45,7 @@
                     <a id="brand-logo" href="{{ route($__env->yieldContent('index')) }}"
                         class="brand-logo truncate tooltipped" data-position="bottom"
                         data-tooltip="Início">@yield('subtitle')</a>
-                    <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                    <a data-target="mobile-demo" class="sidenav-trigger pointer"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li><a class="dropdown-trigger" data-target="dropdown-nav-1">{{ $patentNickname }}<i
                                     class="material-icons right">arrow_drop_down</i></a></li>
