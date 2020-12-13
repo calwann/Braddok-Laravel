@@ -25,6 +25,8 @@
 <body>
     <header>
         @auth
+
+            {{-- Form to logout --}}
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
@@ -36,6 +38,8 @@
                         {{ __('Logout') }}
                     </a></li>
             </ul>
+
+            {{-- Navbar --}}
             <nav class="grey darken-4 hoverable">
                 <div id="nav-wrapper" class="nav-wrapper">
                     <a id="brand-logo" href="{{ route($__env->yieldContent('index')) }}"
@@ -53,6 +57,8 @@
                     </ul>
                 </div>
             </nav>
+
+            {{-- Navbar to search --}}
             <nav id="nav-search" class="grey darken-4 scale-transition scale-out hoverable">
                 <div class="nav-wrapper container">
                     <form method="POST" action="">
@@ -64,6 +70,8 @@
                     </form>
                 </div>
             </nav>
+
+            {{-- Sidenavbar --}}
             <ul class="sidenav hoverable" id="mobile-demo">
                 <div id="sidenav-mobile-div">
                     <li class="no-padding">
@@ -84,7 +92,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="{{ route('home.index') }}">Início<i class="material-icons">home</i></a></li>
+                    <li><a href="{{ route('home.index') }}">Aplicativos<i class="material-icons">home</i></a></li>
                     <li><a href="{{ route('panel.index') }}">Painel<i class="material-icons">settings</i></a></li>
                     <li><a class="nav-search-trigger">Pesquisar<i class="material-icons">search</i></a></a></li>
                     <div class="divider"></div>
@@ -157,8 +165,11 @@
     </header>
 
     <main style="min-height: 40rem">
+
+        {{-- Main content from View --}}
         @yield('content')
 
+        {{-- Btn back page --}}
         @hasSection('back')
             <div class="fixed-action-btn direction-top active" style="bottom: 10px; right: 10px">
                 <a id="menu" class="waves-effect waves-light btn btn-floating btn-large indigo hoverable tooltipped"
@@ -168,6 +179,7 @@
             </div>
         @endif
 
+        {{-- Toast for errors --}}
         @if ($errors->any())
             @foreach ($errors->all() as $error)
                 <script>
@@ -182,6 +194,7 @@
             @endforeach
         @endif
 
+        {{-- Toast for session status --}}
         @if (session('status'))
             <script>
                 $(document).ready(function() {
@@ -196,6 +209,8 @@
     </main>
 
     <footer class="page-footer grey darken-4 hoverable">
+
+        {{-- Footer --}}
         <div id="footer-container" class="container hide">
             <div class="row">
                 <div class="col s12">
@@ -225,14 +240,15 @@
         </div>
         <div class="footer-copyright hoverable">
             <div class="container">
-                <a href="https://github.com/calwann">
+                <a target="_blank" href="https://github.com/calwann">
                     © Desenvolvido por Calwann Freire</a>
-                <a href="https://github.com/DaniloMirandaa"> e Danilo Miranda
+                <a target="_blank" href="https://github.com/DaniloMirandaa"> e Danilo Miranda
                 </a>
             </div>
         </div>
     </footer>
 
+    {{-- JavaScript and JQuery functions --}}
     <script src="{{ asset('js/functions.js') }}"></script>
 
 </body>

@@ -59,7 +59,7 @@
                             <label for="district">Bairro</label>
                         </div>
                         <div class="input-field col s12 m8">
-                            <input id="city" type="text" class="validate" name="city" value="Três Lagoas">
+                            <input id="city" type="text" class="validate" name="city" value="{{ old('city') == '' ? 'Três Lagoas' : old('city') }}">
                             <label for="city">Cidade</label>
                         </div>
                         <div class="input-field col s12 m4">

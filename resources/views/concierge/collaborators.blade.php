@@ -26,10 +26,7 @@
                         <div class="input-field col m8 s12">
                             <select multiple id="usersId" name="usersId[]">
                                 @foreach ($users as $user)
-                                    <option value="{{ $user['id'] }}"
-                                        {{ collect(old('usersId'))->contains($user['id']) ? 'selected' : '' }}>
-                                        {{ $user['patent'] }} - {{ $user['name'] }} ({{ $user['nickname'] }})
-                                    </option>
+                                    <option value="{{ $user['id'] }}" {{ collect(old('usersId'))->contains($user['id']) ? 'selected' : '' }}>{{ $user['patent'] }} - {{ $user['name'] }} ({{ $user['nickname'] }})</option>
                                 @endforeach
                             </select>
                             <label for="usersId">Militares</label>

@@ -203,6 +203,8 @@ $(document).ready(function() {
     $(".ipAddress-validation").mask("099.099.099.099");
     $(".percent-validation").mask("##0,00%", { reverse: true });
 
+    // Manager Timepicker and Datepicker Icon to input
+
     $(".datepicker-done").on("click", function(event) {
         var dateVal = $(".datepicker").val();
         $(".datepicker-control").val(dateVal);

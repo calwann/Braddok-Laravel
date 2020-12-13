@@ -50,7 +50,7 @@
         </div>
     </form>
 
-    <div class="fixed-action-btn direction-top active" style="bottom: 30px; right: 30px;">
+    <div class="fixed-action-btn direction-top active" style="bottom: 10px; right: 10px;">
         <a id="menu" class="waves-effect waves-light btn btn-floating btn-large deep-purple hoverable tooltipped"
             data-position="left" data-tooltip="Informações" onclick="$('.tap-target').tapTarget('open')">
             <i class="material-icons">menu</i>
