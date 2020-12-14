@@ -17,7 +17,7 @@
                 <div class="card-content hoverable">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="name" type="text" class="validate" name="name" autocomplete="name"
+                            <input id="name" type="text" class="validate text-upper" name="name" autocomplete="name"
                                 value="{{ old('name') }}" autofocus>
                             <label for="name">Nome completo</label>
                         </div>
@@ -47,7 +47,7 @@
                             <label for="patent">Posto/ Graduação</label>
                         </div>
                         <div class="input-field col s12 m8">
-                            <input id="nickname" type="text" class="validate" name="nickname" value="{{ old('nickname') }}">
+                            <input id="nickname" type="text" class="validate text-upper" name="nickname" value="{{ old('nickname') }}">
                             <label for="nickname">Nome de Guerra</label>
                         </div>
                         <div class="input-field col s12">
@@ -58,15 +58,15 @@
                             <input id="district" type="text" class="validate" name="district" value="{{ old('district') }}">
                             <label for="district">Bairro</label>
                         </div>
-                        <div class="input-field col s12 m8">
-                            <input id="city" type="text" class="validate" name="city" value="{{ old('city') == '' ? 'Três Lagoas' : old('city') }}">
-                            <label for="city">Cidade</label>
-                        </div>
                         <div class="input-field col s12 m4">
                             <select id="state" name="state">
                                 @include('layouts.selectState')
                             </select>
                             <label for="state">Estado</label>
+                        </div>
+                        <div class="input-field col s12 m8">
+                            <input id="city" type="text" class="validate" name="city" value="{{ old('city') == '' ? 'Três Lagoas' : old('city') }}">
+                            <label for="city">Cidade</label>
                         </div>
                         <div class="input-field col s12 m6">
                             <input id="phone" type="text" class="validate phone-validation" name="phone"

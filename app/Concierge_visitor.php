@@ -12,6 +12,6 @@ class Concierge_visitor extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'identity', 'phone', 'birth', '_status',
+        'visitor_id', 'register_type', 'date_time', '_status',
     ];
 }

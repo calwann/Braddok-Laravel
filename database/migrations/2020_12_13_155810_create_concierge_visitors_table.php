@@ -16,7 +16,7 @@ class CreateConciergeVisitorsTable extends Migration
         Schema::create('concierge_visitors', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('visitor_id')->unsigned();
-            $table->foreign('visitor_id')->references('id')->on('visitor')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('visitor_id')->references('id')->on('visitors')->onDelete('cascade')->onUpdate('cascade');
             $table->char('register_type');
             $table->dateTime('date_time');
             $table->char('_status')->nullable();

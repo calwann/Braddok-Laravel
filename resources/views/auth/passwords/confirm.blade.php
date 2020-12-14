@@ -33,8 +33,6 @@
                     <div class="row">
                         <button class="waves-effect waves-light btn teal darken-1 hoverable"
                             type="submit">{{ __('Confirm Password') }}</button>
-                        <a href="{{ route('register') }}"
-                            class="waves-effect waves-light btn teal darken-1 hoverable">{{ __('Register') }}</a>
                     </div>
                 </div>
             </div>

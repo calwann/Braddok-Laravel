@@ -14,6 +14,7 @@ class CreateVisitorsTable extends Migration
     public function up()
     {
         Schema::create('visitors', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
             $table->date('birth')->nullable();
             $table->string('phone')->nullable();

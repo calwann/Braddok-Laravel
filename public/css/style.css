@@ -16,6 +16,14 @@ body {
     text-shadow: 2px 2px 2px black;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
+.text-upper {
+    text-transform: uppercase;
+}
+
 .sidenav {
     width: 260px;
 }
@@ -35,10 +43,6 @@ body {
 
 .datepicker-controls .select-month input {
     width: 100px;
-}
-
-.pointer {
-    cursor: pointer;
 }
 
 .dropdown-content {

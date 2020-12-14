@@ -51,7 +51,7 @@ class RegisterRegistersUsersRequest extends FormRequest
             'district.required' => 'O campo Bairro é obrigatório.',
             'city.required' => 'O campo Cidade é obrigatório.',
             'state.required' => 'O campo Estado é obrigatório.',
-            'phone.required' => 'O campo Telefone celular é obrigatório.',
+            'phone.required' => 'O campo Telefone 1 é obrigatório.',
             'password.required' => 'O campo Senha é obrigatório.',
         ];
     }

@@ -26,26 +26,28 @@
                         <div class="input-field col m8 s12">
                             <select multiple id="usersId" name="usersId[]">
                                 @foreach ($users as $user)
-                                    <option value="{{ $user['id'] }}" {{ collect(old('usersId'))->contains($user['id']) ? 'selected' : '' }}>{{ $user['patent'] }} - {{ $user['name'] }} ({{ $user['nickname'] }})</option>
+                                    <option value="{{ $user['id'] }}"{{ collect(old('usersId'))->contains($user['id']) ? 'selected' : '' }}>{{ $user['patent'] }} - {{ $user['name'] }} ({{ $user['nickname'] }})</option>
                                 @endforeach
                             </select>
                             <label for="usersId">Militares</label>
                         </div>
                         <div class="input-field col m6 s12">
-                            <i class="datepicker material-icons prefix pointer">date_range</i>
+                            <i class="datepicker material-icons prefix pointer tooltipped" data-position="right"
+                                data-tooltip="Escolher Data">date_range</i>
                             <input id="date" type="text" class="datepicker-control validate date-validation" name="date"
                                 value="{{ old('date') }}" placeholder="00/00/0000">
                             <label for="date">Data</label>
                         </div>
                         <div class="input-field col m6 s12">
-                            <i class="timepicker material-icons prefix pointer">access_time</i>
+                            <i class="timepicker material-icons prefix pointer tooltipped" data-position="right"
+                                data-tooltip="Escolher Hora">access_time</i>
                             <input id="time" type="text" class="timepicker-control validate time-validation" name="time"
                                 value="{{ old('time') }}" placeholder="00:00">
                             <label for="time">Hora</label>
                         </div>
                     </div>
                     <div class="row">
-                        <button class="waves-effect waves-light btn teal darken-1 left-align" type="submit">Enviar</button>
+                        <button class="waves-effect waves-light btn teal darken-1 left-align hoverable" type="submit">Enviar</button>
                     </div>
                 </div>
             </div>

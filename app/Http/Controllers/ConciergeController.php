@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Concierge_collaborator;
+use App\Concierge_visitor;
 use App\Http\Requests\CreateCollaboratorsConciergeRequest;
+use App\Http\Requests\CreateVisitorConciergeRequest;
+use App\Http\Requests\CreateVisitorsConciergeRequest;
+use App\Visitor;
 
 class ConciergeController extends Controller
 {
@@ -50,7 +54,8 @@ class ConciergeController extends Controller
      */
     public function visitors()
     {
-        //
+        $visitors = Visitor::all('id', 'name', 'identity');
+        return view('concierge/visitors', compact('visitors'));
     }
 
     /**
@@ -73,7 +78,6 @@ class ConciergeController extends Controller
         //
     }
 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -93,6 +97,49 @@ class ConciergeController extends Controller
             ]);
         }
 
-        return redirect()->route('concierge.collaborators')->with('status', 'Laçamento cadastrado.');
+        return redirect()->route('concierge.collaborators')->with('status', 'Laçamento de militares realizado.');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function createVisitors(CreateVisitorsConciergeRequest $request)
+    {
+        $data = $request->all();
+
+        foreach ($data['visitorsId'] as $val) {
+            Concierge_visitor::create([
+                'register_type' => $data['registerType'],
+                'visitor_id' => $val,
+                'date_time' => Controller::strToDate($data['date']) . " " . $data['time'] . ":00",
+                '_status' => "active",
+            ]);
+        }
+
+        return redirect()->route('concierge.visitors')->with('status', 'Laçamento de visitantes realizado.');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function createVisitor(CreateVisitorConciergeRequest $request)
+    {
+        $data = $request->all();
+
+        Visitor::create([
+            'name' => strtoupper($data['name']),
+            'birth' => Controller::strToDate($data['birth']),
+            'phone' => $data['phone'],
+            'identity' => $data['identity'],
+            '_status' => "active",
+        ]);
+
+        return redirect()->route('concierge.visitors')->with('status', 'Novo visitante cadastrado.');
     }
 }

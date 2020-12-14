@@ -25,8 +25,6 @@
                     <div class="row">
                         <button class="waves-effect waves-light btn teal darken-1 hoverable"
                             type="submit">Enviar solicitação</button>
-                        <a href="{{ route('login') }}"
-                            class="waves-effect waves-light btn teal darken-1 hoverable">Voltar</a>
                     </div>
                 </div>
             </div>
