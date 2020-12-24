@@ -33,26 +33,10 @@ class RegisterRegistersUsersRequest extends FormRequest
             'address' => 'required',
             'district' => 'required',
             'city' => 'required',
-            'state' => 'required',
-            'phone' => 'required',
-            'password' => 'required',
+            'state' => ['required', 'size:2'],
+            'phone' => ['required', 'min:14'],
+            'password' => ['required', 'min:8'],
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'name.required' => 'O campo Nome completo é obrigatório.',
-            'email.required' => 'O campo Email é obrigatório.',
-            'identity.required' => 'O campo Identidade é obrigatório.',
-            'patent.required' => 'O campo Posto/ Graduação é obrigatório.',
-            'nickname.required' => 'O campo Nome de Guerra é obrigatório.',
-            'address.required' => 'O campo Endereço é obrigatório.',
-            'district.required' => 'O campo Bairro é obrigatório.',
-            'city.required' => 'O campo Cidade é obrigatório.',
-            'state.required' => 'O campo Estado é obrigatório.',
-            'phone.required' => 'O campo Telefone 1 é obrigatório.',
-            'password.required' => 'O campo Senha é obrigatório.',
-        ];
-    }
 }

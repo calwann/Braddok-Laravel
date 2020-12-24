@@ -2,14 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Log;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public static function registerLog($table, $table_id, $log)
+    {
+        Log::create([
+            'user_id' => Auth::user()->id,
+            'table' => $table,
+            'table_id' => $table_id,
+            'log' => $log,
+        ]);
+    }
 
     public static function patent($p)
     {
@@ -128,10 +140,10 @@ class Controller extends BaseController
     {
         $d = Controller::strToDate($d);
         if (strlen($t) == 5) {
-            $t = $t.":00";
+            $t = $t . ":00";
         }
 
-        return $d." ".$t;
+        return $d . " " . $t;
     }
 
     public static function monthToNumber($month)

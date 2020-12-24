@@ -18,7 +18,25 @@
     <!-- Styles -->
     <link href="{{ asset('css/materialize.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('images/favicon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('images/favicon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('images/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('images/favicon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('images/favicon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('images/favicon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('images/favicon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('images/favicon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('images/favicon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('images/favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('images/favicon/manifest.json') }}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{{ asset('images/favicon/ms-icon-144x144.png') }}">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Title -->
     <title>Braddok - @yield('title')</title>
 </head>
 
@@ -30,14 +48,6 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
-            <ul id="dropdown-nav-1" class="dropdown-content">
-                <li><a href="{{ route('conf.index') }}">Atualizar cadastro</a></li>
-                <li><a href="{{ route('conf.index') }}">Trocar senha</a></li>
-                <li><a href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a></li>
-            </ul>
 
             {{-- Navbar --}}
             <nav class="grey darken-4 hoverable">
@@ -58,7 +68,17 @@
                 </div>
             </nav>
 
-            {{-- Navbar to search --}}
+            {{-- DropDown Navbar --}}
+            <ul id="dropdown-nav-1" class="dropdown-content">
+                <li><a href="{{ route('conf.index') }}">Atualizar cadastro</a></li>
+                <li><a href="{{ route('conf.index') }}">Trocar senha</a></li>
+                <li><a href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a></li>
+            </ul>
+
+            {{-- SearchNav --}}
             <nav id="nav-search" class="grey darken-4 scale-transition scale-out hoverable">
                 <div class="nav-wrapper container">
                     <form method="POST" action="">
@@ -97,6 +117,7 @@
                     <li><a class="nav-search-trigger">Pesquisar<i class="material-icons">search</i></a></a></li>
                     <div class="divider"></div>
                 </div>
+                {{-- Sidenavbar Apps --}}
                 @if ($__env->yieldContent('index') == 'concierge.index')
                     <div id="sidenav-concierge-div">
                         <li><a href="{{ route('concierge.dash') }}">Dashboard<i class="material-icons">dashboard</i></a>
@@ -186,7 +207,7 @@
                     $(document).ready(function() {
                         M.toast({
                             html: "{{ $error }}",
-                            classes: 'rounded'
+                            classes: 'rounded hoverable neon'
                         });
                     });
 
@@ -200,7 +221,7 @@
                 $(document).ready(function() {
                     M.toast({
                         html: "{{ session('status') }}",
-                        classes: 'rounded'
+                        classes: 'rounded hoverable'
                     });
                 });
 

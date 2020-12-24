@@ -36,6 +36,7 @@ Route::group(['prefix' => 'concierge', 'as' => 'concierge.', 'middleware' => 'au
     Route::post('createCollaborators', 'ConciergeController@createCollaborators')->name('createCollaborators');
     Route::post('createVisitors', 'ConciergeController@createVisitors')->name('createVisitors');
     Route::post('createVisitor', 'ConciergeController@createVisitor')->name('createVisitor');
+    Route::post('createVehicleVisitor', 'ConciergeController@createVehicleVisitor')->name('createVehicleVisitor');
 });
 
 Route::get('restaurant', 'RestaurantController@index')->name('restaurant.index')->middleware('auth');

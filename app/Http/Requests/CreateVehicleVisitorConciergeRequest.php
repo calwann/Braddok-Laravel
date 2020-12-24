@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\FullNameRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateCollaboratorsConciergeRequest extends FormRequest
+class CreateVehicleVisitorConciergeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +24,11 @@ class CreateCollaboratorsConciergeRequest extends FormRequest
     public function rules()
     {
         return [
-            'registerType' => 'required',
-            'usersId' => 'required',
-            'date' => ['required', 'dateformat:d/m/Y'],
-            'time' => ['required', 'dateformat:H:i'],
+            'type' => 'required',
+            'brand' => 'required',
+            'model' => 'required',
+            'licensePlate' => ['required', 'size:8'],
         ];
     }
-
+    
 }

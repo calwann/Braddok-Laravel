@@ -10,10 +10,31 @@ body {
     body {
         background-size: 400%;
     }
+    .modal {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 1400px) and (min-width: 993px) {
+    .modal {
+        width: 60%;
+    }
+}
+
+@media only screen and (min-width: 1401px) {
+    .modal {
+        width: 50%;
+    }
+}
+
+.modal .hoverable .modal-content {
+    padding: 24px 24px 0 24px;
 }
 
 .text-shadow {
-    text-shadow: 2px 2px 2px black;
+    text-shadow: 2px 2px 2px black, 0 0 5px black, 0 0 10px black,
+        0 0 15px black, 0 0 20px black, 0 0 30px black, 0 0 50px black,
+        0 0 80px black, 0 0 120px black;
 }
 
 .pointer {
@@ -47,4 +68,11 @@ body {
 
 .dropdown-content {
     max-height: 250px;
+}
+
+.btn {
+    margin: 2px 0 2px 0;
+}
+
+@media only screen and (max-width: 992px) {
 }

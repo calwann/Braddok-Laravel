@@ -29,11 +29,4 @@ class LoginAuthenticatesUsersRequest extends FormRequest
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'email.required' => 'O campo Email é obrigatório.',
-            'password.required' => 'O campo Senha é obrigatório.',
-        ];
-    }
 }

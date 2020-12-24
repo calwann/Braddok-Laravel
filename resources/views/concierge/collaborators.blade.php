@@ -32,14 +32,14 @@
                             <label for="usersId">Militares</label>
                         </div>
                         <div class="input-field col m6 s12">
-                            <i class="datepicker material-icons prefix pointer tooltipped" data-position="right"
+                            <i class="datepicker material-icons prefix pointer tooltipped" data-position="top"
                                 data-tooltip="Escolher Data">date_range</i>
                             <input id="date" type="text" class="datepicker-control validate date-validation" name="date"
                                 value="{{ old('date') }}" placeholder="00/00/0000">
                             <label for="date">Data</label>
                         </div>
                         <div class="input-field col m6 s12">
-                            <i class="timepicker material-icons prefix pointer tooltipped" data-position="right"
+                            <i class="timepicker material-icons prefix pointer tooltipped" data-position="top"
                                 data-tooltip="Escolher Hora">access_time</i>
                             <input id="time" type="text" class="timepicker-control validate time-validation" name="time"
                                 value="{{ old('time') }}" placeholder="00:00">

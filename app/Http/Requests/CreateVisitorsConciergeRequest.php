@@ -25,21 +25,11 @@ class CreateVisitorsConciergeRequest extends FormRequest
     {
         return [
             'registerType' => 'required',
-            'visitorsId' => 'required',
+            'visitorsInId' => 'required_without:visitorsOutId',
+            'visitorsOutId' => 'required_without:visitorsInId',
             'date' => ['required', 'dateformat:d/m/Y'],
             'time' => ['required', 'dateformat:H:i'],
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'registerType.required' => 'O campo Lançamento é obrigatório.',
-            'visitorsId.required' => 'O campo Visitantes é obrigatório.',
-            'date.required' => 'O campo Data é obrigatório.',
-            'date.dateformat' => 'O campo Data está incorreto.',
-            'time.required' => 'O campo Hora é obrigatório.',
-            'time.dateformat' => 'O campo Hora está incorreto.',
-        ];
-    }
 }

@@ -196,17 +196,22 @@ $(document).ready(function() {
         }
     });
     $(".timeComplete-validation").mask("00:00:00");
+    $(".licensePlate-validation").mask('SSS-0A00');
     $(".cep-validation").mask("00000-000");
     $(".cpf-validation").mask("000.000.000-00", { reverse: true });
     $(".cnpj-validation").mask("00.000.000/0000-00", { reverse: true });
-    $(".money-validation").mask("000.000.000.000.000,00", { reverse: true });
+    $(".money-validation").mask('#.##0,00', { reverse: true });
     $(".ipAddress-validation").mask("099.099.099.099");
     $(".percent-validation").mask("##0,00%", { reverse: true });
 
     // Manager Timepicker and Datepicker Icon to input
 
     $(".datepicker-done").on("click", function(event) {
-        var dateVal = $(".datepicker").val();
+        if ($(".datepicker").val() == ''){
+            var dateVal = new Date().toLocaleDateString();
+        } else {
+            var dateVal = $(".datepicker").val();
+        }
         $(".datepicker-control").val(dateVal);
     });
     $(".datepicker-clear").on("click", function(event) {

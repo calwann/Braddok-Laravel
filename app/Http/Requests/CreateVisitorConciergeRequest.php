@@ -27,18 +27,9 @@ class CreateVisitorConciergeRequest extends FormRequest
         return [
             'name' => ['required', new FullNameRule],
             'birth' => ['required', 'dateformat:d/m/Y'],
-            'phone' => 'required',
+            'phone' => ['required', 'min:14'],
             'identity' => ['required', 'numeric'],
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'name.required' => 'O campo Nome completo é obrigatório.',
-            'birth.required' => 'O campo Data de Nascimento é obrigatório.',
-            'phone.required' => 'O campo Telefone é obrigatório.',
-            'identity.required' => 'O campo Identidade é obrigatório.',
-        ];
-    }
 }

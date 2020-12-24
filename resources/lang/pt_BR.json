@@ -1,4 +1,6 @@
 {
+    "identity": "Identidade",
+
     "Name": "Nome",
     "E-Mail Address": "Email",
     "Password": "Senha",
