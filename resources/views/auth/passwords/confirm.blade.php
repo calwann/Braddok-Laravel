@@ -9,7 +9,7 @@
         <div class="row container">
             <div class="card hoverable col l8 offset-l2 m10 offset-m1 s12 no-padding">
                 <div class="card-action teal darken-1 white-text center-align hoverable">
-                    <h4>Braddok</h4>
+                    <h4 class="text-shadow-s">Braddok</h4>
                 </div>
                 <div class="card-action teal lighten-2 white-text hoverable">
                     <h5>{{ __('Confirm Password') }}</h5>

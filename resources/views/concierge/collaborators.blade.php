@@ -18,8 +18,8 @@
                             <select id="registerType" name="registerType">
                                 <option value="" disabled="disabled" {{ old('registerType') == '' ? 'selected' : '' }}>
                                 </option>
-                                <option value="1" {{ old('registerType') == '1' ? 'selected' : '' }}>Entrou</option>
-                                <option value="2" {{ old('registerType') == '2' ? 'selected' : '' }}>Saiu</option>
+                                <option value="1" {{ old('registerType') == '1' ? 'selected' : '' }}>Entrada</option>
+                                <option value="2" {{ old('registerType') == '2' ? 'selected' : '' }}>Saída</option>
                             </select>
                             <label for="registerType">Lançamento</label>
                         </div>

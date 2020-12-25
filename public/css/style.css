@@ -37,6 +37,10 @@ body {
         0 0 80px black, 0 0 120px black;
 }
 
+.text-shadow-s {
+    text-shadow: 2px 2px 2px black, 0 0 5px black, 0 0 10px black;
+}
+
 .pointer {
     cursor: pointer;
 }

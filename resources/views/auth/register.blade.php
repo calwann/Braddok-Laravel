@@ -9,7 +9,7 @@
         <div class="row container">
             <div class="card hoverable">
                 <div class="card-action teal darken-1 white-text center-align hoverable">
-                    <h4>Braddok</h4>
+                    <h4 class="text-shadow-s">Braddok</h4>
                 </div>
                 <div class="card-action teal lighten-2 white-text hoverable">
                     <h5>{{ __('Register') }}</h5>

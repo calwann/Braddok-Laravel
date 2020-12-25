@@ -1,4 +1,4 @@
-$("document").ready(function() {
+$(document).ready(function() {
     // Initialize and configure Materilize JS/JQuery functions
 
     $(".sidenav").sidenav();
@@ -236,10 +236,10 @@ $("document").ready(function() {
         var selected = document.querySelector(
             "div.in-out > div.select-wrapper > ul > li.selected > span"
         ).innerHTML;
-        if (selected == "Entrou") {
+        if (selected == "Entrada") {
             $(".out").removeClass("hide");
             $(".in").addClass("hide");
-        } else if (selected == "Saiu") {
+        } else if (selected == "Saída") {
             $(".in").removeClass("hide");
             $(".out").addClass("hide");
         }
@@ -249,14 +249,12 @@ $("document").ready(function() {
         var selected = document.querySelector(
             "div.in-out > div.select-wrapper > ul > li.selected > span"
         ).innerHTML;
-        if (selected == "Entrou") {
+        if (selected == "Entrada") {
             $(".out").removeClass("hide");
             $(".in").addClass("hide");
-        } else if (selected == "Saiu") {
+        } else if (selected == "Saída") {
             $(".in").removeClass("hide");
             $(".out").addClass("hide");
         }
     });
 });
-
-// document.querySelector("div.in-out > div.select-wrapper > ul > li.selected > span").innerHTML
