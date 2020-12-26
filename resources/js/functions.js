@@ -201,6 +201,7 @@ $(document).ready(function() {
     $(".cpf-validation").mask("000.000.000-00", { reverse: true });
     $(".cnpj-validation").mask("00.000.000/0000-00", { reverse: true });
     $(".money-validation").mask("#.##0,00", { reverse: true });
+    $(".number-validation").mask("#.##0", { reverse: true });
     $(".ipAddress-validation").mask("099.099.099.099");
     $(".percent-validation").mask("##0,00%", { reverse: true });
 
@@ -255,6 +256,22 @@ $(document).ready(function() {
         } else if (selected == "Saída") {
             $(".in").removeClass("hide");
             $(".out").addClass("hide");
+        }
+    });
+
+    // Manager dynamicly selects
+
+    $(".difference-set").on("input", function(event) {
+        var difference_set = $(".difference-set").val();
+        var difference_default = $(".difference-default").val();
+        var difference_result = difference_set.replaceAll(".", "") - difference_default.replaceAll(".", "");
+
+        $(".difference-result").val(difference_result.toString().replace(/(.)(?=(\d{3})+$)/g,'$1.') + " Km");
+
+        if (difference_result <= 10000 && difference_result >= -10) {
+            $(".difference-result").css({'border-bottom':'1px solid #4CAF50', 'box-shadow': 'box-shadow: 0 1px 0 0 #4CAF50'})
+        } else {
+            $(".difference-result").css({'border-bottom':'1px solid #F44336', 'box-shadow': 'box-shadow: 0 1px 0 0 #F44336'})
         }
     });
 });

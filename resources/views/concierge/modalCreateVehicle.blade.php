@@ -1,9 +1,9 @@
-<form method="POST" action="{{ route('concierge.createVehicleVisitor') }}">
+<form method="POST" action="{{ route('concierge.createVehicle') }}">
     @csrf
     <div id="modalCreateVisitorVehicle" class="modal hoverable">
         <div class="modal-content">
             <div class="row">
-                <h5>Cadastrar Veículo de Visitante</h5>
+                <h5>Cadastrar Viatura</h5>
             </div>
             <div class="divider"></div>
             <div class="row">

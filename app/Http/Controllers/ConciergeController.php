@@ -128,7 +128,17 @@ class ConciergeController extends Controller
      */
     public function vehicles()
     {
-        //
+        $users = User::all('id', 'patent', 'name', 'nickname');
+        foreach ($users as $user) {
+            $user['patent'] = Controller::patent($user['patent']);
+        }
+
+        $vehicles_in = array();
+        $vehicles_out = array();
+        $last_odometer = 10000;
+
+        return view('concierge/vehicles', compact('vehicles_in', 'vehicles_out', 'users', 'last_odometer'));
+    
     }
 
     /**

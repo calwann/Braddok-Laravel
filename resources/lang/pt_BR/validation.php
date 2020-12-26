@@ -186,6 +186,8 @@ return [
         'identity'  => 'identidade',
         'birth'     => 'data de nascimento',
         'usersId'   => 'militares',
+        'usersId_boss'   => 'chefe de viatura',
+        'usersId_driver'   => 'motorista',
         'visitorsId' => 'visitantes',
         'visitorsInId' => 'visitantes dentro',
         'visitorsOutId' => 'visitantes fora',
@@ -196,6 +198,8 @@ return [
         'licensePlate' => 'placa',
         'patent'    => 'posto/graduação',
         'nickname'  => 'nome de guerra',
+        'odometer'  => 'odômetro',
+        'last_odometer'  => 'último odômetro',
     ],
 
 ];

@@ -14,49 +14,51 @@
                 </div>
                 <div class="card-content hoverable">
                     <div class="row">
-                        <div class="input-field col m4 s12 in-out">
-                            <select id="registerType" name="registerType">
-                                <option value="" disabled="disabled" {{ old('registerType') == '' ? 'selected' : '' }}>
-                                </option>
-                                <option value="1" {{ old('registerType') == '1' ? 'selected' : '' }}>Entrada</option>
-                                <option value="2" {{ old('registerType') == '2' ? 'selected' : '' }}>Saída</option>
-                            </select>
-                            <label for="registerType">Lançamento</label>
-                        </div>
-                        <div class="input-field col m8 s12">
-                            <div class="in hide">
-                                <select multiple id="visitorsInId" name="visitorsInId[]">
-                                    @foreach ($visitors_in as $visitor)
-                                        <option value="{{ $visitor['id'] }}"{{ collect(old('visitorsInId'))->contains($visitor['id']) ? 'selected' : '' }}>{{ $visitor['name'] }} ({{ $visitor['identity'] }})</option>
-                                    @endforeach
+                        <div class="row" style="margin-bottom: 0px">
+                            <div class="input-field col m4 s12 in-out">
+                                <select id="registerType" name="registerType">
+                                    <option value="" disabled="disabled" {{ old('registerType') == '' ? 'selected' : '' }}>
+                                    </option>
+                                    <option value="1" {{ old('registerType') == '1' ? 'selected' : '' }}>Entrada</option>
+                                    <option value="2" {{ old('registerType') == '2' ? 'selected' : '' }}>Saída</option>
                                 </select>
-                                <label for="visitorsInId">Visitantes dentro</label>
+                                <label for="registerType">Lançamento</label>
                             </div>
-                            <div class="out hide">
-                                <select multiple id="visitorsOutId" name="visitorsOutId[]">
-                                    @foreach ($visitors_out as $visitor)
-                                        <option value="{{ $visitor['id'] }}"{{ collect(old('visitorsOutId'))->contains($visitor['id']) ? 'selected' : '' }}>{{ $visitor['name'] }} ({{ $visitor['identity'] }})</option>
-                                    @endforeach
-                                </select>
-                                <label for="visitorsOutId">Visitantes fora</label>
+                            <div class="input-field col m8 s12">
+                                <div class="in hide">
+                                    <select multiple id="visitorsInId" name="visitorsInId[]">
+                                        @foreach ($visitors_in as $visitor)
+                                            <option value="{{ $visitor['id'] }}"{{ collect(old('visitorsInId'))->contains($visitor['id']) ? 'selected' : '' }}>{{ $visitor['name'] }} ({{ $visitor['identity'] }})</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="visitorsInId">Visitantes dentro</label>
+                                </div>
+                                <div class="out hide">
+                                    <select multiple id="visitorsOutId" name="visitorsOutId[]">
+                                        @foreach ($visitors_out as $visitor)
+                                            <option value="{{ $visitor['id'] }}"{{ collect(old('visitorsOutId'))->contains($visitor['id']) ? 'selected' : '' }}>{{ $visitor['name'] }} ({{ $visitor['identity'] }})</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="visitorsOutId">Visitantes fora</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="input-field col s12">
-                            <div class="in hide">
-                                <select multiple id="vehicleVisitorsInId" name="vehicleVisitorsInId[]">
-                                    @foreach ($vehicle_visitors_in as $vehicle_visitor)
-                                        <option value="{{ $vehicle_visitor['id'] }}"{{ collect(old('visitorsId'))->contains($vehicle_visitor['id']) ? 'selected' : '' }}>{{ $vehicle_visitor['brand'] . " - " . $vehicle_visitor['model'] }} ({{ $vehicle_visitor['license_plate'] }})</option>
-                                    @endforeach
-                                </select>
-                                <label for="vehicleVisitorsInId">Veículos dentro</label>
-                            </div>
-                            <div class="out hide">
-                                <select multiple id="vehicleVisitorsOutId" name="vehicleVisitorsOutId[]">
-                                    @foreach ($vehicle_visitors_out as $vehicle_visitor)
-                                        <option value="{{ $vehicle_visitor['id'] }}"{{ collect(old('visitorsId'))->contains($vehicle_visitor['id']) ? 'selected' : '' }}>{{ $vehicle_visitor['brand'] . " - " . $vehicle_visitor['model'] }} ({{ $vehicle_visitor['license_plate'] }})</option>
-                                    @endforeach
-                                </select>
-                                <label for="vehicleVisitorsOutId">Veículos fora</label>
+                            <div class="input-field col s12">
+                                <div class="in hide">
+                                    <select multiple id="vehicleVisitorsInId" name="vehicleVisitorsInId[]">
+                                        @foreach ($vehicle_visitors_in as $vehicle_visitor)
+                                            <option value="{{ $vehicle_visitor['id'] }}"{{ collect(old('visitorsId'))->contains($vehicle_visitor['id']) ? 'selected' : '' }}>{{ $vehicle_visitor['brand'] . " - " . $vehicle_visitor['model'] }} ({{ $vehicle_visitor['license_plate'] }})</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="vehicleVisitorsInId">Veículos dentro</label>
+                                </div>
+                                <div class="out hide">
+                                    <select multiple id="vehicleVisitorsOutId" name="vehicleVisitorsOutId[]">
+                                        @foreach ($vehicle_visitors_out as $vehicle_visitor)
+                                            <option value="{{ $vehicle_visitor['id'] }}"{{ collect(old('visitorsId'))->contains($vehicle_visitor['id']) ? 'selected' : '' }}>{{ $vehicle_visitor['brand'] . " - " . $vehicle_visitor['model'] }} ({{ $vehicle_visitor['license_plate'] }})</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="vehicleVisitorsOutId">Veículos fora</label>
+                                </div>
                             </div>
                         </div>
                         <div class="input-field col m6 s12">
