@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Concierge_collaborator;
+use App\Concierge_vehicle;
 use App\Concierge_visitor;
 use App\Concierge_visitor_vehicle;
 use App\Http\Requests\CreateCollaboratorsConciergeRequest;
+use App\Http\Requests\createVehicleConciergeRequest;
+use App\Http\Requests\createVehiclesConciergeRequest;
 use App\Http\Requests\CreateVehicleVisitorConciergeRequest;
 use App\Http\Requests\CreateVisitorConciergeRequest;
 use App\Http\Requests\CreateVisitorsConciergeRequest;
 use App\Log;
+use App\Vehicle;
 use App\Vehicle_visitor;
 use App\Visitor;
 use Illuminate\Support\Facades\DB;
@@ -45,10 +49,26 @@ class ConciergeController extends Controller
      */
     public function collaborators($p = NULL)
     {
-        $users = User::all('id', 'patent', 'name', 'nickname');
+        $sql = "
+			select      id,
+                        patent,
+                        name,
+                        nickname
+            from        users
+            where       1 = 1 
+            and         _status = 'active'
+        ";
+
+        $users = collect(DB::select($sql))->map(function ($x) {
+            return (array) $x;
+        })->toArray();
+
+        $i = 0;
         foreach ($users as $user) {
-            $user['patent'] = Controller::patent($user['patent']);
+            $users[$i]['patent'] = Controller::patent($user['patent']);
+            $i++;
         }
+
         return view('concierge/collaborators', compact('users'));
     }
 
@@ -78,6 +98,7 @@ class ConciergeController extends Controller
 						) sub
             on          v.id = sub.visitor_id
             where       1 = 1 
+            and         _status = 'active'
         ";
 
         $visitors_in = collect(DB::select($sql . "and sub.type = 'in'"))->map(function ($x) {
@@ -108,6 +129,7 @@ class ConciergeController extends Controller
 						) sub
             on          v.id = sub.vehicle_visitor_id
             where       1 = 1 
+            and         _status = 'active'
         ";
 
         $vehicle_visitors_in = collect(DB::select($sql . "and sub.type = 'in'"))->map(function ($x) {
@@ -128,16 +150,60 @@ class ConciergeController extends Controller
      */
     public function vehicles()
     {
-        $users = User::all('id', 'patent', 'name', 'nickname');
+        $sql = "
+			select      id,
+                        patent,
+                        name,
+                        nickname
+            from        users
+            where       1 = 1 
+            and         _status = 'active'
+        ";
+
+        $users = collect(DB::select($sql))->map(function ($x) {
+            return (array) $x;
+        })->toArray();
+
+        $i = 0;
         foreach ($users as $user) {
-            $user['patent'] = Controller::patent($user['patent']);
+            $users[$i]['patent'] = Controller::patent($user['patent']);
+            $i++;
         }
 
-        $vehicles_in = array();
-        $vehicles_out = array();
-        $last_odometer = 10000;
+        $sql = "
+            select      v.id,
+                        v.brand,
+                        v.model,
+                        v.license_plate,
+                        sub.type,
+                        sub.odometer
+            from        vehicles v
+            left join   (select     id,
+                                    register_type,
+                                    vehicle_id,
+                                    odometer,
+                                    case    when register_type = 1 then 'in'
+                                            when register_type = 2 then 'out'
+                                    end type
+                        from        concierge_vehicles 
+                        where		id in (	select 		max(id)
+											from		concierge_vehicles
+											group by	vehicle_id)
+						) sub
+            on          v.id = sub.vehicle_id
+            where       1 = 1 
+            and         _status = 'active'
+        ";
 
-        return view('concierge/vehicles', compact('vehicles_in', 'vehicles_out', 'users', 'last_odometer'));
+        $vehicles_in = collect(DB::select($sql . "and sub.type = 'in' or sub.type is null"))->map(function ($x) {
+            return (array) $x;
+        })->toArray();
+
+        $vehicles_out = collect(DB::select($sql . "and sub.type = 'out'"))->map(function ($x) {
+            return (array) $x;
+        })->toArray();
+
+        return view('concierge/vehicles', compact('vehicles_in', 'vehicles_out', 'users'));
     
     }
 
@@ -284,5 +350,74 @@ class ConciergeController extends Controller
         Controller::registerLog('vehicle_visitors', $table_id, 'create');
 
         return redirect()->route('concierge.visitors')->with('status', 'Novo veículo de visitante cadastrado.');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function createVehicle(createVehicleConciergeRequest $request)
+    {
+        $data = $request->all();
+
+        $table_id = Vehicle::create([
+            'license_plate' => strtoupper($data['licensePlate']),
+            'type' => $data['type'],
+            'brand' => strtoupper($data['brand']),
+            'model' => strtoupper($data['model']),
+            '_status' => "active",
+        ])->id;
+        Controller::registerLog('vehicles', $table_id, 'create');
+
+        return redirect()->route('concierge.vehicles')->with('status', 'Nova viatura cadastrada.');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function createVehicles(createVehiclesConciergeRequest $request)
+    {
+        $data = $request->all();
+
+        if (!empty($data['vehiclesInId']) && !empty($data['vehiclesOutId'])) {
+
+            return redirect()->route('concierge.vehicles')->with('status', 'Laçamento inválido.');
+
+        } else if (!empty($data['vehiclesInId']) && $data['registerType'] == '2') {
+            
+            $table_id = Concierge_vehicle::create([
+                'register_type' => $data['registerType'],
+                'vehicle_id' => $data['vehiclesInId'],
+                'user_id_boss' => $data['usersId_boss'],
+                'user_id_driver' => $data['usersId_driver'],
+                'odometer' => str_replace('.', '', $data['odometer']),
+                'date_time' => Controller::strToDate($data['date']) . " " . $data['time'] . ":00",
+                '_status' => "active",
+            ])->id;
+            Controller::registerLog('concierge_vehicles', $table_id, 'create');
+
+        } else if (!empty($data['vehiclesOutId']) && $data['registerType'] == '1') {
+            
+            $table_id = Concierge_vehicle::create([
+                'register_type' => $data['registerType'],
+                'vehicle_id' => $data['vehiclesOutId'],
+                'user_id_boss' => $data['usersId_boss'],
+                'user_id_driver' => $data['usersId_driver'],
+                'odometer' => str_replace('.', '', $data['odometer']),
+                'date_time' => Controller::strToDate($data['date']) . " " . $data['time'] . ":00",
+                '_status' => "active",
+            ])->id;
+            Controller::registerLog('concierge_vehicles', $table_id, 'create');
+
+        } else {
+            return redirect()->route('concierge.vehicles')->with('status', 'Laçamento inválido.');
+        }
+
+        return redirect()->route('concierge.vehicles')->with('status', 'Laçamento de viatura realizado.');
     }
 }

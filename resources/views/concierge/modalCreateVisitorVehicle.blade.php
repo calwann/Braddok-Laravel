@@ -10,8 +10,8 @@
                 <div class="input-field col s12 m6">
                     <select id="type" name="type">
                         <option value="" disabled="disabled" {{ old('type') == '' ? 'selected' : '' }}></option>
-                        <option value="carro" {{ old('type') == '1' ? 'selected' : '' }}>Carro</option>
-                        <option value="moto" {{ old('type') == '2' ? 'selected' : '' }}>Moto</option>
+                        <option value="carro" {{ old('type') == 'carro' ? 'selected' : '' }}>Carro</option>
+                        <option value="moto" {{ old('type') == 'moto' ? 'selected' : '' }}>Moto</option>
                     </select>
                     <label for="type">Tipo</label>
                 </div>

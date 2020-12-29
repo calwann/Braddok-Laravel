@@ -46,7 +46,7 @@
                                 <div class="in hide">
                                     <select multiple id="vehicleVisitorsInId" name="vehicleVisitorsInId[]">
                                         @foreach ($vehicle_visitors_in as $vehicle_visitor)
-                                            <option value="{{ $vehicle_visitor['id'] }}"{{ collect(old('visitorsId'))->contains($vehicle_visitor['id']) ? 'selected' : '' }}>{{ $vehicle_visitor['brand'] . " - " . $vehicle_visitor['model'] }} ({{ $vehicle_visitor['license_plate'] }})</option>
+                                            <option value="{{ $vehicle_visitor['id'] }}"{{ collect(old('vehicleVisitorsInId'))->contains($vehicle_visitor['id']) ? 'selected' : '' }}>{{ $vehicle_visitor['brand'] . " - " . $vehicle_visitor['model'] }} ({{ $vehicle_visitor['license_plate'] }})</option>
                                         @endforeach
                                     </select>
                                     <label for="vehicleVisitorsInId">Veículos dentro</label>
@@ -54,7 +54,7 @@
                                 <div class="out hide">
                                     <select multiple id="vehicleVisitorsOutId" name="vehicleVisitorsOutId[]">
                                         @foreach ($vehicle_visitors_out as $vehicle_visitor)
-                                            <option value="{{ $vehicle_visitor['id'] }}"{{ collect(old('visitorsId'))->contains($vehicle_visitor['id']) ? 'selected' : '' }}>{{ $vehicle_visitor['brand'] . " - " . $vehicle_visitor['model'] }} ({{ $vehicle_visitor['license_plate'] }})</option>
+                                            <option value="{{ $vehicle_visitor['id'] }}"{{ collect(old('vehicleVisitorsOutId'))->contains($vehicle_visitor['id']) ? 'selected' : '' }}>{{ $vehicle_visitor['brand'] . " - " . $vehicle_visitor['model'] }} ({{ $vehicle_visitor['license_plate'] }})</option>
                                         @endforeach
                                     </select>
                                     <label for="vehicleVisitorsOutId">Veículos fora</label>

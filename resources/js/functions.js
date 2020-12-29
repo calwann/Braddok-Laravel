@@ -218,7 +218,6 @@ $(document).ready(function() {
     $(".datepicker-clear").on("click", function(event) {
         $(".datepicker-control").val("");
     });
-
     $(".timepicker-close").on("click", function(event) {
         var timeVal = $(".timepicker").val();
         $(".timepicker-control").val(timeVal);
@@ -259,7 +258,7 @@ $(document).ready(function() {
         }
     });
 
-    // Manager dynamicly selects
+    // Manager dynamicly sum of inputs
 
     $(".difference-set").on("input", function(event) {
         var difference_set = $(".difference-set").val();
@@ -274,4 +273,59 @@ $(document).ready(function() {
             $(".difference-result").css({'border-bottom':'1px solid #F44336', 'box-shadow': 'box-shadow: 0 1px 0 0 #F44336'})
         }
     });
+
+    // Manager dynamicly odometer input
+
+    var odometerInSelect = document.querySelector(
+        "div.odometerIn div.select-wrapper ul li"
+    );
+
+    var odometerOutSelect = document.querySelector(
+        "div.odometerOut div.select-wrapper ul li"
+    );
+
+    if (odometerInSelect.innerHTML != "") {
+        var odometer = $("div.odometerIn div.select-wrapper ul li.selected span")[0]; // saida
+
+        var odometerIni = odometer.innerText.lastIndexOf("(") + 1;
+        var odometerEnd = odometer.innerText.lastIndexOf(")") - odometerIni;
+        odometer.innerText.substr(odometerIni, odometerEnd);
+        var odometerValue = odometer.innerText.substr(odometerIni, odometerEnd);
+
+        $("#last_odometer").val(odometerValue.replace(/(.)(?=(\d{3})+$)/g,'$1.'));
+    } 
+    
+    if (odometerOutSelect.innerHTML != "") {
+        var odometer = $("div.odometerOut div.select-wrapper ul li.selected span")[0]; // entrada
+
+        var odometerIni = odometer.innerText.lastIndexOf("(") + 1;
+        var odometerEnd = odometer.innerText.lastIndexOf(")") - odometerIni;
+        odometer.innerText.substr(odometerIni, odometerEnd);
+        var odometerValue = odometer.innerText.substr(odometerIni, odometerEnd);
+
+        $("#last_odometer").val(odometerValue.replace(/(.)(?=(\d{3})+$)/g,'$1.'));
+    }
+
+    $("div.odometerIn div.select-wrapper ul li").on("click", function(event) {
+        var odometer = $("div.odometerIn div.select-wrapper ul li.selected span")[0]; // saida
+
+        var odometerIni = odometer.innerText.lastIndexOf("(") + 1;
+        var odometerEnd = odometer.innerText.lastIndexOf(")") - odometerIni;
+        odometer.innerText.substr(odometerIni, odometerEnd);
+        var odometerValue = odometer.innerText.substr(odometerIni, odometerEnd);
+
+        $("#last_odometer").val(odometerValue.replace(/(.)(?=(\d{3})+$)/g,'$1.'));
+    });
+
+    $("div.odometerOut div.select-wrapper ul li").on("click", function(event) {
+        var odometer = $("div.odometerOut div.select-wrapper ul li.selected span")[0]; // entrada
+
+        var odometerIni = odometer.innerText.lastIndexOf("(") + 1;
+        var odometerEnd = odometer.innerText.lastIndexOf(")") - odometerIni;
+        odometer.innerText.substr(odometerIni, odometerEnd);
+        var odometerValue = odometer.innerText.substr(odometerIni, odometerEnd);
+
+        $("#last_odometer").val(odometerValue.replace(/(.)(?=(\d{3})+$)/g,'$1.'));
+    });
+
 });

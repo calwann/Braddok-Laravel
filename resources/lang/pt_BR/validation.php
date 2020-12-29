@@ -149,7 +149,7 @@ return [
 
     'attributes' => [
         'address'   => 'endereço',
-        'district'  => 'Bairoo',
+        'district'  => 'bairro',
         'age'       => 'idade',
         'body'      => 'conteúdo',
         'cell'      => 'celular',

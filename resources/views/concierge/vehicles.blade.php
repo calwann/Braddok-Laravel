@@ -24,29 +24,29 @@
                                 <label for="registerType">Lançamento</label>
                             </div>
                             <div class="input-field col m8 s12">
-                                <div class="in hide">
-                                    <select id="vehicleId" name="vehicleId">
-                                        <option value="" disabled="disabled" {{ old('registerType') == '' ? 'selected' : '' }}></option>
+                                <div class="in hide odometerIn">
+                                    <select id="vehiclesInId" name="vehiclesInId">
+                                        <option value="" disabled="disabled" {{ old('vehiclesInId') == '' ? 'selected' : '' }}></option>
                                         @foreach ($vehicles_in as $vehicle)
-                                            <option value="{{ $vehicle['id'] }}"{{ collect(old('vehicleId'))->contains($vehicle['id']) ? 'selected' : '' }}>{{ $vehicle['brand'] . " - " . $vehicle['model'] }} ({{ $vehicle['license_plate'] }})</option>
+                                            <option value="{{ $vehicle['id'] }}"{{ collect(old('vehiclesInId'))->contains($vehicle['id']) ? 'selected' : '' }}>{{ $vehicle['brand'] . " - " . $vehicle['model'] }} ({{ $vehicle['license_plate'] }}) ({{ $vehicle['odometer'] }})</option>
                                         @endforeach
                                     </select>
-                                    <label for="vehicleId">Viaturas dentro</label>
+                                    <label for="vehiclesInId">Viaturas dentro</label>
                                 </div>
-                                <div class="out hide">
-                                    <select id="vehicleId" name="vehicleId">
-                                        <option value="" disabled="disabled" {{ old('registerType') == '' ? 'selected' : '' }}></option>
+                                <div class="out hide odometerOut">
+                                    <select id="vehiclesOutId" name="vehiclesOutId">
+                                        <option value="" disabled="disabled" {{ old('vehiclesOutId') == '' ? 'selected' : '' }}></option>
                                         @foreach ($vehicles_out as $vehicle)
-                                            <option value="{{ $vehicle['id'] }}"{{ collect(old('vehicleId'))->contains($vehicle['id']) ? 'selected' : '' }}>{{ $vehicle['brand'] . " - " . $vehicle['model'] }} ({{ $vehicle['license_plate'] }})</option>
+                                            <option value="{{ $vehicle['id'] }}"{{ collect(old('vehiclesOutId'))->contains($vehicle['id']) ? 'selected' : '' }}>{{ $vehicle['brand'] . " - " . $vehicle['model'] }} ({{ $vehicle['license_plate'] }}) ({{ $vehicle['odometer'] }})</option>
                                         @endforeach
                                     </select>
-                                    <label for="vehicleId">Viaturas fora</label>
+                                    <label for="vehiclesOutId">Viaturas fora</label>
                                 </div>
                             </div>
                         </div>
                         <div class="input-field col m4 s12">
-                            <input disabled id="last_odometer" type="text" class="validate number-validation difference-default" name="last_odometer" value="{{ $last_odometer }}">
-                            <label for="last_odometer">Ultimo odômetro</label>
+                            <input disabled id="last_odometer" type="text" class="validate number-validation difference-default" name="last_odometer" value="0">
+                            <label for="last_odometer" class="active">Ultimo odômetro</label>
                         </div>
                         <div class="input-field col m4 s12">
                             <input id="odometer" type="text" class="validate counter number-validation difference-set" name="odometer" value="{{ old('odometer') }}" data-length="9">
@@ -58,7 +58,7 @@
                         </div>
                         <div class="input-field col m6 s12">
                             <select id="usersId_boss" name="usersId_boss">
-                                <option value="" disabled="disabled" {{ old('registerType') == '' ? 'selected' : '' }}></option>
+                                <option value="" disabled="disabled" {{ old('usersId_boss') == '' ? 'selected' : '' }}></option>
                                 @foreach ($users as $user)
                                     <option value="{{ $user['id'] }}"{{ collect(old('usersId_boss'))->contains($user['id']) ? 'selected' : '' }}>{{ $user['patent'] }} - {{ $user['name'] }} ({{ $user['nickname'] }})</option>
                                 @endforeach
@@ -67,7 +67,7 @@
                         </div>
                         <div class="input-field col m6 s12">
                             <select id="usersId_driver" name="usersId_driver">
-                                <option value="" disabled="disabled" {{ old('registerType') == '' ? 'selected' : '' }}></option>
+                                <option value="" disabled="disabled" {{ old('usersId_driver') == '' ? 'selected' : '' }}></option>
                                 @foreach ($users as $user)
                                     <option value="{{ $user['id'] }}"{{ collect(old('usersId_driver'))->contains($user['id']) ? 'selected' : '' }}>{{ $user['patent'] }} - {{ $user['name'] }} ({{ $user['nickname'] }})</option>
                                 @endforeach

@@ -12,14 +12,14 @@ const mix = require("laravel-mix");
  */
 
 mix
-    // Materialize
-    .js("node_modules/materialize-css/dist/js/materialize.min.js", "public/js")
-    .sass("node_modules/materialize-css/sass/materialize.scss", "public/css")
-
     // Bootstrap
     //.js("resources/js/app.js", "public/js")
     //.sass("resources/sass/app.scss", "public/css")
 
+    // Materialize
+    .js("node_modules/materialize-css/dist/js/materialize.min.js", "public/js")
+    .sass("node_modules/materialize-css/sass/materialize.scss", "public/css")
+
     // CSS and JS
     .styles("resources/css/style.css", "public/css/style.css")
-    .styles("resources/js/functions.js", "public/js/functions.js");
+    .js("resources/js/functions.js", "public/js/functions.js");

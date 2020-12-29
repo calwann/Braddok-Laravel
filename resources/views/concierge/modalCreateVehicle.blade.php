@@ -1,6 +1,6 @@
 <form method="POST" action="{{ route('concierge.createVehicle') }}">
     @csrf
-    <div id="modalCreateVisitorVehicle" class="modal hoverable">
+    <div id="modalCreateVehicle" class="modal hoverable">
         <div class="modal-content">
             <div class="row">
                 <h5>Cadastrar Viatura</h5>
@@ -10,8 +10,11 @@
                 <div class="input-field col s12 m6">
                     <select id="type" name="type">
                         <option value="" disabled="disabled" {{ old('type') == '' ? 'selected' : '' }}></option>
-                        <option value="carro" {{ old('type') == '1' ? 'selected' : '' }}>Carro</option>
-                        <option value="moto" {{ old('type') == '2' ? 'selected' : '' }}>Moto</option>
+                        <option value="carro" {{ old('type') == 'carro' ? 'selected' : '' }}>Carro</option>
+                        <option value="caminhao" {{ old('type') == 'caminhao' ? 'selected' : '' }}>Caminhão</option>
+                        <option value="van" {{ old('type') == 'van' ? 'selected' : '' }}>Van</option>
+                        <option value="onibus" {{ old('type') == 'onibus' ? 'selected' : '' }}>Ônibus</option>
+                        <option value="trator" {{ old('type') == 'trator' ? 'selected' : '' }}>Trator</option>
                     </select>
                     <label for="type">Tipo</label>
                 </div>
@@ -26,7 +29,7 @@
                     <label for="model">Modelo</label>
                 </div>
                 <div class="input-field col s12 m6">
-                    <input id="licensePlate" type="text" class="validate text-upper licensePlate-validation"
+                    <input id="licensePlate" type="text" class="validate text-upper"
                         name="licensePlate" value="{{ old('licensePlate') }}">
                     <label for="licensePlate">Placa</label>
                 </div>
