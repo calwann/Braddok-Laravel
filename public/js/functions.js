@@ -291,68 +291,56 @@ $(document).ready(function () {
       $(".in").removeClass("hide");
       $(".out").addClass("hide");
     }
-  }); // Manager dynamicly sum of inputs
-
-  $(".difference-set").on("input", function (event) {
-    var difference_set = $(".difference-set").val();
-    var difference_default = $(".difference-default").val();
-    var difference_result = difference_set.replaceAll(".", "") - difference_default.replaceAll(".", "");
-    $(".difference-result").val(difference_result.toString().replace(/(.)(?=(\d{3})+$)/g, "$1.") + " Km");
-
-    if (difference_result <= 10000 && difference_result >= -10) {
-      $(".difference-result").css({
-        "border-bottom": "1px solid #4CAF50",
-        "box-shadow": "box-shadow: 0 1px 0 0 #4CAF50"
-      });
-    } else {
-      $(".difference-result").css({
-        "border-bottom": "1px solid #F44336",
-        "box-shadow": "box-shadow: 0 1px 0 0 #F44336"
-      });
-    }
   }); // Manager dynamicly odometer input
 
-  var odometerInSelect = document.querySelector("div.odometerIn div.select-wrapper ul li");
-  var odometerOutSelect = document.querySelector("div.odometerOut div.select-wrapper ul li");
-
-  if (odometerInSelect.innerHTML != "") {
-    var odometer = $("div.odometerIn div.select-wrapper ul li.selected span")[0]; // saida
-
-    var odometerIni = odometer.innerText.lastIndexOf("(") + 1;
-    var odometerEnd = odometer.innerText.lastIndexOf(")") - odometerIni;
-    odometer.innerText.substr(odometerIni, odometerEnd);
-    var odometerValue = odometer.innerText.substr(odometerIni, odometerEnd);
-    $("#last_odometer").val(odometerValue.replace(/(.)(?=(\d{3})+$)/g, "$1."));
+  if (document.querySelector("div.odometerOut div.select-wrapper ul li").className == "disabled selected") {//$().odometerCalculator();
   }
 
-  if (odometerOutSelect.innerHTML != "") {
-    var odometer = $("div.odometerOut div.select-wrapper ul li.selected span")[0]; // entrada
-
-    var odometerIni = odometer.innerText.lastIndexOf("(") + 1;
-    var odometerEnd = odometer.innerText.lastIndexOf(")") - odometerIni;
-    odometer.innerText.substr(odometerIni, odometerEnd);
-    var odometerValue = odometer.innerText.substr(odometerIni, odometerEnd);
-    $("#last_odometer").val(odometerValue.replace(/(.)(?=(\d{3})+$)/g, "$1."));
+  if (document.querySelector("div.odometerOut div.select-wrapper ul li").className == "disabled selected") {//$().odometerCalculator();
   }
 
-  $("div.odometerIn div.select-wrapper ul li").on("click", function (event) {
-    var odometer = $("div.odometerIn div.select-wrapper ul li.selected span")[0]; // saida
-
-    var odometerIni = odometer.innerText.lastIndexOf("(") + 1;
-    var odometerEnd = odometer.innerText.lastIndexOf(")") - odometerIni;
-    odometer.innerText.substr(odometerIni, odometerEnd);
-    var odometerValue = odometer.innerText.substr(odometerIni, odometerEnd);
-    $("#last_odometer").val(odometerValue.replace(/(.)(?=(\d{3})+$)/g, "$1."));
+  $("div.odometerIn div.select-wrapper ul li").on("click", function (event) {//$().odometerCalculator($("div.odometerIn div.select-wrapper ul li.selected span")[0].innerText);
   });
-  $("div.odometerOut div.select-wrapper ul li").on("click", function (event) {
-    var odometer = $("div.odometerOut div.select-wrapper ul li.selected span")[0]; // entrada
+  $("div.odometerOut div.select-wrapper ul li").on("click", function (event) {//$().odometerCalculator($("div.odometerOut div.select-wrapper ul li.selected span")[0].innerText);
+  }); // Manager dynamicly difference value of inputs
 
-    var odometerIni = odometer.innerText.lastIndexOf("(") + 1;
-    var odometerEnd = odometer.innerText.lastIndexOf(")") - odometerIni;
-    odometer.innerText.substr(odometerIni, odometerEnd);
-    var odometerValue = odometer.innerText.substr(odometerIni, odometerEnd);
-    $("#last_odometer").val(odometerValue.replace(/(.)(?=(\d{3})+$)/g, "$1."));
+  if ($(".difference-set").val() != "") {
+    $().differenceValue(".difference");
+  }
+
+  $(".difference-set").on("input", function () {
+    $().differenceValue(".difference");
   });
+});
+$(function () {
+  // Manager dynamicly odometer input
+  $.fn.odometerCalculator = function (p) {
+    var odometerIni = p.lastIndexOf("(") + 1;
+    var odometerEnd = p.lastIndexOf(")") - odometerIni;
+    p.substr(odometerIni, odometerEnd);
+    var odometerValue = p.substr(odometerIni, odometerEnd);
+    $("#last_odometer").val(odometerValue.replace(/(.)(?=(\d{3})+$)/g, '$1.'));
+  }; // Manager dynamicly difference value of inputs
+
+
+  $.fn.differenceValue = function (p) {
+    var difference_set = $(p + "-set").val();
+    var difference_default = $(p + "-default").val();
+    var difference_result = difference_set.replaceAll(".", "") - difference_default.replaceAll(".", "");
+    $(p + "-result").val(difference_result.toString().replace(/(.)(?=(\d{3})+$)/g, '$1.') + " Km");
+
+    if (difference_result <= 10000 && difference_result >= -10) {
+      $(p + "-result").css({
+        'border-bottom': '1px solid #4CAF50',
+        'box-shadow': 'box-shadow: 0 1px 0 0 #4CAF50'
+      });
+    } else {
+      $(p + "-result").css({
+        'border-bottom': '1px solid #F44336',
+        'box-shadow': 'box-shadow: 0 1px 0 0 #F44336'
+      });
+    }
+  };
 });
 
 /***/ }),

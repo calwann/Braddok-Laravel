@@ -6,6 +6,12 @@ body {
     background-attachment: fixed;
 }
 
+.container {
+    margin: 0 auto;
+    max-width: 1400px;
+    width: 95%;
+}
+
 @media only screen and (max-width: 992px) {
     body {
         background-size: 400%;
