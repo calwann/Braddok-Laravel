@@ -26,7 +26,7 @@
                             <div class="input-field col m8 s12">
                                 <div class="in hide odometerIn">
                                     <select id="vehiclesInId" name="vehiclesInId">
-                                        <option value="" disabled="disabled" {{ old('vehiclesInId') == '' ? 'selected' : '' }}></option>
+                                        <option value="" {{ old('vehiclesInId') == '' ? 'selected' : '' }}></option>
                                         @foreach ($vehicles_in as $vehicle)
                                             <option value="{{ $vehicle['id'] }}"{{ collect(old('vehiclesInId'))->contains($vehicle['id']) ? 'selected' : '' }}>{{ $vehicle['brand'] . " - " . $vehicle['model'] }} ({{ $vehicle['license_plate'] }}) ({{ $vehicle['odometer'] }})</option>
                                         @endforeach
@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="out hide odometerOut">
                                     <select id="vehiclesOutId" name="vehiclesOutId">
-                                        <option value="" disabled="disabled" {{ old('vehiclesOutId') == '' ? 'selected' : '' }}></option>
+                                        <option value="" {{ old('vehiclesOutId') == '' ? 'selected' : '' }}></option>
                                         @foreach ($vehicles_out as $vehicle)
                                             <option value="{{ $vehicle['id'] }}"{{ collect(old('vehiclesOutId'))->contains($vehicle['id']) ? 'selected' : '' }}>{{ $vehicle['brand'] . " - " . $vehicle['model'] }} ({{ $vehicle['license_plate'] }}) ({{ $vehicle['odometer'] }})</option>
                                         @endforeach

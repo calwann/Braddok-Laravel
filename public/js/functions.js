@@ -93,6 +93,49 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+$(function () {
+  // Manager dynamicly selects
+  $.fn.selectInOut = function (p) {
+    var selected = document.querySelector("div.in-out > div.select-wrapper > ul > li.selected > span").innerHTML;
+
+    if (selected == "Entrada") {
+      $(".out").removeClass("hide");
+      $(".in").addClass("hide");
+    } else if (selected == "Saída") {
+      $(".in").removeClass("hide");
+      $(".out").addClass("hide");
+    }
+  }; // Manager dynamicly odometer input
+
+
+  $.fn.odometerCalculator = function (p) {
+    var odometerIni = p.lastIndexOf("(") + 1;
+    var odometerEnd = p.lastIndexOf(")") - odometerIni;
+    p.substr(odometerIni, odometerEnd);
+    var odometerValue = p.substr(odometerIni, odometerEnd);
+    $("#last_odometer").val(odometerValue.replace(/(.)(?=(\d{3})+$)/g, '$1.'));
+  }; // Manager dynamicly difference value of inputs
+
+
+  $.fn.differenceValue = function (p) {
+    var difference_set = $(p + "-set").val();
+    var difference_default = $(p + "-default").val();
+    var difference_result = difference_set.replaceAll(".", "") - difference_default.replaceAll(".", "");
+    $(p + "-result").val(difference_result.toString().replace(/(.)(?=(\d{3})+$)/g, '$1.') + " Km");
+
+    if (difference_result <= 10000 && difference_result >= -10) {
+      $(p + "-result").css({
+        'border-bottom': '1px solid #4CAF50',
+        'box-shadow': 'box-shadow: 0 1px 0 0 #4CAF50'
+      });
+    } else {
+      $(p + "-result").css({
+        'border-bottom': '1px solid #F44336',
+        'box-shadow': 'box-shadow: 0 1px 0 0 #F44336'
+      });
+    }
+  };
+});
 $(document).ready(function () {
   // Initialize and configure Materilize JS/JQuery functions
   $(".sidenav").sidenav();
@@ -269,78 +312,42 @@ $(document).ready(function () {
 
   var select = document.querySelector("div.in-out > div.select-wrapper > ul > li.selected > span");
 
-  if (select.innerHTML != "") {
-    var selected = document.querySelector("div.in-out > div.select-wrapper > ul > li.selected > span").innerHTML;
-
-    if (selected == "Entrada") {
-      $(".out").removeClass("hide");
-      $(".in").addClass("hide");
-    } else if (selected == "Saída") {
-      $(".in").removeClass("hide");
-      $(".out").addClass("hide");
+  if (select != null) {
+    if (select.innerHTML != "") {
+      $().selectInOut();
     }
   }
 
-  $("div.in-out div.select-wrapper ul li").on("click", function (event) {
-    var selected = document.querySelector("div.in-out > div.select-wrapper > ul > li.selected > span").innerHTML;
-
-    if (selected == "Entrada") {
-      $(".out").removeClass("hide");
-      $(".in").addClass("hide");
-    } else if (selected == "Saída") {
-      $(".in").removeClass("hide");
-      $(".out").addClass("hide");
-    }
+  $("div.in-out div.select-wrapper ul li").on("click", function () {
+    $().selectInOut();
   }); // Manager dynamicly odometer input
 
-  if (document.querySelector("div.odometerOut div.select-wrapper ul li").className == "disabled selected") {//$().odometerCalculator();
+  if (document.querySelector("div.odometerIn div.select-wrapper ul li") != null && document.querySelector("div.odometerOut div.select-wrapper ul li") != null) {
+    if (document.querySelector("div.odometerIn div.select-wrapper ul li").className == "disabled selected" && document.querySelector("div.odometerOut div.select-wrapper ul li").className != "disabled selected") {
+      $().odometerCalculator($("div.odometerIn div.select-wrapper ul li.selected span")[0].innerText);
+    }
+
+    if (document.querySelector("div.odometerOut div.select-wrapper ul li").className == "disabled selected" && document.querySelector("div.odometerIn div.select-wrapper ul li").className != "disabled selected") {
+      $().odometerCalculator($("div.odometerOut div.select-wrapper ul li.selected span")[0].innerText);
+    }
   }
 
-  if (document.querySelector("div.odometerOut div.select-wrapper ul li").className == "disabled selected") {//$().odometerCalculator();
-  }
-
-  $("div.odometerIn div.select-wrapper ul li").on("click", function (event) {//$().odometerCalculator($("div.odometerIn div.select-wrapper ul li.selected span")[0].innerText);
+  $("div.odometerIn div.select-wrapper ul li").on("click", function () {
+    $().odometerCalculator($("div.odometerIn div.select-wrapper ul li.selected span")[0].innerText);
   });
-  $("div.odometerOut div.select-wrapper ul li").on("click", function (event) {//$().odometerCalculator($("div.odometerOut div.select-wrapper ul li.selected span")[0].innerText);
+  $("div.odometerOut div.select-wrapper ul li").on("click", function () {
+    $().odometerCalculator($("div.odometerOut div.select-wrapper ul li.selected span")[0].innerText);
   }); // Manager dynamicly difference value of inputs
 
-  if ($(".difference-set").val() != "") {
-    $().differenceValue(".difference");
+  if ($(".difference-set").length > 0) {
+    if ($(".difference-set").val() != "") {
+      $().differenceValue(".difference");
+    }
   }
 
   $(".difference-set").on("input", function () {
     $().differenceValue(".difference");
   });
-});
-$(function () {
-  // Manager dynamicly odometer input
-  $.fn.odometerCalculator = function (p) {
-    var odometerIni = p.lastIndexOf("(") + 1;
-    var odometerEnd = p.lastIndexOf(")") - odometerIni;
-    p.substr(odometerIni, odometerEnd);
-    var odometerValue = p.substr(odometerIni, odometerEnd);
-    $("#last_odometer").val(odometerValue.replace(/(.)(?=(\d{3})+$)/g, '$1.'));
-  }; // Manager dynamicly difference value of inputs
-
-
-  $.fn.differenceValue = function (p) {
-    var difference_set = $(p + "-set").val();
-    var difference_default = $(p + "-default").val();
-    var difference_result = difference_set.replaceAll(".", "") - difference_default.replaceAll(".", "");
-    $(p + "-result").val(difference_result.toString().replace(/(.)(?=(\d{3})+$)/g, '$1.') + " Km");
-
-    if (difference_result <= 10000 && difference_result >= -10) {
-      $(p + "-result").css({
-        'border-bottom': '1px solid #4CAF50',
-        'box-shadow': 'box-shadow: 0 1px 0 0 #4CAF50'
-      });
-    } else {
-      $(p + "-result").css({
-        'border-bottom': '1px solid #F44336',
-        'box-shadow': 'box-shadow: 0 1px 0 0 #F44336'
-      });
-    }
-  };
 });
 
 /***/ }),
