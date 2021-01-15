@@ -55,7 +55,7 @@ class ConciergeController extends Controller
                         name,
                         nickname
             from        users
-            where       1 = 1 
+            where       1 = 1
             and         _status = 'active'
         ";
 
@@ -97,7 +97,7 @@ class ConciergeController extends Controller
 											group by	visitor_id)
 						) sub
             on          v.id = sub.visitor_id
-            where       1 = 1 
+            where       1 = 1
             and         _status = 'active'
         ";
 
@@ -122,13 +122,13 @@ class ConciergeController extends Controller
                                     case    when register_type = 1 then 'in'
                                             when register_type = 2 then 'out'
                                     end type
-                        from        concierge_visitor_vehicles 
+                        from        concierge_visitor_vehicles
                         where		id in (	select 		max(id)
 											from		concierge_visitor_vehicles
 											group by	vehicle_visitor_id)
 						) sub
             on          v.id = sub.vehicle_visitor_id
-            where       1 = 1 
+            where       1 = 1
             and         _status = 'active'
         ";
 
@@ -156,7 +156,7 @@ class ConciergeController extends Controller
                         name,
                         nickname
             from        users
-            where       1 = 1 
+            where       1 = 1
             and         _status = 'active'
         ";
 
@@ -185,13 +185,13 @@ class ConciergeController extends Controller
                                     case    when register_type = 1 then 'in'
                                             when register_type = 2 then 'out'
                                     end type
-                        from        concierge_vehicles 
+                        from        concierge_vehicles
                         where		id in (	select 		max(id)
 											from		concierge_vehicles
 											group by	vehicle_id)
 						) sub
             on          v.id = sub.vehicle_id
-            where       1 = 1 
+            where       1 = 1
             and         _status = 'active'
         ";
 
@@ -204,7 +204,7 @@ class ConciergeController extends Controller
         })->toArray();
 
         return view('concierge/vehicles', compact('vehicles_in', 'vehicles_out', 'users'));
-    
+
     }
 
     /**
@@ -256,7 +256,7 @@ class ConciergeController extends Controller
             return redirect()->route('concierge.visitors')->with('status', 'Laçamento inválido.');
 
         } else if (!empty($data['visitorsInId']) && $data['registerType'] == '2' && empty($data['vehicleVisitorsOutId'])) {
-            
+
             foreach ($data['visitorsInId'] as $val) {
                 $table_id = Concierge_visitor::create([
                     'register_type' => $data['registerType'],
@@ -279,7 +279,7 @@ class ConciergeController extends Controller
                 }
             }
         } else if (!empty($data['visitorsOutId']) && $data['registerType'] == '1' && empty($data['vehicleVisitorsInId'])) {
-            
+
             foreach ($data['visitorsOutId'] as $val) {
                 $table_id = Concierge_visitor::create([
                     'register_type' => $data['registerType'],
@@ -389,7 +389,7 @@ class ConciergeController extends Controller
             return redirect()->route('concierge.vehicles')->with('status', 'Laçamento inválido.');
 
         } else if (!empty($data['vehiclesInId']) && $data['registerType'] == '2') {
-            
+
             $table_id = Concierge_vehicle::create([
                 'register_type' => $data['registerType'],
                 'vehicle_id' => $data['vehiclesInId'],
@@ -402,7 +402,7 @@ class ConciergeController extends Controller
             Controller::registerLog('concierge_vehicles', $table_id, 'create');
 
         } else if (!empty($data['vehiclesOutId']) && $data['registerType'] == '1') {
-            
+
             $table_id = Concierge_vehicle::create([
                 'register_type' => $data['registerType'],
                 'vehicle_id' => $data['vehiclesOutId'],
