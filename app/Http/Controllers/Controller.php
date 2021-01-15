@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Controller extends BaseController
 {
@@ -21,6 +22,23 @@ class Controller extends BaseController
             'table_id' => $table_id,
             'log' => $log,
         ]);
+    }
+
+    public static function cur_date($type = "date")
+    {
+        if ($type == "date") {
+            $sql = "select curdate()";
+        } else if ($type == "datetime") {
+            $sql = "select now()";
+        } else if ($type == "dayofweek") {
+            $sql = "select dayofweek(NOW())";
+        } else if ($type == "time") {
+            $sql = "select time(NOW())";
+        }
+
+        return collect(DB::select($sql))->map(function ($x) {
+            return (array) $x;
+        })->toArray()[0]["curdate()"];
     }
 
     public static function patent($p)

@@ -5,7 +5,7 @@
 @section('back', 'home.index')
 
 @section('content')
- <form method="POST" action="{{ route('concierge.createCollaborators') }}">
+    <form method="POST" action="{{ route('concierge.createCollaborators') }}">
         @csrf
         <div class="row container">
             <div class="card hoverable">

@@ -12,64 +12,34 @@
                 <div class="card-action teal darken-1 white-text hoverable">
                     <h5>Arranchamento</h5>
                 </div>
-
                 <div class="card-content hoverable">
                     <table class="centered">
                         <thead>
                             <tr>
-                                <th>Dia</th>
-                                <th>Café do Gigantão Mirandinha</th>
+                                <th style="width: 40%">Dia</th>
+                                <th>Café</th>
                                 <th>Almoço</th>
                                 <th>Janta</th>
                             </tr>
                         </thead>
-
                         <tbody>
+                            @foreach($days as $val)    
                             <tr>
-                                <td>Alvin</td>
+                                <td>{{ $val }}</td>
                                 <td>
-                                    <label>
-                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
-                                    </label>
+                                    <label><input type="checkbox" /><span style="margin-left: 15px;"></span></label>
                                 </td>
                                 <td>
-                                    <label>
-                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
-                                    </label>
+                                    <label><input type="checkbox" /><span style="margin-left: 15px;"></span></label>
                                 </td>
                                 <td>
-                                    <label>
-                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
-                                    </label>
+                                    <label><input type="checkbox" /><span style="margin-left: 15px;"></span></label>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>Alvin</td>
-                                <td><label>
-                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
-                                    </label></td>
-                                <td><label>
-                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
-                                    </label></td>
-                                <td><label>
-                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
-                                    </label></td>
-                            </tr>
-                            <tr>
-                                <td>Alvin</td>
-                                <td><label>
-                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
-                                    </label></td>
-                                <td><label>
-                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
-                                    </label></td>
-                                <td><label>
-                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
-                                    </label></td>
-                            </tr>
+                            @endforeach
+
                         </tbody>
                     </table>
-
                 </div>
             </div>
         </div>
