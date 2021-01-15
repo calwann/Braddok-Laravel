@@ -18,7 +18,7 @@
                         <thead>
                             <tr>
                                 <th>Dia</th>
-                                <th>Café</th>
+                                <th>Café do Gigantão Mirandinha</th>
                                 <th>Almoço</th>
                                 <th>Janta</th>
                             </tr>
@@ -29,42 +29,42 @@
                                 <td>Alvin</td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" /> <span></span>
+                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
                                     </label>
                                 </td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" /> <span></span>
+                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
                                     </label>
                                 </td>
                                 <td>
                                     <label>
-                                        <input type="checkbox" /> <span></span>
+                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
                                     </label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Alvin</td>
                                 <td><label>
-                                        <input type="checkbox" /> <span></span>
+                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
                                     </label></td>
                                 <td><label>
-                                        <input type="checkbox" /> <span></span>
+                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
                                     </label></td>
                                 <td><label>
-                                        <input type="checkbox" /> <span></span>
+                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
                                     </label></td>
                             </tr>
                             <tr>
                                 <td>Alvin</td>
                                 <td><label>
-                                        <input type="checkbox" /> <span></span>
+                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
                                     </label></td>
                                 <td><label>
-                                        <input type="checkbox" /> <span></span>
+                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
                                     </label></td>
                                 <td><label>
-                                        <input type="checkbox" /> <span></span>
+                                        <input type="checkbox" /> <span style="margin-left: 15px;"></span>
                                     </label></td>
                             </tr>
                         </tbody>
