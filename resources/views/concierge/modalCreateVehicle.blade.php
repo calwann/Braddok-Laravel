@@ -3,7 +3,7 @@
     <div id="modalCreateVehicle" class="modal hoverable">
         <div class="modal-content">
             <div class="row">
-                <h5>Cadastrar Viatura</h5>
+                <h5 class="teal-text bold-text">Cadastrar Viatura</h5>
             </div>
             <div class="divider"></div>
             <div class="row">
