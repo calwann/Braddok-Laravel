@@ -4,8 +4,8 @@
 @section('index', 'home.index')
 
 @section('content')
-    <div class="row container" style="margin-bottom: 0px">
-        <div class="col s12 m6 offset-m3 l4 offset-l4">
+    <div class="row container">
+        <div class="col s12 m6 l4">
             <div class="card hoverable">
                 <div class="card-image">
                     <a href="{{ route('concierge.index') }}">
@@ -17,9 +17,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row container">
         <div class="col s12 m6 l4">
             <div class="card hoverable">
                 <div class="card-image">
