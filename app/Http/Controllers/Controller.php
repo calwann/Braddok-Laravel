@@ -41,6 +41,23 @@ class Controller extends BaseController
         })->toArray()[0]["curdate()"];
     }
 
+    public static function array_cut($array)
+    {
+        $rst = array();
+
+        if (is_array($array)) {
+            foreach ($array as $array_1) {
+                if (is_array($array_1)) {
+                    foreach ($array_1 as $array_2) {
+                        array_push($rst, $array_2);
+                    }
+                }
+            }
+        }
+
+        return $rst;
+    }
+
     public static function patent($p)
     {
         $id = array(

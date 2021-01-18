@@ -38,7 +38,24 @@ class ConciergeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function dash()
-    {
+    {    
+        $sql = "";
+        for ($i = 7; $i >= 0; $i--) {
+            $sql .= "
+                    SELECT	COUNT(*) 
+                    FROM	%TABLE% 
+                    WHERE date(date_time) = date_sub(CURDATE(), interval " . $i . " DAY) ";
+
+            if ($i != 0) {
+                $sql .= " UNION ALL ";
+            }
+        }
+
+        $collaborators = Controller::array_cut(collect(DB::select(str_replace('%TABLE%', 'concierge_collaborators', $sql)))->map(function ($x) {
+            return (array) $x;
+        })->toArray());
+
+        //dd($collaborators);
         return view('concierge/dash');
     }
 

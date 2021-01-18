@@ -52,6 +52,7 @@ $(document).ready(function() {
     $("input.counter, textarea.counter").characterCounter();
     $(".tabs").tabs();
     $(".tap-target").tapTarget();
+    $('.scrollspy').scrollSpy();
     $(".datepicker").datepicker({
         format: "dd/mm/yyyy",
         showClearBtn: true,

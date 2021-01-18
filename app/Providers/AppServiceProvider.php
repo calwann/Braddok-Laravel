@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Auth;
+use ConsoleTVs\Charts\Registrar as Charts;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Charts $charts)
     {
         view()->composer('*', function ($view) {
             if (isset(Auth::user()->id)) {
@@ -32,5 +33,10 @@ class AppServiceProvider extends ServiceProvider
                 view()->share('fullPatentNickname', Controller::fullPatent(Auth::user()->patent) . " - " . \strtoupper(Auth::user()->nickname));
             }
         });
+
+        $charts->register([
+            \App\Charts\SampleChart::class,
+            \App\Charts\ConciergeChart::class
+        ]);
     }
 }
