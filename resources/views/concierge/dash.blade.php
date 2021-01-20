@@ -6,11 +6,52 @@
 
 @section('content')
     <div class="row container">
-        <div class="card hoverable">
+        <div class="col s12 l4">
+            <div class="card hoverable">
+                <div class="card-action teal darken-1 white-text hoverable">
+                    <h5>Visitantes</h5>
+                </div>
+                <div class="card-content hoverable" style="padding: 6px 0 6px 0">
+                    <div class="row center-align">
+                        <h4 class="white-text text-shadow-s" style="font-weight: bold">{{ $status[0] }}</h4>
+                        <p>Dentro do quartel</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 l4">
+            <div class="card hoverable">
+                <div class="card-action teal darken-1 white-text hoverable">
+                    <h5>Veículos</h5>
+                </div>
+                <div class="card-content hoverable" style="padding: 6px 0 6px 0">
+                    <div class="row center-align">
+                        <h4 class="white-text text-shadow-s" style="font-weight: bold">{{ $status[1] }}</h4>
+                        <p>Dentro do quartel</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 l4">
+            <div class="card hoverable">
+                <div class="card-action teal darken-1 white-text hoverable">
+                    <h5>Viaturas</h5>
+                </div>
+                <div class="card-content hoverable" style="padding: 6px 0 6px 0">
+                    <div class="row center-align">
+                        <h4 class="white-text text-shadow-s" style="font-weight: bold">{{ $status[2] }}</h4>
+                        <p>Fora do quartel</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row container">
+        <div class="card hoverable ">
             <div class="card-action teal darken-1 white-text hoverable">
                 <h5>Lançamentos</h5>
             </div>
-            <div class="card-content hoverable" style="padding: 24px 0 0 0; overflow-x: scroll;">
+            <div class="card-content hoverable charts">
                 <div class="row">
                     <!-- Chart's container -->
                     <div id="chart" style="height: 400px; min-width: 500px;"></div>
@@ -66,7 +107,7 @@
             url: "@chart('concierge_chart')",
             hooks: new ChartisanHooks()
                 //.title('FUZ HO DA!')
-                .colors(['#8d6e63', '#5c6bc0', '#8bc34a'])
+                .colors(['#8bc34a', '#ff7043', '#5c6bc0'])
                 .legend({
                     position: 'bottom'
                 })

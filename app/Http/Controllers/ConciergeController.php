@@ -38,25 +38,69 @@ class ConciergeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function dash()
-    {    
-        $sql = "";
-        for ($i = 7; $i >= 0; $i--) {
-            $sql .= "
-                    SELECT	COUNT(*) 
-                    FROM	%TABLE% 
-                    WHERE date(date_time) = date_sub(CURDATE(), interval " . $i . " DAY) ";
+    {
+        $sql = "
+        # Visitantes
+        select  count(*)
+        from    concierge_visitors
+        where	id in (	select 		max(id)
+                        from		concierge_visitors
+                        group by	visitor_id)
+        and     register_type = 1
+        
+        union all
 
-            if ($i != 0) {
-                $sql .= " UNION ALL ";
-            }
-        }
+        # Veículos
+        select  count(*)
+        from    concierge_visitor_vehicles
+        where	id in (	select 		max(id)
+                        from		concierge_visitor_vehicles
+                        group by	vehicle_visitor_id)
+        and     register_type = 1
+        
+        union all
 
-        $collaborators = Controller::array_cut(collect(DB::select(str_replace('%TABLE%', 'concierge_collaborators', $sql)))->map(function ($x) {
+        # Viaturas
+        select  count(*)
+        from    concierge_vehicles
+        where	id in (	select 		max(id)
+                        from		concierge_vehicles
+                        group by	vehicle_id)
+        and     register_type = 2
+        ";
+
+        $status = Controller::array_cut(collect(DB::select($sql))->map(function ($x) {
             return (array) $x;
         })->toArray());
 
-        //dd($collaborators);
-        return view('concierge/dash');
+        $sql = "
+        SELECT 		patent,
+		            name,
+		            nickname,
+		            case 	when l.log = 'create' then 'Cadastrou registro'
+		            		when l.log = 'delete' then 'Apagou registo'
+		            END obs,
+		            table_id,
+		            case 	when l.table_used = 'concierge_collaborators' then 'Lançar Militares'
+		            		when l.table_used = 'concierge_visitors' then 'Lançar Visitantes'
+		            		when l.table_used = 'concierge_visitor_vehicles' then 'Lançar Veículos de Visitantes'
+		            		when l.table_used = 'visitors' then 'Cadastrar Visitante'
+		            		when l.table_used = 'vehicle_visitors' then 'Cadastrar Veículo de Visitante'
+		            		when l.table_used = 'concierge_vehicles' then 'Lançar Viaturas'
+		            		when l.table_used = 'vehicles' then 'Cadastrar Viatura'
+		            END table_used
+        FROM		logs l
+        LEFT JOIN	users u ON l.user_id = u.id
+        WHERE		table_used 	IN ('concierge_collaborators', 'concierge_vehicles', 
+                                    'concierge_visitors', 'concierge_visitor_vehicles', 
+                                    'vehicles','vehicle_visitors', 'visitors')
+        ORDER BY 	l.updated_at DESC";
+
+        $obs = Controller::array_cut(collect(DB::select($sql))->map(function ($x) {
+            return (array) $x;
+        })->toArray());
+
+        return view('concierge/dash', compact('status', 'obs'));
     }
 
     /**

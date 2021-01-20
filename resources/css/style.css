@@ -84,6 +84,11 @@ body {
     margin: 2px 0 2px 0;
 }
 
+.charts {
+    padding: 24px 0 0 0 !important; 
+    overflow-x: scroll;
+}
+
 @media only screen and (max-width: 992px) {
 }
 
