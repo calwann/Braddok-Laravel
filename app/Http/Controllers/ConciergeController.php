@@ -75,30 +75,37 @@ class ConciergeController extends Controller
 
         $sql = "
         SELECT 		patent,
-		            name,
-		            nickname,
-		            case 	when l.log = 'create' then 'Cadastrou registro'
-		            		when l.log = 'delete' then 'Apagou registo'
-		            END obs,
-		            table_id,
-		            case 	when l.table_used = 'concierge_collaborators' then 'Lançar Militares'
-		            		when l.table_used = 'concierge_visitors' then 'Lançar Visitantes'
-		            		when l.table_used = 'concierge_visitor_vehicles' then 'Lançar Veículos de Visitantes'
-		            		when l.table_used = 'visitors' then 'Cadastrar Visitante'
-		            		when l.table_used = 'vehicle_visitors' then 'Cadastrar Veículo de Visitante'
-		            		when l.table_used = 'concierge_vehicles' then 'Lançar Viaturas'
-		            		when l.table_used = 'vehicles' then 'Cadastrar Viatura'
-		            END table_used
-        FROM		logs l
-        LEFT JOIN	users u ON l.user_id = u.id
-        WHERE		table_used 	IN ('concierge_collaborators', 'concierge_vehicles', 
-                                    'concierge_visitors', 'concierge_visitor_vehicles', 
-                                    'vehicles','vehicle_visitors', 'visitors')
-        ORDER BY 	l.updated_at DESC";
+                    name,
+                    nickname,
+                    case 	when l.log = 'create' then 'Cadastrou registro'
+                            when l.log = 'delete' then 'Apagou registo'
+                            when l.log = 'update' then 'Atualizou registo'
+                    END obs,
+                    table_id,
+                    case 	when l.table_used = 'concierge_collaborators' then 'Lançar Militares'
+                            when l.table_used = 'concierge_visitors' then 'Lançar Visitantes'
+                            when l.table_used = 'concierge_visitor_vehicles' then 'Lançar Veículos de Visitantes'
+                            when l.table_used = 'visitors' then 'Cadastrar Visitante'
+                            when l.table_used = 'vehicle_visitors' then 'Cadastrar Veículo de Visitante'
+                            when l.table_used = 'concierge_vehicles' then 'Lançar Viaturas'
+                            when l.table_used = 'vehicles' then 'Cadastrar Viatura'
+                    END table_used
+            FROM		logs l
+            LEFT JOIN	users u ON l.user_id = u.id
+            WHERE		table_used 	IN ('concierge_collaborators', 'concierge_vehicles', 
+            							'concierge_visitors', 'concierge_visitor_vehicles', 
+            							'vehicles','vehicle_visitors', 'visitors')
+            ORDER BY 	l.updated_at DESC";
 
-        $obs = Controller::array_cut(collect(DB::select($sql))->map(function ($x) {
+        $obs = collect(DB::select($sql))->map(function ($x) {
             return (array) $x;
-        })->toArray());
+        })->toArray();
+
+        $i = 0;
+        foreach ($obs as $val) {
+            $obs[$i]['patent'] = Controller::patent($val['patent']);
+            $i++; 
+        }
 
         return view('concierge/dash', compact('status', 'obs'));
     }

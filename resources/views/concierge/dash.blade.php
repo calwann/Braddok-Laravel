@@ -14,7 +14,7 @@
                 <div class="card-content hoverable" style="padding: 6px 0 6px 0">
                     <div class="row center-align">
                         <h4 class="white-text text-shadow-s" style="font-weight: bold">{{ $status[0] }}</h4>
-                        <p>Dentro do quartel</p>
+                        <p class="{{ $status[0] > 0 ? 'red-text' : '' }}">Dentro do quartel</p>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 <div class="card-content hoverable" style="padding: 6px 0 6px 0">
                     <div class="row center-align">
                         <h4 class="white-text text-shadow-s" style="font-weight: bold">{{ $status[1] }}</h4>
-                        <p>Dentro do quartel</p>
+                        <p class="{{ $status[1] > 0 ? 'red-text' : '' }}">Dentro do quartel</p>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                 <div class="card-content hoverable" style="padding: 6px 0 6px 0">
                     <div class="row center-align">
                         <h4 class="white-text text-shadow-s" style="font-weight: bold">{{ $status[2] }}</h4>
-                        <p>Fora do quartel</p>
+                        <p class="{{ $status[2] > 0 ? 'red-text' : '' }}">Fora do quartel</p>
                     </div>
                 </div>
             </div>
@@ -69,29 +69,33 @@
                     <table class="responsive-table highlight">
                         <thead>
                             <tr style="cursor: pointer">
-                                <th>Name</th>
-                                <th>Item Name</th>
-                                <th>Item Price</th>
+                                <th>Militar</th>
+                                <th>Registro</th>
+                                <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($obs as $val)
                             <tr>
-                                <td>Alvin</td>
-                                <td>Eclair</td>
-                                <td>$0.87</td>
+                                <td>{{ $val['patent'] }} - {{ $val['name'] }} ({{ $val['nickname'] }})</td>
+                                <td>{{ $val['table_used'] }}</td>
+                                <td>{{ $val['obs'] }} {{ $val['table_id'] }}</td>
                             </tr>
-                            <tr>
-                                <td>Alan</td>
-                                <td>Jellybean</td>
-                                <td>$3.76</td>
-                            </tr>
-                            <tr>
-                                <td>Jonathan</td>
-                                <td>Lollipop</td>
-                                <td>$7.00</td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
+                    <form id="responsible-table-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                        <ul class="pagination">
+                            <li class="disabled"><a onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="material-icons">chevron_left</i></a></li>
+                            <li class="active"><a href="#!">1</a></li>
+                            <li class="waves-effect"><a href="#!">2</a></li>
+                            <li class="waves-effect"><a href="#!">3</a></li>
+                            <li class="waves-effect"><a href="#!">4</a></li>
+                            <li class="waves-effect"><a href="#!">5</a></li>
+                            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                        </ul>
+                    </form>
                 </div>
             </div>
         </div>
@@ -106,7 +110,6 @@
             el: '#chart',
             url: "@chart('concierge_chart')",
             hooks: new ChartisanHooks()
-                //.title('FUZ HO DA!')
                 .colors(['#8bc34a', '#ff7043', '#5c6bc0'])
                 .legend({
                     position: 'bottom'

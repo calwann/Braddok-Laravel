@@ -18,7 +18,7 @@ class Controller extends BaseController
     {
         Log::create([
             'user_id' => Auth::user()->id,
-            'table' => $table,
+            'table_used' => $table,
             'table_id' => $table_id,
             'log' => $log,
         ]);

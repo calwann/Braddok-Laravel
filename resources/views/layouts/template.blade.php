@@ -72,8 +72,7 @@
             <ul id="dropdown-nav-1" class="dropdown-content">
                 <li><a href="{{ route('conf.index') }}">Atualizar cadastro</a></li>
                 <li><a href="{{ route('conf.index') }}">Trocar senha</a></li>
-                <li><a href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
                     </a></li>
             </ul>
