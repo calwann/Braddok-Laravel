@@ -27,7 +27,7 @@ Route::resource('conf', 'ConfController')->middleware('auth');
 
 Route::get('concierge', 'ConciergeController@index')->name('concierge.index')->middleware('auth');
 Route::group(['prefix' => 'concierge', 'as' => 'concierge.', 'middleware' => 'auth'], function () {
-    Route::get('dash', 'ConciergeController@dash')->name('dash');
+    Route::get('dash/{page}', 'ConciergeController@dash')->name('dashPage');
     Route::get('collaborators', 'ConciergeController@collaborators')->name('collaborators');
     Route::get('visitors', 'ConciergeController@visitors')->name('visitors');
     Route::get('vehicles', 'ConciergeController@vehicles')->name('vehicles');
@@ -77,3 +77,5 @@ Route::resource('birthday', 'BirthdayController')->middleware('auth');
 Route::get('/', function () {
     return redirect()->route('home.index');
 });
+
+Route::redirect('/concierge/dash', '/concierge/dash/0')->name('concierge.dash');

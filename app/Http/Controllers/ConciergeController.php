@@ -18,6 +18,7 @@ use App\Log;
 use App\Vehicle;
 use App\Vehicle_visitor;
 use App\Visitor;
+use DateTime;
 use Illuminate\Support\Facades\DB;
 
 class ConciergeController extends Controller
@@ -37,8 +38,10 @@ class ConciergeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function dash()
+    public function dash($page)
     {
+        $pageIndex = $page * 10;
+
         $sql = "
         # Visitantes
         select  count(*)
@@ -89,25 +92,33 @@ class ConciergeController extends Controller
                             when l.table_used = 'vehicle_visitors' then 'Cadastrar Veículo de Visitante'
                             when l.table_used = 'concierge_vehicles' then 'Lançar Viaturas'
                             when l.table_used = 'vehicles' then 'Cadastrar Viatura'
-                    END table_used
+                    END table_used,
+                    l.updated_at
             FROM		logs l
             LEFT JOIN	users u ON l.user_id = u.id
             WHERE		table_used 	IN ('concierge_collaborators', 'concierge_vehicles', 
             							'concierge_visitors', 'concierge_visitor_vehicles', 
             							'vehicles','vehicle_visitors', 'visitors')
-            ORDER BY 	l.updated_at DESC";
+            ORDER BY 	l.updated_at DESC
+            LIMIT       " . $pageIndex . ", 10";
 
         $obs = collect(DB::select($sql))->map(function ($x) {
             return (array) $x;
         })->toArray();
 
+        if (empty($obs)) {
+            return redirect()->route('concierge.dash')->with('status', 'Consulta redirecionada.');
+        }
+
         $i = 0;
         foreach ($obs as $val) {
+            $date = new DateTime($val['updated_at']);
             $obs[$i]['patent'] = Controller::patent($val['patent']);
+            $obs[$i]['date'] = $date->format('d/m/Y - H:i:s');
             $i++; 
         }
 
-        return view('concierge/dash', compact('status', 'obs'));
+        return view('concierge/dash', compact('status', 'obs', 'page'));
     }
 
     /**

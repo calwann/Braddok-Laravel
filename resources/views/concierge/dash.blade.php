@@ -72,6 +72,7 @@
                                 <th>Militar</th>
                                 <th>Registro</th>
                                 <th>Ação</th>
+                                <th>Data</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,22 +81,12 @@
                                 <td>{{ $val['patent'] }} - {{ $val['name'] }} ({{ $val['nickname'] }})</td>
                                 <td>{{ $val['table_used'] }}</td>
                                 <td>{{ $val['obs'] }} {{ $val['table_id'] }}</td>
+                                <td>{{ $val['date'] }}</td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    <form id="responsible-table-form" action="{{ route('logout') }}" method="POST">
-                    @csrf
-                        <ul class="pagination">
-                            <li class="disabled"><a onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="material-icons">chevron_left</i></a></li>
-                            <li class="active"><a href="#!">1</a></li>
-                            <li class="waves-effect"><a href="#!">2</a></li>
-                            <li class="waves-effect"><a href="#!">3</a></li>
-                            <li class="waves-effect"><a href="#!">4</a></li>
-                            <li class="waves-effect"><a href="#!">5</a></li>
-                            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-                        </ul>
-                    </form>
+                    @include('layouts.pagination', ['route' => 'concierge.dashPage'])
                 </div>
             </div>
         </div>
