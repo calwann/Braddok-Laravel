@@ -18,7 +18,7 @@ class CreateVisitorsTable extends Migration
             $table->string('name');
             $table->date('birth')->nullable();
             $table->string('phone')->nullable();
-            $table->bigInteger('identity')->nullable();
+            $table->string('identity')->nullable();
             $table->char('_status')->nullable();
             $table->timestamps();
         });

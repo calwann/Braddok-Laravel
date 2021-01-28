@@ -11,12 +11,15 @@
                 <div class="card-action teal darken-1 white-text hoverable">
                     <h5>Visitantes</h5>
                 </div>
-                <div class="card-content hoverable" style="padding: 6px 0 6px 0">
-                    <div class="row center-align">
-                        <h4 class="white-text text-shadow-s" style="font-weight: bold">{{ $status[0] }}</h4>
-                        <p class="{{ $status[0] > 0 ? 'red-text' : '' }}">Dentro do quartel</p>
+                <a class="modal-trigger tooltipped" data-position="bottom" data-tooltip="Abrir lista"
+                    href="#modalShowVisitorsIn">
+                    <div class="card-content hoverable" style="padding: 6px 0 6px 0">
+                        <div class="row center-align">
+                            <h4 class="white-text text-shadow-s" style="font-weight: bold">{{ $status[0] }}</h4>
+                            <p class="{{ $status[0] > 0 ? 'red-text' : '' }}">Dentro do quartel</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
         <div class="col s12 l4">
@@ -24,12 +27,15 @@
                 <div class="card-action teal darken-1 white-text hoverable">
                     <h5>Veículos</h5>
                 </div>
-                <div class="card-content hoverable" style="padding: 6px 0 6px 0">
-                    <div class="row center-align">
-                        <h4 class="white-text text-shadow-s" style="font-weight: bold">{{ $status[1] }}</h4>
-                        <p class="{{ $status[1] > 0 ? 'red-text' : '' }}">Dentro do quartel</p>
+                <a class="modal-trigger tooltipped" data-position="bottom" data-tooltip="Abrir lista"
+                    href="#modalShowVehiclesVisitorsIn">
+                    <div class="card-content hoverable" style="padding: 6px 0 6px 0">
+                        <div class="row center-align">
+                            <h4 class="white-text text-shadow-s" style="font-weight: bold">{{ $status[1] }}</h4>
+                            <p class="{{ $status[1] > 0 ? 'red-text' : '' }}">Dentro do quartel</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
         <div class="col s12 l4">
@@ -37,12 +43,15 @@
                 <div class="card-action teal darken-1 white-text hoverable">
                     <h5>Viaturas</h5>
                 </div>
-                <div class="card-content hoverable" style="padding: 6px 0 6px 0">
-                    <div class="row center-align">
-                        <h4 class="white-text text-shadow-s" style="font-weight: bold">{{ $status[2] }}</h4>
-                        <p class="{{ $status[2] > 0 ? 'red-text' : '' }}">Fora do quartel</p>
+                <a class="modal-trigger tooltipped" data-position="bottom" data-tooltip="Abrir lista"
+                    href="#modalShowVehiclesOut">
+                    <div class="card-content hoverable" style="padding: 6px 0 6px 0">
+                        <div class="row center-align">
+                            <h4 class="white-text text-shadow-s" style="font-weight: bold">{{ $status[2] }}</h4>
+                            <p class="{{ $status[2] > 0 ? 'red-text' : '' }}">Fora do quartel</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
@@ -62,7 +71,7 @@
     <div class="row container">
         <div class="card hoverable">
             <div class="card-action teal darken-1 white-text hoverable">
-                <h5>Responsáveis</h5>
+                <h5>Log de Dados</h5>
             </div>
             <div class="card-content hoverable">
                 <div class="row">
@@ -77,12 +86,12 @@
                         </thead>
                         <tbody>
                             @foreach ($obs as $val)
-                            <tr>
-                                <td>{{ $val['patent'] }} - {{ $val['name'] }} ({{ $val['nickname'] }})</td>
-                                <td>{{ $val['table_used'] }}</td>
-                                <td>{{ $val['obs'] }} {{ $val['table_id'] }}</td>
-                                <td>{{ $val['date'] }}</td>
-                            </tr>
+                                <tr>
+                                    <td>{{ $val['patent'] }} - {{ $val['name'] }} ({{ $val['nickname'] }})</td>
+                                    <td>{{ $val['table_used'] }}</td>
+                                    <td>{{ $val['obs'] }} {{ $val['table_id'] }}</td>
+                                    <td>{{ $val['date'] }}</td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -135,4 +144,11 @@
         });
 
     </script>
+
+    @include('concierge.modalShowVisitorsIn')
+
+    @include('concierge.modalShowVehiclesVisitorsIn')
+
+    @include('concierge.modalShowVehiclesOut')
+
 @endsection

@@ -40,36 +40,41 @@ class ConciergeController extends Controller
      */
     public function dash($page)
     {
-        $pageIndex = $page * 10;
+        if ($page < 1) {
+            return redirect()->route('concierge.dash');
+        }
+
+        $pageIndexMax = 10;
+        $pageIndex = ($page - 1) * $pageIndexMax;
 
         $sql = "
-        # Visitantes
-        select  count(*)
-        from    concierge_visitors
-        where	id in (	select 		max(id)
-                        from		concierge_visitors
-                        group by	visitor_id)
-        and     register_type = 1
-        
-        union all
+            # Visitantes
+            select  count(*) total
+            from    concierge_visitors
+            where	id in (	select 		max(id)
+                            from		concierge_visitors
+                            group by	visitor_id)
+            and     register_type = 1
+            
+            union all
 
-        # Veículos
-        select  count(*)
-        from    concierge_visitor_vehicles
-        where	id in (	select 		max(id)
-                        from		concierge_visitor_vehicles
-                        group by	vehicle_visitor_id)
-        and     register_type = 1
-        
-        union all
+            # Veículos
+            select  count(*) total
+            from    concierge_visitor_vehicles
+            where	id in (	select 		max(id)
+                            from		concierge_visitor_vehicles
+                            group by	vehicle_visitor_id)
+            and     register_type = 1
+            
+            union all
 
-        # Viaturas
-        select  count(*)
-        from    concierge_vehicles
-        where	id in (	select 		max(id)
-                        from		concierge_vehicles
-                        group by	vehicle_id)
-        and     register_type = 2
+            # Viaturas
+            select  count(*) total
+            from    concierge_vehicles
+            where	id in (	select 		max(id)
+                            from		concierge_vehicles
+                            group by	vehicle_id)
+            and     register_type = 2
         ";
 
         $status = Controller::array_cut(collect(DB::select($sql))->map(function ($x) {
@@ -77,48 +82,143 @@ class ConciergeController extends Controller
         })->toArray());
 
         $sql = "
-        SELECT 		patent,
-                    name,
-                    nickname,
-                    case 	when l.log = 'create' then 'Cadastrou registro'
-                            when l.log = 'delete' then 'Apagou registo'
-                            when l.log = 'update' then 'Atualizou registo'
-                    END obs,
-                    table_id,
-                    case 	when l.table_used = 'concierge_collaborators' then 'Lançar Militares'
-                            when l.table_used = 'concierge_visitors' then 'Lançar Visitantes'
-                            when l.table_used = 'concierge_visitor_vehicles' then 'Lançar Veículos de Visitantes'
-                            when l.table_used = 'visitors' then 'Cadastrar Visitante'
-                            when l.table_used = 'vehicle_visitors' then 'Cadastrar Veículo de Visitante'
-                            when l.table_used = 'concierge_vehicles' then 'Lançar Viaturas'
-                            when l.table_used = 'vehicles' then 'Cadastrar Viatura'
-                    END table_used,
-                    l.updated_at
+			select      v.id,
+                        v.name,
+                        v.identity,
+                        YEAR(FROM_DAYS(datediff(CURDATE(), v.birth))) birth,
+                        v.phone,
+                        DATE_FORMAT(sub.date, '%d/%m/%Y - %H:%i:%s') date
+                        from        visitors v
+            left join   (select     id,
+									register_type,
+                                    visitor_id,
+                                    date_time date,
+                                    case    when register_type = 1 then 'in'
+                                            when register_type = 2 then 'out'
+                                    end type
+                        from        concierge_visitors
+						where		id in (	select 		max(id)
+											from		concierge_visitors
+											group by	visitor_id)
+						) sub
+            on          v.id = sub.visitor_id
+            where       1 = 1 
+            and         _status = 'active'
+        ";
+
+        $visitors_in = collect(DB::select($sql . "and sub.type = 'in'"))->map(function ($x) {
+            return (array) $x;
+        })->toArray();
+
+        $sql = "
+            select      v.id,
+                        v.brand,
+                        v.model,
+                        v.license_plate,
+                        v.type,
+                        DATE_FORMAT(sub.date, '%d/%m/%Y - %H:%i:%s') date
+                        from        vehicle_visitors v
+            left join   (select     id,
+                                    register_type,
+                                    vehicle_visitor_id,
+                                    date_time date,
+                                    case    when register_type = 1 then 'in'
+                                            when register_type = 2 then 'out'
+                                    end type
+                        from        concierge_visitor_vehicles 
+                        where		id in (	select 		max(id)
+											from		concierge_visitor_vehicles
+											group by	vehicle_visitor_id)
+						) sub
+            on          v.id = sub.vehicle_visitor_id
+            where       1 = 1 
+            and         _status = 'active'
+        ";
+
+        $vehicle_visitors_in = collect(DB::select($sql . "and sub.type = 'in'"))->map(function ($x) {
+            return (array) $x;
+        })->toArray();
+
+        $sql = "
+            select      v.id,
+                        v.brand,
+                        v.model,
+                        v.license_plate,
+                        v.type,
+                        sub.odometer,
+                        DATE_FORMAT(sub.date, '%d/%m/%Y - %H:%i:%s') date
+                        from        vehicles v
+            left join   (select     id,
+                                    register_type,
+                                    vehicle_id,
+                                    odometer,
+                                    date_time date,
+                                    case    when register_type = 1 then 'in'
+                                            when register_type = 2 then 'out'
+                                    end type
+                        from        concierge_vehicles 
+                        where		id in (	select 		max(id)
+											from		concierge_vehicles
+											group by	vehicle_id)
+						) sub
+            on          v.id = sub.vehicle_id
+            where       1 = 1 
+            and         _status = 'active'
+        ";
+
+        $vehicles_out = collect(DB::select($sql . "and sub.type = 'out'"))->map(function ($x) {
+            return (array) $x;
+        })->toArray();
+
+        $sql = "
+            SELECT 		patent,
+                        name,
+                        nickname,
+                        case 	when l.log = 'create' then 'Cadastrou registro'
+                                when l.log = 'delete' then 'Apagou registo'
+                                when l.log = 'update' then 'Atualizou registo'
+                                when l.log = 'login' then 'Acessou o sitema'
+                                when l.log = 'logout' then 'Saiu do sistema'
+                        END obs,
+                        table_id,
+                        case 	when l.table_used = 'concierge_collaborators' then 'Lançar Militares'
+                                when l.table_used = 'concierge_visitors' then 'Lançar Visitantes'
+                                when l.table_used = 'concierge_visitor_vehicles' then 'Lançar Veículos de Visitantes'
+                                when l.table_used = 'visitors' then 'Cadastrar Visitante'
+                                when l.table_used = 'vehicle_visitors' then 'Cadastrar Veículo de Visitante'
+                                when l.table_used = 'concierge_vehicles' then 'Lançar Viaturas'
+                                when l.table_used = 'vehicles' then 'Cadastrar Viatura'
+                                else 'Página inicial'
+                        END table_used,
+                        DATE_FORMAT(l.updated_at, '%d/%m/%Y - %H:%i:%s') date
             FROM		logs l
             LEFT JOIN	users u ON l.user_id = u.id
             WHERE		table_used 	IN ('concierge_collaborators', 'concierge_vehicles', 
             							'concierge_visitors', 'concierge_visitor_vehicles', 
-            							'vehicles','vehicle_visitors', 'visitors')
-            ORDER BY 	l.updated_at DESC
-            LIMIT       " . $pageIndex . ", 10";
+            							'vehicles','vehicle_visitors', 'visitors', 'users')
+            ORDER BY 	l.updated_at DESC 
+        ";
+        if (isset($pageIndex)) {
+            $sqlFiltered = $sql . " LIMIT " . $pageIndex . ", " . $pageIndexMax . " ";
+        }
 
-        $obs = collect(DB::select($sql))->map(function ($x) {
+        $obs = collect(DB::select($sqlFiltered))->map(function ($x) {
             return (array) $x;
         })->toArray();
 
-        if (empty($obs)) {
-            return redirect()->route('concierge.dash')->with('status', 'Consulta redirecionada.');
-        }
+       /* if (empty($obs)) {
+            return redirect()->route('concierge.dash');
+        }*/
 
         $i = 0;
         foreach ($obs as $val) {
-            $date = new DateTime($val['updated_at']);
             $obs[$i]['patent'] = Controller::patent($val['patent']);
-            $obs[$i]['date'] = $date->format('d/m/Y - H:i:s');
             $i++; 
         }
 
-        return view('concierge/dash', compact('status', 'obs', 'page'));
+        $pageMax = intval(Controller::rowCounter($sql) / $pageIndexMax) + 1;
+
+        return view('concierge/dash', compact('status', 'obs', 'page', 'pageMax', 'visitors_in', 'vehicle_visitors_in', 'vehicles_out'));
     }
 
     /**
@@ -306,10 +406,13 @@ class ConciergeController extends Controller
         $data = $request->all();
 
         foreach ($data['usersId'] as $val) {
+            if (Controller::cur_date("datetime") < Controller::strToDateTime($data['date'], $data['time'])){
+                return redirect()->route('concierge.collaborators')->with('status', 'Data e hora inválidos.');
+            }
             $table_id = Concierge_collaborator::create([
                 'register_type' => $data['registerType'],
                 'user_id' => $val,
-                'date_time' => Controller::strToDate($data['date']) . " " . $data['time'] . ":00",
+                'date_time' => Controller::strToDateTime($data['date'], $data['time']),
                 '_status' => "active",
             ])->id;
             Controller::registerLog('concierge_collaborators', $table_id, 'create');
@@ -337,10 +440,13 @@ class ConciergeController extends Controller
         } else if (!empty($data['visitorsInId']) && $data['registerType'] == '2' && empty($data['vehicleVisitorsOutId'])) {
 
             foreach ($data['visitorsInId'] as $val) {
+                if (Controller::cur_date("datetime") < Controller::strToDateTime($data['date'], $data['time'])){
+                    return redirect()->route('concierge.visitors')->with('status', 'Data e hora inválidos.');
+                }
                 $table_id = Concierge_visitor::create([
                     'register_type' => $data['registerType'],
                     'visitor_id' => $val,
-                    'date_time' => Controller::strToDate($data['date']) . " " . $data['time'] . ":00",
+                    'date_time' => Controller::strToDateTime($data['date'], $data['time']),
                     '_status' => "active",
                 ])->id;
                 Controller::registerLog('concierge_visitors', $table_id, 'create');
@@ -348,10 +454,13 @@ class ConciergeController extends Controller
 
             if (!empty($data['vehicleVisitorsInId'])) {
                 foreach ($data['vehicleVisitorsInId'] as $val) {
+                    if (Controller::cur_date("datetime") < Controller::strToDateTime($data['date'], $data['time'])){
+                        return redirect()->route('concierge.visitors')->with('status', 'Data e hora inválidos.');
+                    }
                     $table_id = Concierge_visitor_vehicle::create([
                         'register_type' => $data['registerType'],
                         'vehicle_visitor_id' => $val,
-                        'date_time' => Controller::strToDate($data['date']) . " " . $data['time'] . ":00",
+                        'date_time' => Controller::strToDateTime($data['date'], $data['time']),
                         '_status' => "active",
                     ])->id;
                     Controller::registerLog('concierge_visitor_vehicles', $table_id, 'create');
@@ -360,10 +469,13 @@ class ConciergeController extends Controller
         } else if (!empty($data['visitorsOutId']) && $data['registerType'] == '1' && empty($data['vehicleVisitorsInId'])) {
 
             foreach ($data['visitorsOutId'] as $val) {
+                if (Controller::cur_date("datetime") < Controller::strToDateTime($data['date'], $data['time'])){
+                    return redirect()->route('concierge.visitors')->with('status', 'Data e hora inválidos.');
+                }
                 $table_id = Concierge_visitor::create([
                     'register_type' => $data['registerType'],
                     'visitor_id' => $val,
-                    'date_time' => Controller::strToDate($data['date']) . " " . $data['time'] . ":00",
+                    'date_time' => Controller::strToDateTime($data['date'], $data['time']),
                     '_status' => "active",
                 ])->id;
                 Controller::registerLog('concierge_visitors', $table_id, 'create');
@@ -371,10 +483,13 @@ class ConciergeController extends Controller
 
             if (!empty($data['vehicleVisitorsOutId'])) {
                 foreach ($data['vehicleVisitorsOutId'] as $val) {
+                    if (Controller::cur_date("datetime") < Controller::strToDateTime($data['date'], $data['time'])){
+                        return redirect()->route('concierge.visitors')->with('status', 'Data e hora inválidos.');
+                    }
                     $table_id = Concierge_visitor_vehicle::create([
                         'register_type' => $data['registerType'],
                         'vehicle_visitor_id' => $val,
-                        'date_time' => Controller::strToDate($data['date']) . " " . $data['time'] . ":00",
+                        'date_time' => Controller::strToDateTime($data['date'], $data['time']),
                         '_status' => "active",
                     ])->id;
                     Controller::registerLog('concierge_visitor_vehicles', $table_id, 'create');
@@ -398,7 +513,7 @@ class ConciergeController extends Controller
         $data = $request->all();
 
         $table_id = Visitor::create([
-            'name' => strtoupper($data['name']),
+            'name' => mb_strtoupper($data['name'], 'UTF-8'),
             'birth' => Controller::strToDate($data['birth']),
             'phone' => $data['phone'],
             'identity' => $data['identity'],
@@ -420,10 +535,10 @@ class ConciergeController extends Controller
         $data = $request->all();
 
         $table_id = Vehicle_visitor::create([
-            'license_plate' => strtoupper($data['licensePlate']),
-            'type' => $data['type'],
-            'brand' => strtoupper($data['brand']),
-            'model' => strtoupper($data['model']),
+            'license_plate' => mb_strtoupper($data['licensePlate'], 'UTF-8'),
+            'type' => mb_strtoupper($data['type'], 'UTF-8'),
+            'brand' => mb_strtoupper($data['brand'], 'UTF-8'),
+            'model' => mb_strtoupper($data['model'], 'UTF-8'),
             '_status' => "active",
         ])->id;
         Controller::registerLog('vehicle_visitors', $table_id, 'create');
@@ -442,10 +557,10 @@ class ConciergeController extends Controller
         $data = $request->all();
 
         $table_id = Vehicle::create([
-            'license_plate' => strtoupper($data['licensePlate']),
-            'type' => $data['type'],
-            'brand' => strtoupper($data['brand']),
-            'model' => strtoupper($data['model']),
+            'license_plate' => mb_strtoupper($data['licensePlate'], 'UTF-8'),
+            'type' => mb_strtoupper($data['type'], 'UTF-8'),
+            'brand' => mb_strtoupper($data['brand'], 'UTF-8'),
+            'model' => mb_strtoupper($data['model'], 'UTF-8'),
             '_status' => "active",
         ])->id;
         Controller::registerLog('vehicles', $table_id, 'create');
@@ -463,7 +578,10 @@ class ConciergeController extends Controller
     {
         $data = $request->all();
 
-        if (!empty($data['vehiclesInId']) && !empty($data['vehiclesOutId'])) {
+        if (Controller::cur_date("datetime") < Controller::strToDateTime($data['date'], $data['time'])){
+            
+            return redirect()->route('concierge.vehicles')->with('status', 'Data e hora inválidos.');
+        } else if (!empty($data['vehiclesInId']) && !empty($data['vehiclesOutId'])) {
 
             return redirect()->route('concierge.vehicles')->with('status', 'Laçamento inválido.');
         } else if (!empty($data['vehiclesInId']) && $data['registerType'] == '2') {
@@ -474,7 +592,7 @@ class ConciergeController extends Controller
                 'user_id_boss' => $data['usersId_boss'],
                 'user_id_driver' => $data['usersId_driver'],
                 'odometer' => str_replace('.', '', $data['odometer']),
-                'date_time' => Controller::strToDate($data['date']) . " " . $data['time'] . ":00",
+                'date_time' => Controller::strToDateTime($data['date'], $data['time']),
                 '_status' => "active",
             ])->id;
             Controller::registerLog('concierge_vehicles', $table_id, 'create');
@@ -486,7 +604,7 @@ class ConciergeController extends Controller
                 'user_id_boss' => $data['usersId_boss'],
                 'user_id_driver' => $data['usersId_driver'],
                 'odometer' => str_replace('.', '', $data['odometer']),
-                'date_time' => Controller::strToDate($data['date']) . " " . $data['time'] . ":00",
+                'date_time' => Controller::strToDateTime($data['date'], $data['time']),
                 '_status' => "active",
             ])->id;
             Controller::registerLog('concierge_vehicles', $table_id, 'create');

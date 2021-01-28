@@ -24,6 +24,17 @@ class Controller extends BaseController
         ]);
     }
 
+    public static function rowCounter($sql)
+    {
+        $sql = "
+            select  count(*)
+            from    ( " . $sql . " ) sub";
+
+        return Controller::array_cut(collect(DB::select($sql))->map(function ($x) {
+            return (array) $x;
+        })->toArray())[0];
+    }
+
     public static function cur_date($type = "date")
     {
         if ($type == "date") {
@@ -36,15 +47,14 @@ class Controller extends BaseController
             $sql = "select time(NOW())";
         }
 
-        return collect(DB::select($sql))->map(function ($x) {
+        return Controller::array_cut(collect(DB::select($sql))->map(function ($x) {
             return (array) $x;
-        })->toArray()[0]["curdate()"];
+        })->toArray())[0];
     }
 
     public static function array_cut($array)
     {
         $rst = array();
-
         if (is_array($array)) {
             foreach ($array as $array_1) {
                 if (is_array($array_1)) {
