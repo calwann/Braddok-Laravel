@@ -2,6 +2,7 @@
 @section('title', 'Aplicativos')
 @section('subtitle', 'Braddok')
 @section('index', 'home.index')
+@section('name', 'main')
 
 @section('content')
     <div class="row container">

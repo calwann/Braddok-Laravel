@@ -120,7 +120,8 @@
                 {{-- Sidenavbar Apps --}}
                 @if ($__env->yieldContent('index') == 'concierge.index')
                     <div id="sidenav-concierge-div">
-                        <li><a href="{{ route('concierge.dash') }}">Dashboard<i class="material-icons">dashboard</i></a>
+                        <li @if ($__env->yieldContent('name') == 'concierge.dash')class="blue-grey lighten-4" @endif>
+                            <a href="{{ route('concierge.dash') }}">Dashboard<i class="material-icons">dashboard</i></a>
                         </li>
                         <li class="no-padding">
                             <ul class="collapsible collapsible-accordion">
@@ -128,55 +129,61 @@
                                     <a class="collapsible-header">Lançar<i class="material-icons">border_color</i></a>
                                     <div class="collapsible-body">
                                         <ul>
-                                            <li><a href="{{ route('concierge.collaborators') }}">Militares<i
+                                            <li @if ($__env->yieldContent('name') == 'concierge.collaborators')class="blue-grey lighten-4" @endif><a href="{{ route('concierge.collaborators') }}">Militares<i
                                                         class="material-icons">subdirectory_arrow_right</i></a></li>
-                                            <li><a href="{{ route('concierge.visitors') }}">Visitantes<i
+                                            <li @if ($__env->yieldContent('name') == 'concierge.visitors')class="blue-grey lighten-4" @endif><a href="{{ route('concierge.visitors') }}">Visitantes<i
                                                         class="material-icons">subdirectory_arrow_right</i></a></li>
-                                            <li><a href="{{ route('concierge.vehicles') }}">Viaturas<i
+                                            <li @if ($__env->yieldContent('name') == 'concierge.vehicles')class="blue-grey lighten-4" @endif><a href="{{ route('concierge.vehicles') }}">Viaturas<i
                                                         class="material-icons">subdirectory_arrow_right</i></a></li>
                                         </ul>
                                     </div>
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="{{ route('concierge.reports') }}">Relatórios<i
+                        <li @if ($__env->yieldContent('name') == 'concierge.reports')class="blue-grey lighten-4" @endif><a href="{{ route('concierge.reports') }}">Relatórios<i
                                     class="material-icons">assignment</i></a></li>
                         <div class="divider"></div>
                     </div>
                 @elseif($__env->yieldContent('index') == 'restaurant.index')
                     <div id="sidenav-restaurant-div">
-                        <li><a href="{{ route('restaurant.dash') }}">Dashboard<i class="material-icons">dashboard</i></a>
+                        <li @if ($__env->yieldContent('name') == 'restaurant.dash')class="blue-grey lighten-4" @endif>
+                            <a href="{{ route('restaurant.dash') }}">Dashboard<i class="material-icons">dashboard</i></a>
                         </li>
-                        <li><a href="{{ route('restaurant.register') }}">Arranchar<i
+                        <li @if ($__env->yieldContent('name') == 'restaurant.register')class="blue-grey lighten-4" @endif><a href="{{ route('restaurant.register') }}">Arranchar<i
                                     class="material-icons">border_color</i></a></li>
-                        <li><a href="{{ route('restaurant.reports') }}">Relatórios<i
+                        <li @if ($__env->yieldContent('name') == 'restaurant.reports')class="blue-grey lighten-4" @endif><a href="{{ route('restaurant.reports') }}">Relatórios<i
                                     class="material-icons">assignment</i></a></li>
                         <div class="divider"></div>
                     </div>
                 @elseif($__env->yieldContent('index') == 'performance.index')
                     <div id="sidenav-performance-div">
-                        <li><a href="{{ route('performance.dash') }}">Dashboard<i class="material-icons">dashboard</i></a>
+                        <li @if ($__env->yieldContent('name') == 'performance.dash')class="blue-grey lighten-4" @endif>
+                            <a href="{{ route('performance.dash') }}">Dashboard<i class="material-icons">dashboard</i></a>
                         </li>
-                        <li><a href="{{ route('performance.register') }}">Registrar FO<i
+                        <li @if ($__env->yieldContent('name') == 'performance.register')class="blue-grey lighten-4" @endif><a href="{{ route('performance.register') }}">Registrar FO<i
                                     class="material-icons">border_color</i></a></li>
-                        <li><a href="{{ route('performance.reports') }}">Relatórios<i
+                        <li @if ($__env->yieldContent('name') == 'performance.reports')class="blue-grey lighten-4" @endif><a href="{{ route('performance.reports') }}">Relatórios<i
                                     class="material-icons">assignment</i></a></li>
                         <div class="divider"></div>
                     </div>
                 @elseif($__env->yieldContent('index') == 'registers.index')
                     <div id="sidenav-register-div">
-                        <li><a href="{{ route('registers.dash') }}">Dashboard<i class="material-icons">dashboard</i></a>
+                        <li @if ($__env->yieldContent('name') == 'registers.dash')class="blue-grey lighten-4" @endif>
+                            <a href="{{ route('registers.dash') }}">Dashboard<i class="material-icons">dashboard</i></a>
                         </li>
-                        <li><a href="{{ route('registers.reports') }}">Relatórios<i
+                        <li @if ($__env->yieldContent('name') == 'registers.reports')class="blue-grey lighten-4" @endif><a href="{{ route('registers.reports') }}">Relatórios<i
                                     class="material-icons">assignment</i></a></li>
                         <div class="divider"></div>
                     </div>
                 @elseif($__env->yieldContent('index') == 'helpdesk.index')
                     <div id="sidenav-helpdesk-div">
-                        <li><a href="{{ route('helpdesk.dash') }}">Dashboard<i class="material-icons">dashboard</i></a></li>
-                        <li><a href="{{ route('helpdesk.request') }}">Chamados<i class="material-icons">assignment</i></a>
+                        <li @if ($__env->yieldContent('name') == 'helpdesk.dash')class="blue-grey lighten-4" @endif>
+                            <a href="{{ route('helpdesk.dash') }}">Dashboard<i class="material-icons">dashboard</i></a></li>
+                        <li @if ($__env->yieldContent('name') == 'helpdesk.request')class="blue-grey lighten-4" @endif>
+                            <a href="{{ route('helpdesk.request') }}">Chamados<i class="material-icons">assignment</i></a>
                         </li>
-                        <li><a href="{{ route('helpdesk.support') }}">Suporte<i class="material-icons">laptop_mac</i></a>
+                        <li @if ($__env->yieldContent('name') == 'helpdesk.support')class="blue-grey lighten-4" @endif>
+                            <a href="{{ route('helpdesk.support') }}">Suporte<i class="material-icons">laptop_mac</i></a>
                         </li>
                         <div class="divider"></div>
                     </div>

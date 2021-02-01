@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CurDate;
+use App\Rules\CurTime;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateVisitorsConciergeRequest extends FormRequest
@@ -27,8 +29,8 @@ class CreateVisitorsConciergeRequest extends FormRequest
             'registerType' => 'required',
             'visitorsInId' => 'required_without:visitorsOutId',
             'visitorsOutId' => 'required_without:visitorsInId',
-            'date' => ['required', 'dateformat:d/m/Y'],
-            'time' => ['required', 'dateformat:H:i'],
+            'date' => ['required', 'dateformat:d/m/Y', new CurDate],
+            'time' => ['required', 'dateformat:H:i', new CurTime],
         ];
     }
 

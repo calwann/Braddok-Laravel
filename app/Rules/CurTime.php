@@ -2,9 +2,10 @@
 
 namespace App\Rules;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Validation\Rule;
 
-class FullNameRule implements Rule
+class CurTime implements Rule
 {
     /**
      * Create a new rule instance.
@@ -25,7 +26,7 @@ class FullNameRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return str_word_count($value) > 1;
+        return $value.":00" <= Controller::cur_date('time');
     }
 
     /**
@@ -35,6 +36,6 @@ class FullNameRule implements Rule
      */
     public function message()
     {
-        return 'O nome deve ter mais que uma palavra.';
+        return 'A hora deve ser igual ou menor que ' . substr(Controller::cur_date('time'), 0, 5) . '.';
     }
 }

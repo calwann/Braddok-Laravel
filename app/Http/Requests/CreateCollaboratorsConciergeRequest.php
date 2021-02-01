@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CurDate;
+use App\Rules\CurTime;
 use App\Rules\FullNameRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,8 +29,8 @@ class CreateCollaboratorsConciergeRequest extends FormRequest
         return [
             'registerType' => 'required',
             'usersId' => 'required',
-            'date' => ['required', 'dateformat:d/m/Y'],
-            'time' => ['required', 'dateformat:H:i'],
+            'date' => ['required', 'dateformat:d/m/Y', new CurDate],
+            'time' => ['required', 'dateformat:H:i', new CurTime],
         ];
     }
 

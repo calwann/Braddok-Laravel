@@ -11,9 +11,9 @@
                     <select id="type" name="type">
                         <option value="" disabled="disabled" {{ old('type') == '' ? 'selected' : '' }}></option>
                         <option value="carro" {{ old('type') == 'carro' ? 'selected' : '' }}>Carro</option>
-                        <option value="caminhÃo" {{ old('type') == 'caminhao' ? 'selected' : '' }}>Caminhão</option>
+                        <option value="caminhão" {{ old('type') == 'caminhao' ? 'selected' : '' }}>Caminhão</option>
                         <option value="van" {{ old('type') == 'van' ? 'selected' : '' }}>Van</option>
-                        <option value="Ônibus" {{ old('type') == 'onibus' ? 'selected' : '' }}>Ônibus</option>
+                        <option value="ônibus" {{ old('type') == 'onibus' ? 'selected' : '' }}>Ônibus</option>
                         <option value="trator" {{ old('type') == 'trator' ? 'selected' : '' }}>Trator</option>
                     </select>
                     <label for="type">Tipo</label>

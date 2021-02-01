@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CurDate;
+use App\Rules\CurTime;
 use Illuminate\Foundation\Http\FormRequest;
 
 class createVehiclesConciergeRequest extends FormRequest
@@ -30,8 +32,8 @@ class createVehiclesConciergeRequest extends FormRequest
             'usersId_boss' => 'required',
             'usersId_driver' => 'required',
             'odometer' => 'required',
-            'date' => ['required', 'dateformat:d/m/Y'],
-            'time' => ['required', 'dateformat:H:i'],
+            'date' => ['required', 'dateformat:d/m/Y', new CurDate],
+            'time' => ['required', 'dateformat:H:i', new CurTime],
         ];
     }
 }

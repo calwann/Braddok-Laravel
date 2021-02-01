@@ -3,6 +3,7 @@
 @section('subtitle', 'Aniversariantes')
 @section('index', 'birthday.index')
 @section('back', 'home.index')
+@section('name', 'birthday.index')
 
 @section('content')
     <div class="row container">

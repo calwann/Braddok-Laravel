@@ -3,6 +3,7 @@
 @section('subtitle', 'Arranchamento')
 @section('index', 'restaurant.index')
 @section('back', 'home.index')
+@section('name', 'restaurant.index')
 
 @section('content')
     <div class="row container">

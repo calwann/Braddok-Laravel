@@ -3,6 +3,7 @@
 @section('subtitle', 'Painel')
 @section('index', 'panel.index')
 @section('back', 'home.index')
+@section('name', 'panel.index')
 
 @section('content')
     <div class="row container">

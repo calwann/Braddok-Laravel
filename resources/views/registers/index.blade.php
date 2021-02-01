@@ -3,6 +3,7 @@
 @section('subtitle', 'Plano de Chamada')
 @section('index', 'registers.index')
 @section('back', 'home.index')
+@section('name', 'registers.index')
 
 @section('content')
     <div class="row container">

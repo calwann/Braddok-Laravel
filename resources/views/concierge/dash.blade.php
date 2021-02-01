@@ -3,6 +3,7 @@
 @section('subtitle', 'Segurança')
 @section('index', 'concierge.index')
 @section('back', 'home.index')
+@section('name', 'concierge.dash')
 
 @section('content')
     <div class="row container">
@@ -71,7 +72,7 @@
     <div class="row container">
         <div class="card hoverable">
             <div class="card-action teal darken-1 white-text hoverable">
-                <h5>Log de Dados</h5>
+                <h5>Log de Sistema</h5>
             </div>
             <div class="card-content hoverable">
                 <div class="row">

@@ -3,6 +3,7 @@
 @section('subtitle', 'Segurança')
 @section('index', 'concierge.index')
 @section('back', 'concierge.index')
+@section('name', 'concierge.visitors')
 
 @section('content')
     <form method="POST" action="{{ route('concierge.createVisitors') }}">

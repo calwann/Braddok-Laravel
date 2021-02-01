@@ -1,8 +1,9 @@
 @extends('layouts.template')
 @section('title', 'Militares')
 @section('subtitle', 'Segurança')
-@section('index', 'concierge.index')
-@section('back', 'concierge.index')
+@section('index', 'restaurant.index')
+@section('back', 'restaurant.index')
+@section('name', 'restaurant.register')
 
 @section('content')
     <form method="POST" action="{{ route('concierge.createCollaborators') }}">

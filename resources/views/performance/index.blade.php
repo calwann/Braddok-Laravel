@@ -3,6 +3,7 @@
 @section('subtitle', 'Caverinha')
 @section('index', 'performance.index')
 @section('back', 'home.index')
+@section('name', 'performance.index')
 
 @section('content')
     <div class="row container">

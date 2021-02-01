@@ -406,9 +406,6 @@ class ConciergeController extends Controller
         $data = $request->all();
 
         foreach ($data['usersId'] as $val) {
-            if (Controller::cur_date("datetime") < Controller::strToDateTime($data['date'], $data['time'])){
-                return redirect()->route('concierge.collaborators')->with('status', 'Data e hora inválidos.');
-            }
             $table_id = Concierge_collaborator::create([
                 'register_type' => $data['registerType'],
                 'user_id' => $val,
@@ -440,9 +437,6 @@ class ConciergeController extends Controller
         } else if (!empty($data['visitorsInId']) && $data['registerType'] == '2' && empty($data['vehicleVisitorsOutId'])) {
 
             foreach ($data['visitorsInId'] as $val) {
-                if (Controller::cur_date("datetime") < Controller::strToDateTime($data['date'], $data['time'])){
-                    return redirect()->route('concierge.visitors')->with('status', 'Data e hora inválidos.');
-                }
                 $table_id = Concierge_visitor::create([
                     'register_type' => $data['registerType'],
                     'visitor_id' => $val,
@@ -454,9 +448,6 @@ class ConciergeController extends Controller
 
             if (!empty($data['vehicleVisitorsInId'])) {
                 foreach ($data['vehicleVisitorsInId'] as $val) {
-                    if (Controller::cur_date("datetime") < Controller::strToDateTime($data['date'], $data['time'])){
-                        return redirect()->route('concierge.visitors')->with('status', 'Data e hora inválidos.');
-                    }
                     $table_id = Concierge_visitor_vehicle::create([
                         'register_type' => $data['registerType'],
                         'vehicle_visitor_id' => $val,
@@ -469,9 +460,6 @@ class ConciergeController extends Controller
         } else if (!empty($data['visitorsOutId']) && $data['registerType'] == '1' && empty($data['vehicleVisitorsInId'])) {
 
             foreach ($data['visitorsOutId'] as $val) {
-                if (Controller::cur_date("datetime") < Controller::strToDateTime($data['date'], $data['time'])){
-                    return redirect()->route('concierge.visitors')->with('status', 'Data e hora inválidos.');
-                }
                 $table_id = Concierge_visitor::create([
                     'register_type' => $data['registerType'],
                     'visitor_id' => $val,
@@ -483,9 +471,6 @@ class ConciergeController extends Controller
 
             if (!empty($data['vehicleVisitorsOutId'])) {
                 foreach ($data['vehicleVisitorsOutId'] as $val) {
-                    if (Controller::cur_date("datetime") < Controller::strToDateTime($data['date'], $data['time'])){
-                        return redirect()->route('concierge.visitors')->with('status', 'Data e hora inválidos.');
-                    }
                     $table_id = Concierge_visitor_vehicle::create([
                         'register_type' => $data['registerType'],
                         'vehicle_visitor_id' => $val,
@@ -578,14 +563,10 @@ class ConciergeController extends Controller
     {
         $data = $request->all();
 
-        if (Controller::cur_date("datetime") < Controller::strToDateTime($data['date'], $data['time'])){
-            
-            return redirect()->route('concierge.vehicles')->with('status', 'Data e hora inválidos.');
-        } else if (!empty($data['vehiclesInId']) && !empty($data['vehiclesOutId'])) {
-
+        if (!empty($data['vehiclesInId']) && !empty($data['vehiclesOutId'])) {
             return redirect()->route('concierge.vehicles')->with('status', 'Laçamento inválido.');
-        } else if (!empty($data['vehiclesInId']) && $data['registerType'] == '2') {
 
+        } else if (!empty($data['vehiclesInId']) && $data['registerType'] == '2') {
             $table_id = Concierge_vehicle::create([
                 'register_type' => $data['registerType'],
                 'vehicle_id' => $data['vehiclesInId'],
@@ -596,8 +577,8 @@ class ConciergeController extends Controller
                 '_status' => "active",
             ])->id;
             Controller::registerLog('concierge_vehicles', $table_id, 'create');
-        } else if (!empty($data['vehiclesOutId']) && $data['registerType'] == '1') {
 
+        } else if (!empty($data['vehiclesOutId']) && $data['registerType'] == '1') {
             $table_id = Concierge_vehicle::create([
                 'register_type' => $data['registerType'],
                 'vehicle_id' => $data['vehiclesOutId'],
@@ -608,6 +589,7 @@ class ConciergeController extends Controller
                 '_status' => "active",
             ])->id;
             Controller::registerLog('concierge_vehicles', $table_id, 'create');
+            
         } else {
             return redirect()->route('concierge.vehicles')->with('status', 'Laçamento inválido.');
         }
