@@ -293,7 +293,7 @@ $(document).ready(function () {
 
   $(".datepicker-done").on("click", function (event) {
     if ($(".datepicker").val() == "") {
-      var dateVal = new Date().toLocaleDateString();
+      var dateVal = new Date().toLocaleDateString('pt');
     } else {
       var dateVal = $(".datepicker").val();
     }

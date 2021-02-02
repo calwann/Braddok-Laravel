@@ -392,7 +392,7 @@ class ConciergeController extends Controller
      */
     public function reports()
     {
-        //
+        return view('concierge/reports');
     }
 
     /**
