@@ -29,7 +29,7 @@
             </table>
         </div>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer z-depth-3">
         <a class="waves-effect waves-light btn teal darken-1 left-align hoverable"
             href="{{ route('concierge.visitors') }}">Lançar Visitantes</a>
         <a class="waves-effect waves-light btn-floating indigo darken-1 modal-close hoverable tooltipped"

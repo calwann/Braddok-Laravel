@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer z-depth-3">
             <button class="waves-effect waves-light btn teal darken-1 left-align hoverable"
                 type="submit">Enviar</button>
             <a class="waves-effect waves-light btn-floating indigo darken-1 modal-close hoverable tooltipped"
