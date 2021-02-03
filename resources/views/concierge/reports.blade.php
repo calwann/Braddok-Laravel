@@ -6,7 +6,7 @@
 @section('name', 'concierge.reports')
 
 @section('content')
-    <div class="row container">
+    <div class="row container" style="max-width: 1420px">
         <div class="col s12 m6 l4">
             <a class="modal-trigger" href="#modalRoadmapGuard">
                 <div class="card-panel grey lighten-5 z-depth-1 hoverable">
@@ -56,7 +56,7 @@
             </a>
         </div>
     </div>
-    <form method="POST" action="{{ route('concierge.createCollaborators') }}">
+    <form method="POST" action="{{ route('concierge.readReports') }}">
         @csrf
         <div class="row container">
             <div class="card hoverable">
@@ -66,33 +66,37 @@
                 <div class="card-content hoverable">
                     <div class="row">
                         <div class="input-field col m6 s12">
-                            <select id="generateReport" name="registerType">
+                            <select id="generateReport" name="reportType">
                                 <option value="" disabled="disabled" {{ old('generateReport') == '' ? 'selected' : '' }}>
                                 </option>
                                 <option value="collaboratorsInWorkReport"
-                                    {{ old('registerType') == 'collaboratorsInWorkReport' ? 'selected' : '' }}>Entrada e Saída de Militares durante o expediente</option>
+                                    {{ old('reportType') == 'collaboratorsInWorkReport' ? 'selected' : '' }}>Entrada e Saída de Militares durante o expediente</option>
                                 <option value="collaboratorsOutWorkReport"
-                                    {{ old('registerType') == 'collaboratorsOutWorkReport' ? 'selected' : '' }}>Entrada e Saída de Militares após o expediente</option>
+                                    {{ old('reportType') == 'collaboratorsOutWorkReport' ? 'selected' : '' }}>Entrada e Saída de Militares após o expediente</option>
                                 <option value="visitorReport"
-                                    {{ old('registerType') == 'visitorReport' ? 'selected' : '' }}>Entrada e Saída de Visitantes e Veículos</option>
+                                    {{ old('reportType') == 'visitorReport' ? 'selected' : '' }}>Entrada e Saída de Visitantes e Veículos</option>
                                 <option value="vehicleReport"
-                                    {{ old('registerType') == 'vehicleReport' ? 'selected' : '' }}>Entrada e Saída de Viaturas</option>
+                                    {{ old('reportType') == 'vehicleReport' ? 'selected' : '' }}>Entrada e Saída de Viaturas</option>
                             </select>
                             <label for="generateReport">Relatórios</label>
                         </div>
                         <div class="input-field col m6 s12">
                             <i class="datepicker material-icons prefix pointer tooltipped" data-position="top"
                                 data-tooltip="Escolher Data">date_range</i>
-                            <input id="date" type="text" class="datepicker-control validate date-validation" name="date"
+                            <input id="date" type="text" class="validate date-validation" name="date"
                                 value="{{ old('date') }}" placeholder="00/00/0000">
                             <label for="date">Data que assumiu</label>
                         </div>
                         <div class="input-field col m6 s12">
+                            <i class="timepicker material-icons prefix pointer tooltipped" data-position="top"
+                                data-tooltip="Escolher Hora">access_time</i>
                             <input id="timeStart" type="text" class="validate time-validation" name="timeStart"
                                 value="{{ old('timeStart') == '' ? "08:00" : old('timeStart') }}" placeholder="00:00">
                             <label for="timeStart">Hora que assumiu</label>
                         </div>
                         <div class="input-field col m6 s12">
+                            <i class="timepicker material-icons prefix pointer tooltipped" data-position="top"
+                                data-tooltip="Escolher Hora">access_time</i>
                             <input id="timeEnd" type="text" class="validate time-validation" name="timeEnd"
                                 value="{{ old('timeEnd') == '' ? "08:00" : old('timeEnd') }}" placeholder="00:00">
                             <label for="timeEnd">Hora que passou</label>

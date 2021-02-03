@@ -24,7 +24,7 @@
                 <div class="input-field col s12 m6">
                     <i class="datepicker material-icons prefix pointer tooltipped" data-position="top"
                         data-tooltip="Escolher Data">date_range</i>
-                    <input id="birth" type="text" class="datepicker-control validate date-validation" name="birth"
+                    <input id="birth" type="text" class="validate date-validation" name="birth"
                         value="{{ old('birth') }}" placeholder="00/00/0000">
                     <label for="birth">Data de Nascimento</label>
                 </div>

@@ -14,6 +14,7 @@ use App\Http\Requests\createVehiclesConciergeRequest;
 use App\Http\Requests\CreateVehicleVisitorConciergeRequest;
 use App\Http\Requests\CreateVisitorConciergeRequest;
 use App\Http\Requests\CreateVisitorsConciergeRequest;
+use App\Http\Requests\ReadReportsConciergeRequest;
 use App\Log;
 use App\Vehicle;
 use App\Vehicle_visitor;
@@ -537,7 +538,7 @@ class ConciergeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function createVehicle(createVehicleConciergeRequest $request)
+    public function createVehicle(CreateVehicleConciergeRequest $request)
     {
         $data = $request->all();
 
@@ -559,7 +560,7 @@ class ConciergeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function createVehicles(createVehiclesConciergeRequest $request)
+    public function createVehicles(CreateVehiclesConciergeRequest $request)
     {
         $data = $request->all();
 
@@ -595,5 +596,17 @@ class ConciergeController extends Controller
         }
 
         return redirect()->route('concierge.vehicles')->with('status', 'Laçamento de viatura realizado.');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function readReports(ReadReportsConciergeRequest $request)
+    {
+        $data = $request->all();
+        dd($data);
     }
 }

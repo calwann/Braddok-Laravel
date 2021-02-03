@@ -6,7 +6,7 @@
 @section('name', 'concierge.dash')
 
 @section('content')
-    <div class="row container">
+    <div class="row container" style="max-width: 1420px">
         <div class="col s12 l4">
             <div class="card hoverable">
                 <div class="card-action teal darken-1 white-text hoverable">

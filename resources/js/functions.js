@@ -55,6 +55,8 @@ $(document).ready(function() {
     $('.scrollspy').scrollSpy();
     $(".datepicker").datepicker({
         format: "dd/mm/yyyy",
+        defaultDate: new Date(),
+        setDefaultDate: true,
         showClearBtn: true,
         i18n: {
             cancel: "Voltar",
@@ -249,24 +251,15 @@ $(document).ready(function() {
 
     // Manager Timepicker and Datepicker Icon to input
 
-    $(".datepicker-done").on("click", function(event) {
-        if ($(".datepicker").val() == "") {
-            var dateVal = new Date().toLocaleDateString('pt');
-        } else {
-            var dateVal = $(".datepicker").val();
-        }
-        $(".datepicker-control").val(dateVal);
-    });
-    $(".datepicker-clear").on("click", function(event) {
-        $(".datepicker-control").val("");
-    });
-    $(".timepicker-close").on("click", function(event) {
-        var timeVal = $(".timepicker").val();
-        $(".timepicker-control").val(timeVal);
-    });
-    $(".timepicker-clear").on("click", function(event) {
-        $(".timepicker-control").val("");
-    });
+    $('i.datepicker').change(function(event) {
+        var nextElement = $(this)[0].nextElementSibling;
+        $(nextElement).val(event.target.value);
+    })
+
+    $('i.timepicker').change(function(event) {
+        var nextElement = $(this)[0].nextElementSibling;
+        $(nextElement).val(event.target.value);
+    })
 
     // Manager dynamicly selects
 

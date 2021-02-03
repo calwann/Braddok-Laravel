@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CurDate;
+use App\Rules\CurTime;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateVehicleConciergeRequest extends FormRequest
+class ReadReportsConciergeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +26,10 @@ class CreateVehicleConciergeRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => 'required',
-            'brand' => 'required',
-            'model' => 'required',
-            'licensePlate' => 'required',
+            'reportType' => 'required',
+            'date' => ['required', 'dateformat:d/m/Y', new CurDate],
+            'timeStart' => ['required', 'dateformat:H:i', new CurTime],
+            'timeEnd' => ['required', 'dateformat:H:i', new CurTime],
         ];
     }
-
 }

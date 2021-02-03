@@ -6,7 +6,7 @@ use App\Rules\CurDate;
 use App\Rules\CurTime;
 use Illuminate\Foundation\Http\FormRequest;
 
-class createVehiclesConciergeRequest extends FormRequest
+class CreateVehiclesConciergeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
