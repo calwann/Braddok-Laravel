@@ -41,7 +41,7 @@
 </head>
 
 <body>
-    {{-- Preloader --}}
+    {{-- Preloader 
     <div class="col s12 m4 center">
         <div id="preloader" class="preloader-wrapper big active">
             <div class="spinner-layer spinner-blue">
@@ -55,7 +55,8 @@
             </div>
         </div>
     </div>
-
+    --}}
+    
     <header>
         @auth
 

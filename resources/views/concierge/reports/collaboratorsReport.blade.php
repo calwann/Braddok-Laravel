@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="row container">
-        <table class="report hoverable">
+        <table class="report hoverable ">
             <thead>
                 <tr>
                     <th style="font-size: 16px" colspan="3">Relatório de Militares</th>
