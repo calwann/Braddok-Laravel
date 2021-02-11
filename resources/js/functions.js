@@ -1,6 +1,6 @@
-$(function () {
+$(function() {
     // Manager dynamicly selects
-    $.fn.selectInOut = function (p) {
+    $.fn.selectInOut = function(p) {
         var selected = document.querySelector(
             "div.in-out > div.select-wrapper > ul > li.selected > span"
         ).innerHTML;
@@ -14,29 +14,49 @@ $(function () {
     };
 
     // Manager dynamicly odometer input
-    $.fn.odometerCalculator = function (p) {
+    $.fn.odometerCalculator = function(p) {
         var odometerIni = p.lastIndexOf("(") + 1;
         var odometerEnd = p.lastIndexOf(")") - odometerIni;
         p.substr(odometerIni, odometerEnd);
         var odometerValue = p.substr(odometerIni, odometerEnd);
 
-        $("#last_odometer").val(odometerValue.replace(/(.)(?=(\d{3})+$)/g,'$1.'));
+        $("#last_odometer").val(
+            odometerValue.replace(/(.)(?=(\d{3})+$)/g, "$1.")
+        );
     };
 
     // Manager dynamicly difference value of inputs
-    $.fn.differenceValue = function (p) {
+    $.fn.differenceValue = function(p) {
         var difference_set = $(p + "-set").val();
         var difference_default = $(p + "-default").val();
-        var difference_result = difference_set.replaceAll(".", "") - difference_default.replaceAll(".", "");
+        var difference_result =
+            difference_set.replaceAll(".", "") -
+            difference_default.replaceAll(".", "");
 
-        $(p + "-result").val(difference_result.toString().replace(/(.)(?=(\d{3})+$)/g,'$1.') + " Km");
+        $(p + "-result").val(
+            difference_result.toString().replace(/(.)(?=(\d{3})+$)/g, "$1.") +
+                " Km"
+        );
 
         if (difference_result <= 10000 && difference_result >= -10) {
-            $(p + "-result").css({'border-bottom':'1px solid #4CAF50', 'box-shadow': 'box-shadow: 0 1px 0 0 #4CAF50'})
+            $(p + "-result").css({
+                "border-bottom": "1px solid #4CAF50",
+                "box-shadow": "box-shadow: 0 1px 0 0 #4CAF50"
+            });
         } else {
-            $(p + "-result").css({'border-bottom':'1px solid #F44336', 'box-shadow': 'box-shadow: 0 1px 0 0 #F44336'})
+            $(p + "-result").css({
+                "border-bottom": "1px solid #F44336",
+                "box-shadow": "box-shadow: 0 1px 0 0 #F44336"
+            });
         }
     };
+});
+
+// Preloader
+$(window).on('load', function() {
+    $("#preloader").fadeOut();
+    $("#preloader").addClass("hide");
+
 });
 
 $(document).ready(function() {
@@ -52,7 +72,7 @@ $(document).ready(function() {
     $("input.counter, textarea.counter").characterCounter();
     $(".tabs").tabs();
     $(".tap-target").tapTarget();
-    $('.scrollspy').scrollSpy();
+    $(".scrollspy").scrollSpy();
     $(".datepicker").datepicker({
         format: "dd/mm/yyyy",
         defaultDate: new Date(),
@@ -251,22 +271,22 @@ $(document).ready(function() {
 
     // Manager Timepicker and Datepicker Icon to input
 
-    $('i.datepicker').change(function(event) {
+    $("i.datepicker").change(function(event) {
         var nextElement = $(this)[0].nextElementSibling;
         $(nextElement).val(event.target.value);
-    })
+    });
 
-    $('i.timepicker').change(function(event) {
+    $("i.timepicker").change(function(event) {
         var nextElement = $(this)[0].nextElementSibling;
         $(nextElement).val(event.target.value);
-    })
+    });
 
     // Manager dynamicly selects
 
     var select = document.querySelector(
         "div.in-out > div.select-wrapper > ul > li.selected > span"
     );
-    
+
     if (select != null) {
         if (select.innerHTML != "") {
             $().selectInOut();
@@ -279,25 +299,49 @@ $(document).ready(function() {
 
     // Manager dynamicly odometer input
 
-    if (document.querySelector("div.odometerIn div.select-wrapper ul li") != null &&
-        document.querySelector("div.odometerOut div.select-wrapper ul li") != null) {
-        if (document.querySelector("div.odometerIn div.select-wrapper ul li").className == "disabled selected" &&
-            document.querySelector("div.odometerOut div.select-wrapper ul li").className != "disabled selected") {
-        $().odometerCalculator($("div.odometerIn div.select-wrapper ul li.selected span")[0].innerText);
-        } 
-        
-        if (document.querySelector("div.odometerOut div.select-wrapper ul li").className == "disabled selected" &&
-            document.querySelector("div.odometerIn div.select-wrapper ul li").className != "disabled selected") {
-        $().odometerCalculator($("div.odometerOut div.select-wrapper ul li.selected span")[0].innerText);
+    if (
+        document.querySelector("div.odometerIn div.select-wrapper ul li") !=
+            null &&
+        document.querySelector("div.odometerOut div.select-wrapper ul li") !=
+            null
+    ) {
+        if (
+            document.querySelector("div.odometerIn div.select-wrapper ul li")
+                .className == "disabled selected" &&
+            document.querySelector("div.odometerOut div.select-wrapper ul li")
+                .className != "disabled selected"
+        ) {
+            $().odometerCalculator(
+                $("div.odometerIn div.select-wrapper ul li.selected span")[0]
+                    .innerText
+            );
+        }
+
+        if (
+            document.querySelector("div.odometerOut div.select-wrapper ul li")
+                .className == "disabled selected" &&
+            document.querySelector("div.odometerIn div.select-wrapper ul li")
+                .className != "disabled selected"
+        ) {
+            $().odometerCalculator(
+                $("div.odometerOut div.select-wrapper ul li.selected span")[0]
+                    .innerText
+            );
         }
     }
-    
+
     $("div.odometerIn div.select-wrapper ul li").on("click", function() {
-       $().odometerCalculator($("div.odometerIn div.select-wrapper ul li.selected span")[0].innerText);
+        $().odometerCalculator(
+            $("div.odometerIn div.select-wrapper ul li.selected span")[0]
+                .innerText
+        );
     });
 
     $("div.odometerOut div.select-wrapper ul li").on("click", function() {
-        $().odometerCalculator($("div.odometerOut div.select-wrapper ul li.selected span")[0].innerText);
+        $().odometerCalculator(
+            $("div.odometerOut div.select-wrapper ul li.selected span")[0]
+                .innerText
+        );
     });
 
     // Manager dynamicly difference value of inputs
@@ -310,5 +354,4 @@ $(document).ready(function() {
     $(".difference-set").on("input", function() {
         $().differenceValue(".difference");
     });
-
 });

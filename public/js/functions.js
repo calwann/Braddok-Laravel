@@ -113,7 +113,7 @@ $(function () {
     var odometerEnd = p.lastIndexOf(")") - odometerIni;
     p.substr(odometerIni, odometerEnd);
     var odometerValue = p.substr(odometerIni, odometerEnd);
-    $("#last_odometer").val(odometerValue.replace(/(.)(?=(\d{3})+$)/g, '$1.'));
+    $("#last_odometer").val(odometerValue.replace(/(.)(?=(\d{3})+$)/g, "$1."));
   }; // Manager dynamicly difference value of inputs
 
 
@@ -121,20 +121,25 @@ $(function () {
     var difference_set = $(p + "-set").val();
     var difference_default = $(p + "-default").val();
     var difference_result = difference_set.replaceAll(".", "") - difference_default.replaceAll(".", "");
-    $(p + "-result").val(difference_result.toString().replace(/(.)(?=(\d{3})+$)/g, '$1.') + " Km");
+    $(p + "-result").val(difference_result.toString().replace(/(.)(?=(\d{3})+$)/g, "$1.") + " Km");
 
     if (difference_result <= 10000 && difference_result >= -10) {
       $(p + "-result").css({
-        'border-bottom': '1px solid #4CAF50',
-        'box-shadow': 'box-shadow: 0 1px 0 0 #4CAF50'
+        "border-bottom": "1px solid #4CAF50",
+        "box-shadow": "box-shadow: 0 1px 0 0 #4CAF50"
       });
     } else {
       $(p + "-result").css({
-        'border-bottom': '1px solid #F44336',
-        'box-shadow': 'box-shadow: 0 1px 0 0 #F44336'
+        "border-bottom": "1px solid #F44336",
+        "box-shadow": "box-shadow: 0 1px 0 0 #F44336"
       });
     }
   };
+}); // Preloader
+
+$(window).on('load', function () {
+  $("#preloader").fadeOut();
+  $("#preloader").addClass("hide");
 });
 $(document).ready(function () {
   // Initialize and configure Materilize JS/JQuery functions
@@ -148,7 +153,7 @@ $(document).ready(function () {
   $("input.counter, textarea.counter").characterCounter();
   $(".tabs").tabs();
   $(".tap-target").tapTarget();
-  $('.scrollspy').scrollSpy();
+  $(".scrollspy").scrollSpy();
   $(".datepicker").datepicker({
     format: "dd/mm/yyyy",
     defaultDate: new Date(),
@@ -293,11 +298,11 @@ $(document).ready(function () {
     reverse: true
   }); // Manager Timepicker and Datepicker Icon to input
 
-  $('i.datepicker').change(function (event) {
+  $("i.datepicker").change(function (event) {
     var nextElement = $(this)[0].nextElementSibling;
     $(nextElement).val(event.target.value);
   });
-  $('i.timepicker').change(function (event) {
+  $("i.timepicker").change(function (event) {
     var nextElement = $(this)[0].nextElementSibling;
     $(nextElement).val(event.target.value);
   }); // Manager dynamicly selects

@@ -28,8 +28,8 @@ class ReadReportsConciergeRequest extends FormRequest
         return [
             'reportType' => 'required',
             'date' => ['required', 'dateformat:d/m/Y', new CurDate],
-            'timeStart' => ['required', 'dateformat:H:i', new CurTime],
-            'timeEnd' => ['required', 'dateformat:H:i', new CurTime],
+            'timeStart' => ['required', 'dateformat:H:i'],
+            'timeEnd' => ['required', 'dateformat:H:i'],
         ];
     }
 }

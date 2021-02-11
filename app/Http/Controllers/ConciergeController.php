@@ -207,14 +207,14 @@ class ConciergeController extends Controller
             return (array) $x;
         })->toArray();
 
-       /* if (empty($obs)) {
+        /* if (empty($obs)) {
             return redirect()->route('concierge.dash');
         }*/
 
         $i = 0;
         foreach ($obs as $val) {
             $obs[$i]['patent'] = Controller::patent($val['patent']);
-            $i++; 
+            $i++;
         }
 
         $pageMax = intval(Controller::rowCounter($sql) / $pageIndexMax) + 1;
@@ -566,7 +566,6 @@ class ConciergeController extends Controller
 
         if (!empty($data['vehiclesInId']) && !empty($data['vehiclesOutId'])) {
             return redirect()->route('concierge.vehicles')->with('status', 'Laçamento inválido.');
-
         } else if (!empty($data['vehiclesInId']) && $data['registerType'] == '2') {
             $table_id = Concierge_vehicle::create([
                 'register_type' => $data['registerType'],
@@ -578,7 +577,6 @@ class ConciergeController extends Controller
                 '_status' => "active",
             ])->id;
             Controller::registerLog('concierge_vehicles', $table_id, 'create');
-
         } else if (!empty($data['vehiclesOutId']) && $data['registerType'] == '1') {
             $table_id = Concierge_vehicle::create([
                 'register_type' => $data['registerType'],
@@ -590,7 +588,6 @@ class ConciergeController extends Controller
                 '_status' => "active",
             ])->id;
             Controller::registerLog('concierge_vehicles', $table_id, 'create');
-            
         } else {
             return redirect()->route('concierge.vehicles')->with('status', 'Laçamento inválido.');
         }
@@ -607,6 +604,45 @@ class ConciergeController extends Controller
     public function readReports(ReadReportsConciergeRequest $request)
     {
         $data = $request->all();
-        dd($data);
+        //dd($data);
+
+        if ($data['reportType'] = 'collaboratorsReport') {
+
+            $sql = "
+                select      case    when cc.register_type = '1' then 'Entrou'
+                                    when cc.register_type = '2' then 'Saiu'
+                            end register_type,
+                            DATE_FORMAT(cc.date_time, '%d/%m/%Y - %H:%i:%s') date,
+                            u.name,
+                            u.nickname,
+                            u.patent
+                from        concierge_collaborators cc
+                inner join  users u on u.id = cc.user_id
+                where       1 = 1 
+                and         cc._status = 'active'
+                and         u._status = 'active'
+                order by    cc.date_time
+            ";
+
+            $collaboratorsReport = collect(DB::select($sql))->map(function ($x) {
+                return (array) $x;
+            })->toArray();
+
+            $i = 0;
+            foreach ($collaboratorsReport as $val) {
+                $collaboratorsReport[$i]['patent'] = Controller::patent($val['patent']);
+                $i++;
+            }
+
+            return view('concierge/reports/collaboratorsReport', compact('collaboratorsReport'));
+
+        } else if ($data['reportType'] = 'visitorReport') {
+
+        } else if ($data['reportType'] = 'vehicleReport') {
+
+        } else {
+            return redirect()->route('concierge.reports')->with('status', 'Dados inválidos.');
+        }
+
     }
 }

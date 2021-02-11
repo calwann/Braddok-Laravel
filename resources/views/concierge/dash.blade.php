@@ -6,7 +6,7 @@
 @section('name', 'concierge.dash')
 
 @section('content')
-    <div class="row container" style="max-width: 1420px">
+    <div class="row container">
         <div class="col s12 l4">
             <div class="card hoverable">
                 <div class="card-action teal darken-1 white-text hoverable">
@@ -57,46 +57,50 @@
         </div>
     </div>
     <div class="row container">
-        <div class="card hoverable ">
-            <div class="card-action teal darken-1 white-text hoverable">
-                <h5>Lançamentos</h5>
-            </div>
-            <div class="card-content hoverable charts">
-                <div class="row">
-                    <!-- Chart's container -->
-                    <div id="chart" style="height: 400px; min-width: 500px;"></div>
+        <div class="col s12">
+            <div class="card hoverable ">
+                <div class="card-action teal darken-1 white-text hoverable">
+                    <h5>Lançamentos</h5>
+                </div>
+                <div class="card-content hoverable charts">
+                    <div class="row">
+                        <!-- Chart's container -->
+                        <div id="chart" style="height: 400px; min-width: 500px;"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row container">
-        <div class="card hoverable">
-            <div class="card-action teal darken-1 white-text hoverable">
-                <h5>Log de Sistema</h5>
-            </div>
-            <div class="card-content hoverable">
-                <div class="row">
-                    <table class="responsive-table highlight">
-                        <thead>
-                            <tr style="cursor: pointer">
-                                <th>Militar</th>
-                                <th>Registro</th>
-                                <th>Ação</th>
-                                <th>Data</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($obs as $val)
-                                <tr>
-                                    <td>{{ $val['patent'] }} - {{ $val['name'] }} ({{ $val['nickname'] }})</td>
-                                    <td>{{ $val['table_used'] }}</td>
-                                    <td>{{ $val['obs'] }} {{ $val['table_id'] }}</td>
-                                    <td>{{ $val['date'] }}</td>
+        <div class="col s12">
+            <div class="card hoverable">
+                <div class="card-action teal darken-1 white-text hoverable">
+                    <h5>Log de Sistema</h5>
+                </div>
+                <div class="card-content hoverable">
+                    <div class="row">
+                        <table class="responsive-table highlight">
+                            <thead>
+                                <tr style="cursor: pointer">
+                                    <th>Militar</th>
+                                    <th>Registro</th>
+                                    <th>Ação</th>
+                                    <th>Data</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @include('layouts.pagination', ['route' => 'concierge.dashPage'])
+                            </thead>
+                            <tbody>
+                                @foreach ($obs as $val)
+                                    <tr>
+                                        <td>{{ $val['patent'] }} - {{ $val['name'] }} ({{ $val['nickname'] }})</td>
+                                        <td>{{ $val['table_used'] }}</td>
+                                        <td>{{ $val['obs'] }} {{ $val['table_id'] }}</td>
+                                        <td>{{ $val['date'] }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @include('layouts.pagination', ['route' => 'concierge.dashPage'])
+                    </div>
                 </div>
             </div>
         </div>

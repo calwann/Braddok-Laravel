@@ -41,6 +41,21 @@
 </head>
 
 <body>
+    {{-- Preloader --}}
+    <div class="col s12 m4 center">
+        <div id="preloader" class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+
     <header>
         @auth
 
@@ -195,7 +210,7 @@
     <main style="min-height: 40rem">
 
         {{-- Main content from View --}}
-        @yield('content')
+        @yield('content') 
 
         {{-- Btn back page --}}
         @hasSection('back')
