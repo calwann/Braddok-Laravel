@@ -391,6 +391,16 @@ class ConciergeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function scripts()
+    {
+        return view('concierge/scripts');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function reports()
     {
         return view('concierge/reports');
@@ -604,9 +614,8 @@ class ConciergeController extends Controller
     public function readReports(ReadReportsConciergeRequest $request)
     {
         $data = $request->all();
-        //dd($data);
 
-        if ($data['reportType'] = 'collaboratorsReport') {
+        if ($data['reportType'] == 'collaboratorsReport') {
 
             $sql = "
                 select      case    when cc.register_type = '1' then 'Entrou'
@@ -621,6 +630,8 @@ class ConciergeController extends Controller
                 where       1 = 1 
                 and         cc._status = 'active'
                 and         u._status = 'active'
+                and         cc.date_time >= '" . Controller::strToDateTime($data['date'], $data['timeStart']) . "'
+                and         cc.date_time <= DATE_ADD('" . Controller::strToDateTime($data['date'], $data['timeStart']) . "', INTERVAL 1 DAY)
                 order by    cc.date_time
             ";
 
@@ -636,13 +647,102 @@ class ConciergeController extends Controller
 
             return view('concierge/reports/collaboratorsReport', compact('collaboratorsReport'));
 
-        } else if ($data['reportType'] = 'visitorReport') {
+        } else if ($data['reportType'] == 'visitorReport') {
 
-        } else if ($data['reportType'] = 'vehicleReport') {
+            $sql = "
+                select      case    when cv.register_type = '1' then 'Entrou'
+                                    when cv.register_type = '2' then 'Saiu'
+                            end register_type,
+                            DATE_FORMAT(cv.date_time, '%d/%m/%Y - %H:%i:%s') date,
+                            v.name,
+                            v.identity
+                from        concierge_visitors cv
+                inner join  visitors v on v.id = cv.visitor_id
+                where       1 = 1 
+                and         cv._status = 'active'
+                and         v._status = 'active'
+                and         cv.date_time >= '" . Controller::strToDateTime($data['date'], $data['timeStart']) . "'
+                and         cv.date_time <= DATE_ADD('" . Controller::strToDateTime($data['date'], $data['timeStart']) . "', INTERVAL 1 DAY)
+                order by    cv.date_time
+            ";
+
+            $visitorsReport = collect(DB::select($sql))->map(function ($x) {
+                return (array) $x;
+            })->toArray();
+
+            $sql = "
+                select      case    when cv.register_type = '1' then 'Entrou'
+                                    when cv.register_type = '2' then 'Saiu'
+                            end register_type,
+                            DATE_FORMAT(cv.date_time, '%d/%m/%Y - %H:%i:%s') date,
+                            vv.brand,
+                            vv.model,
+                            vv.license_plate
+                from        concierge_visitor_vehicles cv
+                inner join  vehicle_visitors vv on vv.id = cv.vehicle_visitor_id
+                where       1 = 1 
+                and         cv._status = 'active'
+                and         vv._status = 'active'
+                and         cv.date_time >= '" . Controller::strToDateTime($data['date'], $data['timeStart']) . "'
+                and         cv.date_time <= DATE_ADD('" . Controller::strToDateTime($data['date'], $data['timeStart']) . "', INTERVAL 1 DAY)
+                order by    cv.date_time
+            ";
+
+            $vehicleVisitorsReport = collect(DB::select($sql))->map(function ($x) {
+                return (array) $x;
+            })->toArray();
+
+            return view('concierge/reports/visitorsReport', compact('visitorsReport', 'vehicleVisitorsReport'));
+
+        } else if ($data['reportType'] == 'vehicleReport') {
+
+            $sql = "
+                select      case    when cv.register_type = '1' then 'Entrou'
+                                    when cv.register_type = '2' then 'Saiu'
+                            end register_type,
+                            DATE_FORMAT(cv.date_time, '%d/%m/%Y - %H:%i:%s') date,
+                            cv.odometer,
+                            v.brand,
+                            v.model,
+                            v.license_plate,
+                            u_1.name boss_name,
+                            u_1.nickname boss_nickname,
+                            u_1.patent boss_patent,
+                            u_2.name driver_name,
+                            u_2.nickname driver_nickname,
+                            u_2.patent driver_patent
+                from        concierge_vehicles cv
+                inner join  vehicles v on v.id = cv.vehicle_id
+                inner join  users u_1 on u_1.id = cv.user_id_boss
+                inner join  users u_2 on u_2.id = cv.user_id_driver
+                where       1 = 1 
+                and         cv._status = 'active'
+                and         v._status = 'active'
+                and         u_1._status = 'active'
+                and         u_2._status = 'active'
+                and         cv.date_time >= '" . Controller::strToDateTime($data['date'], $data['timeStart']) . "'
+                and         cv.date_time <= DATE_ADD('" . Controller::strToDateTime($data['date'], $data['timeStart']) . "', INTERVAL 1 DAY)
+                order by    cv.date_time
+            ";
+
+            $vehiclesReport = collect(DB::select($sql))->map(function ($x) {
+                return (array) $x;
+            })->toArray();
+
+            $i = 0;
+            foreach ($vehiclesReport as $val) {
+                $vehiclesReport[$i]['boss_patent'] = Controller::patent($val['boss_patent']);
+                $vehiclesReport[$i]['driver_patent'] = Controller::patent($val['driver_patent']);
+                $vehiclesReport[$i]['odometer'] = Controller::valueToStr($val['odometer'], false, 0);
+                $i++;
+            }
+
+            return view('concierge/reports/vehiclesReport', compact('vehiclesReport'));
 
         } else {
-            return redirect()->route('concierge.reports')->with('status', 'Dados inválidos.');
-        }
 
+            return redirect()->route('concierge.reports')->with('status', 'Dados inválidos.');
+
+        }
     }
 }

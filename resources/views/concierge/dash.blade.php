@@ -85,7 +85,7 @@
                                     <th>Militar</th>
                                     <th>Registro</th>
                                     <th>Ação</th>
-                                    <th>Data</th>
+                                    <th>Data - Hora</th>
                                 </tr>
                             </thead>
                             <tbody>

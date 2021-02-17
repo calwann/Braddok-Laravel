@@ -142,7 +142,7 @@
                         <li class="no-padding">
                             <ul class="collapsible collapsible-accordion">
                                 <li class="active">
-                                    <a class="collapsible-header">Lançar<i class="material-icons">border_color</i></a>
+                                    <a class="collapsible-header">Lançamentos<i class="material-icons">border_color</i></a>
                                     <div class="collapsible-body">
                                         <ul>
                                             <li @if ($__env->yieldContent('name') == 'concierge.collaborators')class="blue-grey lighten-4" @endif><a href="{{ route('concierge.collaborators') }}">Militares<i
@@ -156,6 +156,8 @@
                                 </li>
                             </ul>
                         </li>
+                        <li @if ($__env->yieldContent('name') == 'concierge.scripts')class="blue-grey lighten-4" @endif><a href="{{ route('concierge.scripts') }}">Roteiros e Livro<i
+                            class="material-icons">import_contacts</i></a></li>
                         <li @if ($__env->yieldContent('name') == 'concierge.reports')class="blue-grey lighten-4" @endif><a href="{{ route('concierge.reports') }}">Relatórios<i
                                     class="material-icons">assignment</i></a></li>
                         <div class="divider"></div>

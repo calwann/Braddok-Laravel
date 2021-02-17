@@ -16,7 +16,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (array_slice($vehicles_out, 0, 10) as $val)
+                    @forelse (array_slice($vehicles_out, 0, 10) as $val)
                         <tr>
                             <td>{{ $val['brand'] }}</td>
                             <td>{{ $val['model'] }}</td>
@@ -24,7 +24,15 @@
                             <td>{{ $val['license_plate'] }}</td>
                             <td>{{ $val['date'] }}</td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr style="font-style: italic;">
+                            <td>(Sem registro)</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

@@ -16,7 +16,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (array_slice($visitors_in, 0, 10) as $val)
+                    @forelse (array_slice($visitors_in, 0, 10) as $val)
                         <tr>
                             <td>{{ $val['name'] }}</td>
                             <td>{{ $val['birth'] }}</td>
@@ -24,7 +24,15 @@
                             <td>{{ $val['phone'] }}</td>
                             <td>{{ $val['date'] }}</td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr style="font-style: italic;">
+                            <td>(Sem registro)</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
