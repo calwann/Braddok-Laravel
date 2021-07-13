@@ -15,6 +15,27 @@ This project is developed to serve public agencies and military agencies. Contai
 
 In this project the Laravel architecture was adopted.
 
+## Installation
+Use the package manager [composer](https://getcomposer.org/) and [npm](https://www.npmjs.com/) to install Laravel Project.
+```bash
+composer install
+npm i
+```
+
+Rename the file ".env.example" to ".env" and configure your key.
+```bash
+php artisan key:generate
+```
+
+Create your database based on your ".env" file and run the migrates to create the tables in the database.
+```bash
+php artisan migrate
+```
+
+Start your application locally.
+```bash
+php artisan serve
+```
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
